@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - Bien Harr</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">
+                <span></span><span></span><span></span>
+            </label>
+            <label for="menu-toggle" class="menu-overlay"></label>
+            <div class="logo">BIEN <span>HARR</span></div>
+            <ul class="menu-links">
+                <li><div class="menu-header">BIEN HARR</div></li>
+                <li><a href="index.html">Accueil</a></li>
+                <li class="has-submenu">
+                    <a href="carte.html">La Carte <span class="arrow">➤</span></a>
+                    <ul class="submenu">
+                        <li><a href="carte.html#entrees">Entrées</a></li>
+                        <li><a href="carte.html#plats">Plats Traditionnels</a></li>
+                        <li><a href="carte.html#boissons-chaudes">Boissons</a></li>
+                        <li><a href="carte.html#desserts">Desserts</a></li>
+                    </ul>
+                </li>
+                <li><a href="connexion.html">Connexion</a></li>
+                <li><a href="profil.html">Mon Compte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="auth-container">
+        <div class="auth-card">
+            <h2>Ravi de vous revoir !</h2>
+            <p>Connectez-vous pour accéder à vos commandes et vos points fidélité.</p>
+
+            <form action="profil.html" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Numéro de téléphone ou Email</label>
+                    <input type="text" id="email" name="email" placeholder="Votre identifiant" required>
+                </div>
+
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <label for="password">Mot de passe</label>
+                        <a href="#" style="font-size: 0.8rem; color: var(--primary-blue); text-decoration: none;">Oublié ?</a>
+                    </div>
+                    <input type="password" id="password" name="password" placeholder="********" required>
+                </div>
+
+                <div class="form-remember">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Se souvenir de moi</label>
+                </div>
+
+                <button type="submit" class="btn-order">Se connecter</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Nouveau chez Bien Harr ? <a href="inscription.html">Créez un compte ici</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Bien Harr © 2026 - Projet Yumland</p>
+    </footer>
+
+</body>
+</html>
