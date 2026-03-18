@@ -1,0 +1,18 @@
+{
+  "nom": "John Doe",
+  "prenom": "John",
+  "num": "1234567890",
+  "address": "123 Main St, Anytown, USA",
+  "infosupp": "appart 509",
+  "points": 100,
+  "password": "password123",
+  "commandes": [
+    [
+      "2024-01-01",
+      15.99,
+      ["pizza", "bouga", "pates"],
+      "Livrée",
+      [4, 3, "le livreur a été rapide et la nourriture était délicieuse"]
+    ]
+  ]
+}
