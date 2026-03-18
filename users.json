@@ -14,7 +14,7 @@
         ["pizza", "bouga", "pates"],
         "Livrée",
         [4, 3, "le livreur a pris trop de temps"]
-    ]
+    ], 
     [
         "cmd002",
         "2024-01-05",
@@ -23,6 +23,5 @@
         "Livrée",
         [5, 5, "le livreur a été rapide et la nourriture était délicieuse"]
     ]
-
   ]
 }
