@@ -1,0 +1,47 @@
+[
+  {
+    "nom": "kamel",
+    "prenom": "michel",
+    "num": "1234567890",
+    "address": "123 Main St, Anytown, USA",
+    "infosupp": "appart 509",
+    "points": 100,
+    "password": "password123",
+    "type": "client",
+    "commandes": [ "cmd001", "cmd003" ]
+  },
+  {
+    "nom": "bahri",
+    "prenom": "neira",
+    "num": "0987654321",
+    "address": "2 Rue de la Paix, Paris, France",
+    "infosupp": "appart 305",
+    "points": 50,
+    "password": "password123",
+    "type": "user",
+    "commandes": ["cmd002" ]
+  },
+  {
+    "nom": "dhahak",
+    "prenom": "yassine",
+    "num": "0606060606",
+    "address": "11 avenue du saint propre 95000 , Pontoise",
+    "infosupp": "",
+    "points": 0,
+    "password": "password123",
+    "type": "admin",
+    "commandes": []
+  },
+  {
+    "nom": "houari ",
+    "prenom": "rayane",
+    "num": "0707070707",
+    "address": "3 rue lebon , 95000 cergy",
+    "infosupp": "",
+    "points": 0,
+    "password": "password123",
+    "type": "uber",
+    "note": 0,
+    "commandes": ["cmd001" , "cmd002" , "cmd003"]
+  }
+]

@@ -1,0 +1,28 @@
+[
+    {
+    "id" : "cmd001",
+    "date" : "2025-01-01",
+    "prix" : 19.75,
+    "selection" : ["pizza", "bouga", "pates"],
+    "etat" : "Livrée",
+    "note" : [4, 3, "le livreur a pris trop de temps"]
+    },
+
+    {
+    "id" : "cmd002",
+    "date" : "2025-01-03",
+    "prix" : 7.99,
+    "selection" : ["pizza"],
+    "etat" : "Livrée",
+    "note" : [0, 0, ""]
+    },
+
+    {
+    "id" : "cmd003",
+    "date" : "2024-01-05",
+    "prix" : 19.75,
+    "selection" : ["salade", "fanta", "frites"],
+    "etat" : "Livrée",
+    "note" : [5, 5, "le livreur a été rapide et la nourriture était délicieuse"]
+    }
+]
