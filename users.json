@@ -1,0 +1,24 @@
+[
+    {
+        "nom": "poliakov",
+        "prenom": "rafael",
+        "num": "987899474",
+        "address": "59, rue de Ponthieu 75008",
+        "infosupp": "",
+        "points": 0,
+        "password": "password123",
+        "type": "client",
+        "commandes": []
+    },
+    {
+        "nom": "dhahak",
+        "prenom": "selima",
+        "num": "0775849982",
+        "address": "11 AVENUE DES 3 FONTAINES, 95000 CERGY",
+        "infosupp": "appart 509",
+        "points": 0,
+        "password": "passwored123",
+        "type": "client",
+        "commandes": []
+    }
+]

@@ -12,7 +12,7 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
     $mdp_saisi = $_POST['password'];
 
     // 3. On lit notre fichier JSON (notre base de données)
-    $fichier = file_get_contents('users.json');
+    $fichier = file_get_contents('json/users.json');
     $liste_utilisateurs = json_decode($fichier, true); 
 
     $connexion_ok = false; // Par défaut, on part du principe qu'il n'est pas connecté

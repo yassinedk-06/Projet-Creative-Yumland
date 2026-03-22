@@ -1,3 +1,61 @@
+<?php
+$erreur = ""; // Pour afficher si le numéro existe déjà
+
+// 1. On vérifie si l'utilisateur a cliqué sur "Créer mon compte"
+if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) && isset($_POST['prenom']) && isset($_POST['adresse'])) {
+    
+    // 2. On récupère toutes les informations tapées dans le formulaire
+    $nom_saisi = $_POST['nom'];
+    $prenom_saisi = $_POST['prenom'];
+    $num_saisi = $_POST['tel']; // Dans le HTML c'est "tel", dans ton JSON c'est "num"
+    $adresse_saisie = $_POST['adresse'];
+    $infosupp_saisie = $_POST['complement'];
+    $mdp_saisi = $_POST['password'];
+
+    // 3. On prépare le profil du nouveau client (exactement comme la structure de ton JSON)
+    $nouvel_utilisateur = [
+        "nom" => $nom_saisi,
+        "prenom" => $prenom_saisi,
+        "num" => $num_saisi,
+        "address" => $adresse_saisie,
+        "infosupp" => $infosupp_saisie,
+        "points" => 0,               // Un nouveau client commence avec 0 point
+        "password" => $mdp_saisi,
+        "type" => "client",          // Par défaut, quelqu'un qui s'inscrit est un client
+        "commandes" => []            // Historique vide
+    ];
+
+    // 4. On ouvre le fichier JSON actuel
+    $fichier = file_get_contents('json/users.json');
+    $liste_utilisateurs = json_decode($fichier, true); 
+
+    // Petite sécurité : on vérifie si le numéro de téléphone n'est pas déjà pris
+    $numero_existe = false;
+    foreach ($liste_utilisateurs as $user) {
+        if ($user['num'] == $num_saisi) {
+            $numero_existe = true;
+            break;
+        }
+    }
+
+    if ($numero_existe == true) {
+        $erreur = "Ce numéro de téléphone possède déjà un compte.";
+    } else {
+        // 5. On AJOUTE le nouveau client à la liste existante
+        $liste_utilisateurs[] = $nouvel_utilisateur;
+
+        // 6. On re-transforme la liste en texte JSON et on SAUVEGARDE le fichier
+        // JSON_PRETTY_PRINT permet de garder le fichier users.json lisible et bien aligné
+        $nouveau_json = json_encode($liste_utilisateurs, JSON_PRETTY_PRINT);
+        file_put_contents('json/users.json', $nouveau_json);
+
+        // 7. C'est un succès ! On le renvoie vers la page de connexion
+        header('Location: connexion.php');
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,7 +87,6 @@
                     </ul>
                 </li>
                 <li><a href="connexion.php">Connexion</a></li>
-                <li><a href="profil.php">Mon Compte</a></li>
             </ul>
         </nav>
     </header>
@@ -39,7 +96,13 @@
             <h2>Rejoignez la famille Bien Harr</h2>
             <p>Inscrivez-vous pour commander plus vite et cumuler des points de fidélité !</p>
 
-            <form action="#" class="auth-form">
+            <?php if ($erreur != ""): ?>
+                <p style="color: white; background-color: red; padding: 10px; border-radius: 5px; text-align: center;">
+                    <?php echo $erreur; ?>
+                </p>
+            <?php endif; ?>
+
+            <form action="inscription.php" method="POST" class="auth-form">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="nom">Nom</label>
@@ -75,7 +138,7 @@
             </form>
 
             <div class="auth-footer">
-                <p>Déjà inscrit ? <a href="connexion.html">Connectez-vous ici</a></p>
+                <p>Déjà inscrit ? <a href="connexion.php">Connectez-vous ici</a></p>
             </div>
         </div>
     </section>
