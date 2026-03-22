@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Espace Livreur - Bien Harr</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="delivery-page">
+
+    <header>
+        <nav>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">
+                <span></span><span></span><span></span>
+            </label>
+            <label for="menu-toggle" class="menu-overlay"></label>
+            
+            <div class="logo">BIEN <span>HARR</span></div>
+            
+            <ul class="menu-links">
+                <li><div class="menu-header">LIVREUR</div></li>
+                <li><a href="index.html">Retour Accueil</a></li>
+                <li><a href="livraison.html" class="active">Ma Course</a></li>
+                <li><a href="index.html" style="color: var(--accent-red);">Fin de service</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="delivery-container">
+        
+        <div class="status-bar">
+            <span class="pulse-dot"></span> En cours de livraison
+        </div>
+
+        <section class="delivery-card">
+            <div class="card-header-delivery">
+                <h2>Commande #C042</h2>
+                <span class="timer"><i class="far fa-clock"></i> 12:45</span>
+            </div>
+
+            <div class="customer-info">
+                <h3><i class="fas fa-user"></i> Ahmed Ben Salah</h3>
+                <a href="tel:0612345678" class="phone-btn"><i class="fas fa-phone"></i> Appeler</a>
+            </div>
+
+            <div class="address-box">
+                <label>Adresse de livraison :</label>
+                <p class="address-text">12 Rue de la Kasbah<br>75001 Paris</p>
+                
+                <div class="address-details">
+                    <div class="detail-item">
+                        <i class="fas fa-door-closed"></i>
+                        <span>Code<br><strong>1234</strong></span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-building"></i>
+                        <span>Étage<br><strong>2e (Dr)</strong></span>
+                    </div>
+                </div>
+
+                <div class="comment-box">
+                    <i class="fas fa-comment-alt"></i>
+                    <p>"L'interphone ne marche pas, merci de m'appeler en arrivant."</p>
+                </div>
+            </div>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=12+Rue+de+la+Kasbah+75001+Paris" target="_blank" class="btn-gps">
+                <i class="fas fa-location-arrow"></i> Ouvrir le GPS
+            </a>
+
+            <button class="btn-finish-delivery">
+                <i class="fas fa-check-circle"></i> Confirmer la livraison
+            </button>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Bien Harr © 2026 - App Livreur</p>
+    </footer>
+
+</body>
+</html>
