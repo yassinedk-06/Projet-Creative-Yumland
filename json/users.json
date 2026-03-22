@@ -18,7 +18,7 @@
     "infosupp": "appart 305",
     "points": 50,
     "password": "password123",
-    "type": "user",
+    "type": "client",
     "commandes": ["cmd002" ]
   },
   {
@@ -40,7 +40,7 @@
     "infosupp": "",
     "points": 0,
     "password": "password123",
-    "type": "uber",
+    "type": "livreur",
     "note": 0,
     "commandes": ["cmd001" , "cmd002" , "cmd003"]
   }
