@@ -1,9 +1,14 @@
+<?php 
+
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Bien Harr - Restaurant Tunisien</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -19,12 +24,22 @@
             <div class="logo">BIEN <span>HARR</span></div>
 
             <div class="header-actions">
-                <a href="admin.php" class="icon-btn" title="Espace Admin">
-                    <i class="fas fa-user-shield"></i> <span class="desktop-only">Admin</span>
-                </a>
-                <a href="livraison.php" class="icon-btn" title="Espace Livreur">
-                    <i class="fas fa-motorcycle"></i> <span class="desktop-only">Livreur</span>
-                </a>
+                
+                <?php if (isset($_SESSION['connecte']) && $_SESSION['type'] == 'admin'): ?>
+                    <a href="admin.php" class="icon-btn" title="Espace Admin"> 
+                        <i class="fas fa-user-shield"></i> <span class="desktop-only">Admin</span>
+                    </a>
+                    <a href="livraison.php" class="icon-btn" title="Espace Livreur">Livreur</a>
+                <?php endif; ?>
+
+                
+
+                <?php if (isset($_SESSION['connecte']) && $_SESSION['type'] == 'livreur'): ?>
+                    <a href="livraison.php" class="icon-btn" title="Espace Livreur">
+                        <i class="fas fa-motorcycle"></i> <span class="desktop-only">Livreur</span>
+                    </a>
+                <?php endif; ?>
+
             </div>
 
             <ul class="menu-links">
@@ -39,24 +54,33 @@
                         <li><a href="carte.php#desserts">Desserts</a></li>
                     </ul>
                 </li>
-                <li><a href="connexion.php">Connexion</a></li>
-                <li><a href="profil.php">Mon Compte</a></li>
+                
+                <?php if (isset($_SESSION['connecte'])): ?>
+                    <li><a href="profil.php">Mon Compte</a></li>
+                    <li><a href="deconnexion.php" style="color: var(--accent-red);">Déconnexion</a></li>
+                <?php else: ?>
+                    <li><a href="connexion.php">Connexion</a></li>
+                    <li><a href="inscription.php">Inscription</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-    <h1>L'art du piment, l'âme de Tunis.</h1>
-    <p>Une cuisine authentique dans un écrin de modernité.</p>
-    
-    <div class="search-bar">
-        <input type="text" placeholder="Envie d'un Couscous, d'une Brick ?">
-        <button>Chercher</button>
-    </div>
-
-    
-</div>
+            <?php if (isset($_SESSION['connecte'])): ?>
+                <h1>Bonjour <?php echo htmlspecialchars($_SESSION['prenom']); ?> !</h1>
+                <p>Prêt pour une bonne commande ? L'art du piment, l'âme de Tunis.</p>
+            <?php else: ?>
+                <h1>L'art du piment, l'âme de Tunis.</h1>
+                <p>Une cuisine authentique dans un écrin de modernité.</p>
+            <?php endif; ?>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Envie d'un Couscous, d'une Brick ?">
+                <button>Chercher</button>
+            </div>
+        </div>
     </section>
 
     <section class="plat-du-jour">

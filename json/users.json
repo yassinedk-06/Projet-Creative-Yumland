@@ -2,6 +2,7 @@
     {
         "nom": "kamel",
         "prenom": "michel",
+        "id" :"0001",
         "num": "1234567890",
         "address": "123 Main St, Anytown, USA",
         "infosupp": "appart 509",
@@ -16,7 +17,9 @@
     {
         "nom": "bahri",
         "prenom": "neira",
+        "id": "0002",
         "num": "0987654321",
+
         "address": "2 Rue de la Paix, Paris, France",
         "infosupp": "appart 305",
         "points": 50,
@@ -29,6 +32,7 @@
     {
         "nom": "dhahak",
         "prenom": "yassine",
+        "id": "xxxx",
         "num": "0606060606",
         "address": "11 avenue du saint propre 95000 , Pontoise",
         "infosupp": "",
@@ -40,13 +44,14 @@
     {
         "nom": "houari ",
         "prenom": "rayane",
+        "id": "xxxx",
         "num": "0707070707",
         "address": "3 rue lebon , 95000 cergy",
         "infosupp": "",
         "points": 0,
         "password": "password123",
         "type": "livreur",
-        "note": 0,
+        "note": 3.5,
         "commandes": [
             "cmd001",
             "cmd002",
@@ -56,6 +61,7 @@
     {
         "nom": "dhahak",
         "prenom": "selima",
+        "id": "0004",
         "num": "0775849982",
         "address": "11 AVENUE DES 3 FONTAINES, 95000 CERGY",
         "infosupp": "appart 509",

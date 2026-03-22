@@ -25,8 +25,11 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
             
             // BINGO ! On le mémorise dans la session
             $_SESSION['connecte'] = true;
+            $_SESSION['id'] = $user['id'];
             $_SESSION['type'] = $user['type']; // On retient s'il est admin, client, etc.
             $_SESSION['prenom'] = $user['prenom'];
+            $_SESSION['nom'] = $user['nom'];
+            $_SESSION['num'] = $user['num'];
             
             $connexion_ok = true; // La connexion est validée
             break; // On a trouvé, on arrête de chercher dans la liste

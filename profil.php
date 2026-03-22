@@ -1,3 +1,52 @@
+<?php 
+session_start(); 
+
+// 1. SÉCURITÉ
+if (!isset($_SESSION['connecte'])) {
+    header('Location: connexion.php');
+    exit();
+}
+
+// 2. RÉCUPÉRATION DES DONNÉES DE L'UTILISATEUR
+$adresse = "Non renseignée";
+$infosupp = "Aucun complément";
+$points = 0;
+$mes_commandes_ids = []; // Pour stocker les identifiants (ex: "cmd001", "cmd003")
+
+if (file_exists('json/users.json')) {
+    $json_data = file_get_contents('json/users.json');
+    $utilisateurs = json_decode($json_data, true);
+    
+    if ($utilisateurs) {
+        foreach ($utilisateurs as $user) {
+            if (isset($user['num']) && $user['num'] === $_SESSION['num']) {
+                $adresse = $user['address'] ?? "Non renseignée";
+                $infosupp = empty($user['infosupp']) ? "Aucun complément" : $user['infosupp'];
+                $points = $user['points'] ?? 0;
+                $mes_commandes_ids = $user['commandes'] ?? []; // On récupère sa liste de commandes
+                break;
+            }
+        }
+    }
+}
+
+// 3. RÉCUPÉRATION DU DÉTAIL DES COMMANDES
+$historique_commandes = [];
+if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
+    $cmd_data = file_get_contents('json/commandes.json');
+    $toutes_les_commandes = json_decode($cmd_data, true);
+    
+    if ($toutes_les_commandes) {
+        foreach ($toutes_les_commandes as $cmd) {
+            // Si l'ID de la commande est dans la liste de l'utilisateur, on la garde
+            if (in_array($cmd['id'], $mes_commandes_ids)) {
+                $historique_commandes[] = $cmd;
+            }
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +56,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="user-connected"> <header>
+<body class="user-connected"> 
+    <header>
         <nav>
             <input type="checkbox" id="menu-toggle">
             <label for="menu-toggle" class="menu-icon">
@@ -15,6 +65,19 @@
             </label>
             <label for="menu-toggle" class="menu-overlay"></label>
             <div class="logo">BIEN <span>HARR</span></div>
+
+            <div class="header-actions">
+                <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'admin'): ?>
+                    <a href="admin.php" class="icon-btn" title="Espace Admin"><i class="fas fa-user-shield"></i> <span class="desktop-only">Admin</span></a>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'restaurateur'): ?>
+                    <a href="commandes.php" class="icon-btn" title="Espace Restaurateur"><i class="fas fa-utensils"></i> <span class="desktop-only">Cuisine</span></a>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'livreur'): ?>
+                    <a href="livraison.php" class="icon-btn" title="Espace Livreur"><i class="fas fa-motorcycle"></i> <span class="desktop-only">Livreur</span></a>
+                <?php endif; ?>
+            </div>
+
             <ul class="menu-links">
                 <li><div class="menu-header">Menu</div></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -28,7 +91,7 @@
                     </ul>
                 </li>
                 <li><a href="profil.php" class="active">Mon Profil</a></li>
-                <li><a href="index.php" style="color: var(--accent-red);">Déconnexion</a></li>
+                <li><a href="deconnexion.php" style="color: var(--accent-red);">Déconnexion</a></li>
             </ul>
         </nav>
     </header>
@@ -45,28 +108,28 @@
                 <div class="info-item">
                     <label>Nom & Prénom</label>
                     <div class="info-value">
-                        <span>Ahmed Ben Salah</span>
-                        <i class="fas fa-pencil-alt edit-icon" title="Modifier"></i>
+                        <span><?php echo htmlspecialchars($_SESSION['nom'] ?? '') . ' ' . htmlspecialchars($_SESSION['prenom'] ?? ''); ?></span>
+                        
                     </div>
                 </div>
                 <div class="info-item">
                     <label>Téléphone</label>
                     <div class="info-value">
-                        <span>06 12 34 56 78</span>
-                        <i class="fas fa-pencil-alt edit-icon"></i>
+                        <span><?php echo htmlspecialchars($_SESSION['num'] ?? ''); ?></span>
+                        
                     </div>
                 </div>
                 <div class="info-item">
                     <label>Adresse</label>
                     <div class="info-value">
-                        <span>12 Rue de la Kasbah, 75001 Paris</span>
+                        <span><?php echo htmlspecialchars($adresse); ?></span>
                         <i class="fas fa-pencil-alt edit-icon"></i>
                     </div>
                 </div>
                 <div class="info-item">
                     <label>Complément d'adresse</label>
                     <div class="info-value">
-                        <span>Code 1234, 2ème étage droite</span>
+                        <span><?php echo htmlspecialchars($infosupp); ?></span>
                         <i class="fas fa-pencil-alt edit-icon"></i>
                     </div>
                 </div>
@@ -78,12 +141,12 @@
                 <i class="fas fa-crown gold-crown"></i>
                 <div class="loyalty-text">
                     <h3>Compte Fidélité</h3>
-                    <p class="points"><span>450</span> Points</p>
-                    <p class="reward">Plus que 50 points pour un dessert offert !</p>
+                    <p class="points"><span><?php echo $points; ?></span> Points</p>
+                    <p class="reward">Chaque commande compte !</p>
                 </div>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 80%;"></div>
+                <div class="progress-fill" style="width: 50%;"></div>
             </div>
         </section>
 
@@ -100,20 +163,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>12/02/2026</td>
-                        <td>Couscous Agneau + Boga</td>
-                        <td>24,50 €</td>
-                        <td><span class="status delivered">Livré</span></td>
-                        <td><a href="notation.html" class="rate-link">Noter</a></td>
-                    </tr>
-                    <tr>
-                        <td>05/02/2026</td>
-                        <td>Ojja Merguez + Thé</td>
-                        <td>18,00 €</td>
-                        <td><span class="status delivered">Livré</span></td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                    </tr>
+                    <?php if (empty($historique_commandes)): ?>
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Aucune commande pour le moment.</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($historique_commandes as $cmd): ?>
+                            <tr>
+                                <td><?php echo date('d/m/Y', strtotime($cmd['date'])); ?></td>
+                                
+                                <td><?php echo htmlspecialchars(implode(" + ", $cmd['selection'])); ?></td>
+                                
+                                <td><?php echo number_format($cmd['prix'], 2, ',', ' '); ?> €</td>
+                                
+                                <td><span class="status delivered"><?php echo htmlspecialchars($cmd['etat']); ?></span></td>
+                                
+                                <td>
+                                    <?php 
+                                    // La note[0] représente la note de la cuisine. Si elle est > 0, c'est noté.
+                                    if (isset($cmd['note']) && $cmd['note'][0] > 0): 
+                                        // Affiche autant d'étoiles que la note (ex: 4 = ⭐⭐⭐⭐)
+                                        $etoiles = str_repeat('⭐', $cmd['note'][0]);
+                                    ?>
+                                        <span title="Cuisine: <?php echo $cmd['note'][0]; ?>/5 - Commentaire: <?php echo htmlspecialchars($cmd['note'][2]); ?>">
+                                            <?php echo $etoiles; ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <a href="notation.php?id=<?php echo htmlspecialchars($cmd['id']); ?>" class="rate-link">Noter</a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </section>

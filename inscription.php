@@ -11,9 +11,11 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
     $adresse_saisie = $_POST['adresse'];
     $infosupp_saisie = $_POST['complement'];
     $mdp_saisi = $_POST['password'];
+    $nouvel_id = sprintf("%04d", count($liste_utilisateurs) + 1);
 
     // 3. On prépare le profil du nouveau client (exactement comme la structure de ton JSON)
     $nouvel_utilisateur = [
+        "id" => $nouvel_id,
         "nom" => $nom_saisi,
         "prenom" => $prenom_saisi,
         "num" => $num_saisi,
