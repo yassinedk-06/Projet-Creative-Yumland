@@ -19,7 +19,7 @@ if (file_exists('json/users.json')) {
     
     if ($utilisateurs) {
         foreach ($utilisateurs as $user) {
-            if (isset($user['num']) && $user['num'] === $_SESSION['num']) {
+            if (isset($user['id']) && $user['id'] === $_SESSION['id']) {
                 $adresse = $user['address'] ?? "Non renseignée";
                 $infosupp = empty($user['infosupp']) ? "Aucun complément" : $user['infosupp'];
                 $points = $user['points'] ?? 0;

@@ -30,6 +30,7 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
             $_SESSION['prenom'] = $user['prenom'];
             $_SESSION['nom'] = $user['nom'];
             $_SESSION['num'] = $user['num'];
+            $_SESSION['statut'] = $user['statut'];
             
             $connexion_ok = true; // La connexion est validée
             break; // On a trouvé, on arrête de chercher dans la liste

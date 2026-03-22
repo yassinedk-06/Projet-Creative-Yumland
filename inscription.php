@@ -22,6 +22,7 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
         "address" => $adresse_saisie,
         "infosupp" => $infosupp_saisie,
         "points" => 0,               // Un nouveau client commence avec 0 point
+        "statut" => "basic",
         "password" => $mdp_saisi,
         "type" => "client",          // Par défaut, quelqu'un qui s'inscrit est un client
         "commandes" => []            // Historique vide

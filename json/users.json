@@ -2,11 +2,12 @@
     {
         "nom": "kamel",
         "prenom": "michel",
-        "id" :"0001",
+        "id": "0001",
         "num": "1234567890",
         "address": "123 Main St, Anytown, USA",
         "infosupp": "appart 509",
         "points": 100,
+        "statut": "basic",
         "password": "password123",
         "type": "client",
         "commandes": [
@@ -19,10 +20,10 @@
         "prenom": "neira",
         "id": "0002",
         "num": "0987654321",
-
         "address": "2 Rue de la Paix, Paris, France",
         "infosupp": "appart 305",
         "points": 50,
+        "statut": "basic",
         "password": "password123",
         "type": "client",
         "commandes": [
@@ -37,6 +38,7 @@
         "address": "11 avenue du saint propre 95000 , Pontoise",
         "infosupp": "",
         "points": 0,
+        "statut": "VIP",
         "password": "password123",
         "type": "admin",
         "commandes": []
@@ -49,6 +51,7 @@
         "address": "3 rue lebon , 95000 cergy",
         "infosupp": "",
         "points": 0,
+        "statut": "basic",
         "password": "password123",
         "type": "livreur",
         "note": 3.5,
@@ -61,11 +64,12 @@
     {
         "nom": "dhahak",
         "prenom": "selima",
-        "id": "0004",
+        "id": "0003",
         "num": "0775849982",
         "address": "11 AVENUE DES 3 FONTAINES, 95000 CERGY",
         "infosupp": "appart 509",
         "points": 0,
+        "statut": "basic",
         "password": "passwored123",
         "type": "client",
         "commandes": []

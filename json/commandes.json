@@ -31,7 +31,7 @@
     },
     {
         "id": "cmd003",
-        "date": "2024-01-05",
+        "date": "2025-01-05",
         "prix": 15.5,
         "selection": [
             "salade",
@@ -43,6 +43,38 @@
             5,
             5,
             "le livreur a \u00e9t\u00e9 rapide et la nourriture \u00e9tait d\u00e9licieuse"
+        ]
+    },
+    {
+        "id": "cmd004",
+        "date": "2025-02-05",
+        "prix": 23.5,
+        "selection": [
+            "Zit & Harissa",
+            "Nwasser",
+            "Th\u00e9 Vert \u00e0 la Menthe",
+            "Th\u00e9 Vert \u00e0 la Menthe"
+        ],
+        "etat": "cuisine",
+        "note": [
+            0,
+            0,
+            ""
+        ]
+    },
+    {
+        "id": "cmd005",
+        "date": "2025-02-10",
+        "prix": 12,
+        "selection": [
+            "Couscous",
+            "Bouga"
+        ],
+        "etat": "en cours de livraison",
+        "note": [
+            0,
+            0,
+            ""
         ]
     }
 ]

@@ -1404,3 +1404,51 @@ footer {
 }
 
 .btn-finish-delivery:hover { opacity: 1; background-color: black; }
+/* ==========================================================================
+   STYLES DES MENUS DÉROULANTS (ADMIN & COMMANDES)
+   ========================================================================== */
+
+/* 1. Page Admin : Statuts des clients */
+.select-statut {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+.select-statut.basic { color: #555; background-color: #f9f9f9; }
+.select-statut.silver { color: #576574; background-color: #c8d6e5; border-color: #8395a7;}
+.select-statut.gold { color: #b8860b; background-color: #fcf1d3; border-color: #f1c40f;}
+.select-statut.VIP { color: #fff; background-color: #8e44ad; border-color: #9b59b6;}
+
+/* 2. Page Commandes : États des plats */
+.select-etat {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+.select-etat.attente { color: #d35400; background-color: #fdebd0; border-color: #f39c12;}
+.select-etat.cuisine { color: #2980b9; background-color: #d6eaf8; border-color: #3498db;}
+.select-etat.livraison { color: #8e44ad; background-color: #ebdef0; border-color: #9b59b6;}
+.select-etat.livree { color: #27ae60; background-color: #d5f5e3; border-color: #2ecc71;}
+.select-etat.annulee { color: #c0392b; background-color: #fadbd8; border-color: #e74c3c;}
+
+
+/*page admin ajout de case a cocher*/
+.select-statut {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+.select-statut.basic { color: #555; background-color: #f9f9f9; }
+.select-statut.silver { color: #576574; background-color: #c8d6e5; border-color: #8395a7;}
+.select-statut.gold { color: #b8860b; background-color: #fcf1d3; border-color: #f1c40f;}
+.select-statut.VIP { color: #fff; background-color: #8e44ad; border-color: #9b59b6;}
+
