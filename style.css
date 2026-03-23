@@ -1514,3 +1514,79 @@ footer {
     color: var(--accent-red);
 }
 
+
+/* ==========================================================================
+   STYLES DU PANIER LATÉRAL ET BOUTONS
+   ========================================================================== */
+
+/* Liste des articles dans le panier */
+.cart-items-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Un article du panier */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+/* La petite croix rouge de suppression */
+.btn-remove-item {
+    color: var(--accent-red);
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Conteneur du prix total */
+.cart-total-container {
+    border-top: 2px solid var(--primary-blue);
+    margin-top: 15px;
+    padding-top: 15px;
+    text-align: right;
+}
+
+.cart-total-text {
+    margin: 0;
+    color: var(--primary-blue);
+}
+
+/* Bouton Commander */
+.cart-action-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-checkout {
+    display: inline-block;
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.btn-checkout:hover {
+    background-color: #005b8c;
+}
+
+/* Message quand le panier est vide */
+.empty-cart-msg {
+    text-align: center;
+    color: #888;
+    margin-top: 30px;
+}
+
+/* Retirer la marge par défaut des formulaires d'ajout */
+.form-add-cart {
+    margin: 0;
+}

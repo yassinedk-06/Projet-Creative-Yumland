@@ -2,33 +2,6 @@
 session_start(); 
 
 // ====================================================================
-// TRAITEMENT : SUPPRESSION D'UN ARTICLE DANS cart.json
-// ====================================================================
-if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['index'])) {
-    $index_a_supprimer = (int)$_GET['index'];
-    $chemin_cart = 'json/cart.json';
-
-    if (file_exists($chemin_cart)) {
-        $contenu = file_get_contents($chemin_cart);
-        $cart_data = json_decode($contenu, true) ?? [];
-
-        // Si l'article existe, on le supprime
-        if (isset($cart_data[$index_a_supprimer])) {
-            unset($cart_data[$index_a_supprimer]);
-            // On réorganise les clés du tableau (0, 1, 2...)
-            $cart_data = array_values($cart_data);
-            
-            // On sauvegarde le fichier
-            file_put_contents($chemin_cart, json_encode($cart_data, JSON_PRETTY_PRINT));
-        }
-    }
-
-    // On recharge la page pour mettre à jour l'affichage et retirer le paramètre GET
-    header('Location: carte.php');
-    exit();
-}
-
-// ====================================================================
 // TRAITEMENT : AJOUT DANS cart.json
 // ====================================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter') {
@@ -67,10 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 $json_data = file_get_contents('json/plats.json');
 $menu = json_decode($json_data, true);
 
-// NOUVEAU : On lit le fichier cart.json à chaque chargement de la page pour l'affichage
+// On lit le fichier cart.json à chaque chargement de la page pour l'affichage
 $chemin_cart = 'json/cart.json';
 $cart_data = [];
-$total_panier = 0; // On en profite pour préparer le calcul du total
+$total_panier = 0;
+
 if (file_exists($chemin_cart)) {
     $contenu_cart = file_get_contents($chemin_cart);
     if (!empty($contenu_cart)) {
@@ -161,11 +135,11 @@ if (file_exists($chemin_cart)) {
         <h2>Mon Panier</h2>  
         
         <?php if(!empty($cart_data)): ?>
-            <ul style="list-style: none; padding: 0;">
+            <ul class="cart-items-list">
                 <?php foreach ($cart_data as $index => $item): ?>
-                    <li style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; align-items: center;">
+                    <li class="cart-item">
                         <span>
-                            <a href="carte.php?action=supprimer&index=<?= $index ?>" style="color: var(--accent-red); font-weight: bold; text-decoration: none; margin-right: 10px; font-size: 1.2rem;" title="Retirer du panier">&times;</a>
+                            <a href="carte.php?action=supprimer&index=<?= $index ?>" class="btn-remove-item" title="Retirer du panier">&times;</a>
                             <?= htmlspecialchars($item['nom']) ?>
                         </span>
                         <strong><?= number_format($item['prix'], 2, ',', ' ') ?> €</strong>
@@ -173,16 +147,16 @@ if (file_exists($chemin_cart)) {
                 <?php endforeach; ?>
             </ul>
             
-            <div style="border-top: 2px solid var(--primary-blue); margin-top: 15px; padding-top: 15px; text-align: right;">
-                <h3 style="margin: 0; color: var(--primary-blue);">Total : <?= number_format($total_panier, 2, ',', ' ') ?> €</h3>
+            <div class="cart-total-container">
+                <h3 class="cart-total-text">Total : <?= number_format($total_panier, 2, ',', ' ') ?> €</h3>
             </div>
             
-            <div style="text-align: center; margin-top: 20px;">
-                 <a href="#" style="display: inline-block; background-color: var(--primary-blue); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; width: 100%; box-sizing: border-box;">Commander</a>
+            <div class="cart-action-container">
+                 <a href="validation.php" class="btn-checkout">Commander</a>
             </div>
 
         <?php else: ?>
-            <p style="text-align: center; color: #888; margin-top: 30px;">Votre panier est vide.</p>
+            <p class="empty-cart-msg">Votre panier est vide.</p>
         <?php endif; ?>
 
     </div>
@@ -216,7 +190,7 @@ if (file_exists($chemin_cart)) {
                             <p><?= htmlspecialchars($plat[4]) ?></p>
                             <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
                             
-                            <form action="carte.php" method="POST" style="margin: 0;">
+                            <form action="carte.php" method="POST" class="form-add-cart">
                                 <input type="hidden" name="action" value="ajouter">
                                 <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
                                 <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
@@ -241,7 +215,7 @@ if (file_exists($chemin_cart)) {
                     <p><?= htmlspecialchars($plat[4]) ?></p>
                     <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
                     
-                    <form action="carte.php" method="POST" style="margin: 0;">
+                    <form action="carte.php" method="POST" class="form-add-cart">
                         <input type="hidden" name="action" value="ajouter">
                         <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
                         <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
@@ -265,7 +239,7 @@ if (file_exists($chemin_cart)) {
                     <p><?= htmlspecialchars($plat[4]) ?></p>
                     <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
                     
-                    <form action="carte.php" method="POST" style="margin: 0;">
+                    <form action="carte.php" method="POST" class="form-add-cart">
                         <input type="hidden" name="action" value="ajouter">
                         <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
                         <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
@@ -289,7 +263,7 @@ if (file_exists($chemin_cart)) {
                     <p><?= htmlspecialchars($plat[4]) ?></p>
                     <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
                     
-                    <form action="carte.php" method="POST" style="margin: 0;">
+                    <form action="carte.php" method="POST" class="form-add-cart">
                         <input type="hidden" name="action" value="ajouter">
                         <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
                         <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
@@ -313,7 +287,7 @@ if (file_exists($chemin_cart)) {
                     <p><?= htmlspecialchars($plat[4]) ?></p>
                     <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
                     
-                    <form action="carte.php" method="POST" style="margin: 0;">
+                    <form action="carte.php" method="POST" class="form-add-cart">
                         <input type="hidden" name="action" value="ajouter">
                         <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
                         <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">

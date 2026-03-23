@@ -1,59 +1,12 @@
 [
     {
-        "id_plat": "02",
-        "nom": "Brik \u00e0 l'Oeuf",
-        "prix": 6.5,
-        "heure_ajout": "01:00:24"
-    },
-    {
         "id_plat": "03",
         "nom": "Omek Houria",
-        "prix": 10.5,
-        "heure_ajout": "01:00:28"
-    },
-    {
-        "id_plat": "01",
-        "nom": "Slata Mechouia",
-        "prix": 10.5,
-        "heure_ajout": "01:00:31"
+        "prix": 10.5
     },
     {
         "id_plat": "06",
         "nom": "Chorba Frik",
-        "prix": 7,
-        "heure_ajout": "01:00:43"
-    },
-    {
-        "id_plat": "02",
-        "nom": "Brik \u00e0 l'Oeuf",
-        "prix": 6.5,
-        "heure_ajout": "01:06:04"
-    },
-    {
-        "id_plat": "06",
-        "nom": "Chorba Frik",
-        "prix": 7,
-        "heure_ajout": "01:06:08"
-    },
-    {
-        "id_plat": "05",
-        "nom": "S'han Tounsi",
-        "prix": 12.5,
-        "heure_ajout": "01:08:11"
-    },
-    {
-        "id_plat": "05",
-        "nom": "S'han Tounsi",
-        "prix": 12.5
-    },
-    {
-        "id_plat": "08",
-        "nom": "Dwida mfawra",
-        "prix": 16.5
-    },
-    {
-        "id_plat": "02",
-        "nom": "Brik \u00e0 l'Oeuf",
-        "prix": 6.5
+        "prix": 7
     }
 ]

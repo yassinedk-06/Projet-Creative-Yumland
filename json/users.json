@@ -12,7 +12,9 @@
         "type": "client",
         "commandes": [
             "cmd001",
-            "cmd003"
+            "cmd003",
+            "cmd004",
+            "cmd005"
         ]
     },
     {
@@ -71,6 +73,19 @@
         "points": 0,
         "statut": "basic",
         "password": "passwored123",
+        "type": "client",
+        "commandes": []
+    },
+    {
+        "nom": "poliakov",
+        "prenom": "rafael",
+        "id": "0004",
+        "num": "987899474",
+        "address": "59, rue de Ponthieu 75008",
+        "infosupp": "",
+        "points": 0,
+        "statut": "basic",
+        "password": "password123",
         "type": "client",
         "commandes": []
     }
