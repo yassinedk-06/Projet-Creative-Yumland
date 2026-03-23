@@ -57,6 +57,8 @@ nav {
     gap: 15px;
 }
 
+
+
 .icon-btn {
     color: var(--pure-white);
     text-decoration: none;
@@ -1451,4 +1453,64 @@ footer {
 .select-statut.silver { color: #576574; background-color: #c8d6e5; border-color: #8395a7;}
 .select-statut.gold { color: #b8860b; background-color: #fcf1d3; border-color: #f1c40f;}
 .select-statut.VIP { color: #fff; background-color: #8e44ad; border-color: #9b59b6;}
+
+/* ==========================================================================
+   MENU LATÉRAL DROIT (PANIER / CART)
+   ========================================================================== */
+
+/* 1. On cache la case à cocher */
+.case-cachee {
+    display: none;
+}
+
+/* 2. Style du bouton pour ouvrir le panier (adapté à ton thème) */
+.btn-ouvrir {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--accent-red); /* Le beau rouge piment */
+    color: var(--pure-white);
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 20px; /* Pour matcher avec tes .icon-btn */
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.btn-ouvrir:hover {
+    background-color: #c01e2b; /* Rouge un peu plus foncé */
+}
+
+/* 3. La fenêtre latérale (Panier) */
+.fenetre-laterale {
+    height: 100vh;
+    width: 300px; /* Un peu plus large pour un panier */
+    position: fixed;
+    top: 0;
+    right: -300px; /* Cachée exactement de sa largeur */
+    background-color: var(--bg-light);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2); /* Ombre plus prononcée */
+    transition: transform 0.3s cubic-bezier(0.77, 0.2, 0.05, 1.0); /* La même animation fluide que ton menu gauche ! */
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 2500; /* IMPORTANT : Au-dessus de ton header (1000) et de ton menu gauche (2000) */
+}
+
+/* 4. L'animation au clic */
+.case-cachee:checked ~ .fenetre-laterale {
+    transform: translateX(-300px); /* Fait glisser la fenêtre vers la gauche */
+}
+
+/* 5. Le bouton pour fermer (Croix) */
+.btn-fermer {
+    font-size: 28px;
+    cursor: pointer;
+    float: right;
+    color: var(--primary-blue);
+    transition: color 0.3s;
+}
+
+.btn-fermer:hover {
+    color: var(--accent-red);
+}
 

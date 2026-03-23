@@ -1,0 +1,42 @@
+{
+  "entrées": [
+    ["01", "Slata Mechouia", 10.50, "src/slatam.jpg", "Salade grillée de poivrons, tomates et oignons, relevée à l'huile d'olive."],
+    ["02", "Brik à l'Oeuf", 6.50, "src/brick.jpg", "Feuille de malsouka croustillante, oeuf coulant, thon et persil."],
+    ["03", "Omek Houria", 10.50, "src/houria.jpg", "Purée de carottes épicée au carvi, harissa et huile d'olive."],
+    ["04", "Zit & Harissa", 4.50, "src/harissa.jpg", "L'incontournable duo : Harissa maison et huile d'olive vierge avec pain tabouna."],
+    ["05", "S'han Tounsi", 12.50, "src/tounsi.jpg", "Assiette tunisienne complète : oeuf, thon, légumes frais et variantes."],
+    ["06", "Chorba Frik", 7.00, "src/chorba.jpg", "Soupe traditionnelle au blé concassé, agneau et céleri."]
+  ],
+  "plats": [
+    ["07", "Couscous Royal", 20.50, "src/couscous.jpg", "Couscous fin à la viande d'agneau tendre et légumes du potager."],
+    ["08", "Dwida mfawra", 16.50, "src/dwida.jpg", "Pâtes \"langues d'oiseau\" cuites à la vapeur en sauce rouge."],
+    ["09", "Nwasser", 16.50, "src/nwasser.jpg", "Carrés de pâtes traditionnels cuits à la vapeur, poulet et pois chiches."],
+    ["10", "Makrouna Tounsia", 15.00, "src/makrouna.jpg", "Pâtes en sauce piquante, ail et laurier (Salsa)."],
+    ["11", "Mlokhia", 16.00, "src/mloukhia.jpg", "Ragoût onctueux de corète potagère mijoté pendant des heures."],
+    ["12", "Kafteji Traditionnel", 14.50, "src/kafteji.jpg", "Mélange coloré de légumes frits, oeufs et épices, coupé grossièrement."],
+    ["13", "Lablebi", 18.00, "src/lablebi.jpg", "Soupe de pois chiches, pain rassis, cumin, thon et oeuf (Harr !)."],
+    ["14", "Tastira & Poisson", 17.00, "src/tastira.jpg", "Mélange de poivrons et oeufs frits accompagné d'un poisson frais."],
+    ["15", "Ojja Merguez", 14.90, "src/ojja.webp", "Oeufs pochés dans une sauce tomate piquante, poivrons et épices."]
+  ],
+  "boissons_chaudes": [
+    ["16", "Thé Vert à la Menthe", 1.50, "src/placeholder.jpg", "Le classique, servi avec des pignons de pin."],
+    ["17", "Thé Rouge", 1.50, "src/placeholder.jpg", "Thé noir intense, infusé traditionnellement."],
+    ["18", "Express", 2.00, "src/placeholder.jpg", "Café noir serré."],
+    ["19", "Cappuccino (Direct)", 3.50, "src/placeholder.jpg", "Café au lait mousseux."],
+    ["20", "Latte Macchiato", 4.00, "src/placeholder.jpg", "Grand verre de lait chaud tacheté de café."]
+  ],
+  "boissons_froides": [
+    ["21", "Jus Frais", 3.50, "src/placeholder.jpg", "Au choix : Orange, Banane, Fraise."],
+    ["22", "Boisson Gazeuse", 2.50, "src/placeholder.jpg", "Boga, Coca, Fanta... (Canette 33cl)"],
+    ["23", "Eau Minérale", 2.00, "src/placeholder.jpg", "Plate ou Gazéifiée (1L)."],
+    ["24", "Cocktail Maison", 5.00, "src/placeholder.jpg", "Mélange de fruits de saison."]
+  ],
+  "desserts": [
+    ["25", "Masfouf", 7.50, "src/placeholder.jpg", "Couscous sucré aux fruits secs, dattes et grenades."],
+    ["26", "S'han Hlow", 6.00, "src/placeholder.jpg", "Assiette dégustation de pâtisseries tunisiennes."],
+    ["27", "Shan Romdhan", 5.00, "src/placeholder.jpg", "Assortiment de Zlebia, Mkharak et Wedhnin el kadhi."],
+    ["28", "Zrir", 5.50, "src/placeholder.jpg", "Crème de sésame et fruits secs, riche et énergisante."],
+    ["29", "Bambalouni", 3.00, "src/placeholder.jpg", "Le fameux beignet de Sidi Bou Saïd, saupoudré de sucre."],
+    ["30", "Assida", 6.00, "src/placeholder.jpg", "Crème dessert traditionnelle (Zgougou ou Noisette selon saison)."]
+  ]
+}

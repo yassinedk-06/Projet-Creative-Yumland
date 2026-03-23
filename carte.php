@@ -1,3 +1,87 @@
+<?php
+session_start(); 
+
+// ====================================================================
+// TRAITEMENT : SUPPRESSION D'UN ARTICLE DANS cart.json
+// ====================================================================
+if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['index'])) {
+    $index_a_supprimer = (int)$_GET['index'];
+    $chemin_cart = 'json/cart.json';
+
+    if (file_exists($chemin_cart)) {
+        $contenu = file_get_contents($chemin_cart);
+        $cart_data = json_decode($contenu, true) ?? [];
+
+        // Si l'article existe, on le supprime
+        if (isset($cart_data[$index_a_supprimer])) {
+            unset($cart_data[$index_a_supprimer]);
+            // On réorganise les clés du tableau (0, 1, 2...)
+            $cart_data = array_values($cart_data);
+            
+            // On sauvegarde le fichier
+            file_put_contents($chemin_cart, json_encode($cart_data, JSON_PRETTY_PRINT));
+        }
+    }
+
+    // On recharge la page pour mettre à jour l'affichage et retirer le paramètre GET
+    header('Location: carte.php');
+    exit();
+}
+
+// ====================================================================
+// TRAITEMENT : AJOUT DANS cart.json
+// ====================================================================
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter') {
+    
+    // 1. On prépare les données du plat cliqué
+    $nouvel_article = [
+        'id_plat' => $_POST['id_plat'],
+        'nom' => $_POST['nom_plat'],
+        'prix' => (float)$_POST['prix_plat'],
+        
+    ];
+
+    $chemin_cart = 'json/cart.json';
+    $cart_data = [];
+
+    // 2. Si le fichier existe, on récupère ce qu'il y a déjà dedans
+    if (file_exists($chemin_cart)) {
+        $contenu = file_get_contents($chemin_cart);
+        if (!empty($contenu)) {
+            $cart_data = json_decode($contenu, true) ?? [];
+        }
+    }
+
+    // 3. On ajoute le nouveau plat à la liste
+    $cart_data[] = $nouvel_article;
+
+    // 4. On sauvegarde le fichier
+    file_put_contents($chemin_cart, json_encode($cart_data, JSON_PRETTY_PRINT));
+
+    // 5. On recharge la page pour éviter que l'action se répète si on fait F5
+    header('Location: carte.php');
+    exit();
+}
+// ====================================================================
+
+$json_data = file_get_contents('json/plats.json');
+$menu = json_decode($json_data, true);
+
+// NOUVEAU : On lit le fichier cart.json à chaque chargement de la page pour l'affichage
+$chemin_cart = 'json/cart.json';
+$cart_data = [];
+$total_panier = 0; // On en profite pour préparer le calcul du total
+if (file_exists($chemin_cart)) {
+    $contenu_cart = file_get_contents($chemin_cart);
+    if (!empty($contenu_cart)) {
+        $cart_data = json_decode($contenu_cart, true) ?? [];
+        // Calcul du total
+        foreach ($cart_data as $item) {
+            $total_panier += $item['prix'];
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,32 +93,99 @@
 <body>
 
     <header>
-        <nav>
-            <input type="checkbox" id="menu-toggle">
-            <label for="menu-toggle" class="menu-icon">
-                <span></span><span></span><span></span>
-            </label>
-            <label for="menu-toggle" class="menu-overlay"></label>
-            <div class="logo">BIEN <span>HARR</span></div>
-            <ul class="menu-links">
-    <li><div class="menu-header">BIEN HARR</div></li>
-    <li><a href="index.php">Accueil</a></li>
+    <nav>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">
+            <span></span><span></span><span></span>
+        </label>
+        <label for="menu-toggle" class="menu-overlay"></label>
+        
+        <div class="logo">BIEN <span>HARR</span></div>
+        
+        <ul class="menu-links">
+                <li><div class="menu-header">BIEN HARR</div></li>
+                <li><a href="index.php">Accueil</a></li>
+                <li class="has-submenu">
+                    <a href="carte.php">La Carte <span class="arrow">➤</span></a>
+                    <ul class="submenu">
+                        <li><a href="carte.php#entrees">Entrées</a></li>
+                        <li><a href="carte.php#plats">Plats Traditionnels</a></li>
+                        <li><a href="carte.php#boissons-chaudes">Boissons</a></li>
+                        <li><a href="carte.php#desserts">Desserts</a></li>
+                    </ul>
+                </li>
+                
+                <?php if (isset($_SESSION['connecte'])): ?>
+                    <li><a href="profil.php">Mon Compte</a></li>
+                    <li><a href="deconnexion.php" style="color: var(--accent-red);">Déconnexion</a></li>
+                <?php else: ?>
+                    <li><a href="connexion.php">Connexion</a></li>
+                    <li><a href="inscription.php">Inscription</a></li>
+                <?php endif; ?>
+            </ul>
+    </nav>
+
     
-    <li class="has-submenu">
-        <a href="carte.php">La Carte <span class="arrow">➤</span></a>
-        <ul class="submenu">
-            <li><a href="carte.php#entrees">Entrées</a></li>
-            <li><a href="carte.php#plats">Plats Traditionnels</a></li>
-            <li><a href="carte.php#boissons-chaudes">Boissons Chaudes</a></li>
-            <li><a href="carte.php#boissons-froides">Boissons Froides</a></li>
-            <li><a href="carte.php#desserts">Desserts</a></li>
-        </ul>
-    </li>
-    <li><a href="connexion.php">Connexion</a></li>
-    <li><a href="profil.php">Mon Compte</a></li>
-</ul>
-        </nav>
-    </header>
+    <div class="header-actions">
+                
+        <?php if (isset($_SESSION['connecte']) && $_SESSION['type'] == 'admin'): ?>
+            <a href="admin.php" class="icon-btn" title="Espace Admin"> 
+                <i class="fas fa-user-shield"></i> <span class="desktop-only">Admin</span>
+            </a>
+            <a href="livraison.php" class="icon-btn" title="Espace Livreur">Livreur</a>
+            
+            <label for="toggle-panier" class="icon-btn btn-ouvrir">
+                🛒 Panier
+            </label>
+
+        <?php elseif (isset($_SESSION['connecte']) && $_SESSION['type'] == 'livreur'): ?>
+            <a href="livraison.php" class="icon-btn" title="Espace Livreur">
+                <i class="fas fa-motorcycle"></i> <span class="desktop-only">Livreur</span>
+            </a>
+
+        <?php else: ?>
+            <label for="toggle-panier" class="icon-btn btn-ouvrir">
+                🛒 Panier
+            </label>
+            
+        <?php endif; ?>
+
+    </div>
+</header>
+
+    <input type="checkbox" id="toggle-panier" class="case-cachee">
+
+    <div class="fenetre-laterale">
+        <label for="toggle-panier" class="btn-fermer">&times;</label>
+        
+        <h2>Mon Panier</h2>  
+        
+        <?php if(!empty($cart_data)): ?>
+            <ul style="list-style: none; padding: 0;">
+                <?php foreach ($cart_data as $index => $item): ?>
+                    <li style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; align-items: center;">
+                        <span>
+                            <a href="carte.php?action=supprimer&index=<?= $index ?>" style="color: var(--accent-red); font-weight: bold; text-decoration: none; margin-right: 10px; font-size: 1.2rem;" title="Retirer du panier">&times;</a>
+                            <?= htmlspecialchars($item['nom']) ?>
+                        </span>
+                        <strong><?= number_format($item['prix'], 2, ',', ' ') ?> €</strong>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            
+            <div style="border-top: 2px solid var(--primary-blue); margin-top: 15px; padding-top: 15px; text-align: right;">
+                <h3 style="margin: 0; color: var(--primary-blue);">Total : <?= number_format($total_panier, 2, ',', ' ') ?> €</h3>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                 <a href="#" style="display: inline-block; background-color: var(--primary-blue); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; width: 100%; box-sizing: border-box;">Commander</a>
+            </div>
+
+        <?php else: ?>
+            <p style="text-align: center; color: #888; margin-top: 30px;">Votre panier est vide.</p>
+        <?php endif; ?>
+
+    </div>
 
     <section class="carte-hero">
         <h1>Notre Carte Gourmande</h1>
@@ -56,321 +207,150 @@
     <section id="entrees" class="menu-section">
         <h2 class="section-title">Nos Entrées</h2>
         <div class="cards-grid">
-            
-            <div class="card">
-                <img src="src/slatam.jpg" alt="Slata Mechouia">
-                <div class="card-info">
-                    <h3>Slata Mechouia</h3>
-                    <p>Salade grillée de poivrons, tomates et oignons, relevée à l'huile d'olive.</p>
-                    <span class="price">10,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/brick.jpg" alt="Brik">
-                <div class="card-info">
-                    <h3>Brik à l'Oeuf</h3>
-                    <p>Feuille de malsouka croustillante, oeuf coulant, thon et persil.</p>
-                    <span class="price">6,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/houria.jpg" alt="Omok Houreya">
-                <div class="card-info">
-                    <h3>Omek Houria</h3>
-                    <p>Purée de carottes épicée au carvi, harissa et huile d'olive.</p>
-                    <span class="price">10,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/harissa.jpg" alt="Zit et Harissa">
-                <div class="card-info">
-                    <h3>Zit & Harissa</h3>
-                    <p>L'incontournable duo : Harissa maison et huile d'olive vierge avec pain tabouna.</p>
-                    <span class="price">4,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/tounsi.jpg" alt="S'han Tounsi">
-                <div class="card-info">
-                    <h3>S'han Tounsi</h3>
-                    <p>Assiette tunisienne complète : oeuf, thon, légumes frais et variantes.</p>
-                    <span class="price">12,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/chorba.jpg" alt="Chorba">
-                <div class="card-info">
-                    <h3>Chorba Frik</h3>
-                    <p>Soupe traditionnelle au blé concassé, agneau et céleri.</p>
-                    <span class="price">7,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
+            <?php if(isset($menu['entrées'])): ?>
+                <?php foreach ($menu['entrées'] as $plat): ?>
+                    <div class="card">
+                        <img src="<?= htmlspecialchars($plat[3]) ?>" alt="<?= htmlspecialchars($plat[1]) ?>">
+                        <div class="card-info">
+                            <h3><?= htmlspecialchars($plat[1]) ?></h3>
+                            <p><?= htmlspecialchars($plat[4]) ?></p>
+                            <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
+                            
+                            <form action="carte.php" method="POST" style="margin: 0;">
+                                <input type="hidden" name="action" value="ajouter">
+                                <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
+                                <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
+                                <input type="hidden" name="prix_plat" value="<?= $plat[2] ?>">
+                                <button type="submit" class="btn-order">Ajouter au panier</button>
+                            </form>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </section>
 
     <section id="plats" class="menu-section">
         <h2 class="section-title">Plats Traditionnels</h2>
         <div class="cards-grid">
-
+            <?php foreach ($menu['plats'] as $plat): ?>
             <div class="card">
-                <img src="src/couscous.jpg" alt="Couscous Aalouch">
+                <img src="<?= htmlspecialchars($plat[3]) ?>" alt="<?= htmlspecialchars($plat[1]) ?>">
                 <div class="card-info">
-                    <h3>Couscous Royal</h3>
-                    <p>Couscous fin à la viande d'agneau tendre et légumes du potager.</p>
-                    <span class="price">20,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
+                    <h3><?= htmlspecialchars($plat[1]) ?></h3>
+                    <p><?= htmlspecialchars($plat[4]) ?></p>
+                    <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
+                    
+                    <form action="carte.php" method="POST" style="margin: 0;">
+                        <input type="hidden" name="action" value="ajouter">
+                        <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
+                        <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
+                        <input type="hidden" name="prix_plat" value="<?= $plat[2] ?>">
+                        <button type="submit" class="btn-order">Ajouter au panier</button>
+                    </form>
                 </div>
             </div>
-
-            <div class="card">
-                <img src="src/dwida.jpg" alt="Dwida">
-                <div class="card-info">
-                    <h3>Dwida mfawra</h3>
-                    <p>Pâtes "langues d'oiseau" cuites à la vapeur en sauce rouge.</p>
-                    <span class="price">16,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/nwasser.jpg" alt="Nwasser">
-                <div class="card-info">
-                    <h3>Nwasser</h3>
-                    <p>Carrés de pâtes traditionnels cuits à la vapeur, poulet et pois chiches.</p>
-                    <span class="price">16,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/makrouna.jpg" alt="Makrouna Tounseya">
-                <div class="card-info">
-                    <h3>Makrouna Tounsia</h3>
-                    <p>Pâtes en sauce piquante, ail et laurier (Salsa).</p>
-                    <span class="price">15,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/mloukhia.jpg" alt="Mlokhia">
-                <div class="card-info">
-                    <h3>Mlokhia</h3>
-                    <p>Ragoût onctueux de corète potagère mijoté pendant des heures.</p>
-                    <span class="price">16,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/kafteji.jpg" alt="Kafteji">
-                <div class="card-info">
-                    <h3>Kafteji Traditionnel</h3>
-                    <p>Mélange coloré de légumes frits, oeufs et épices, coupé grossièrement.</p>
-                    <span class="price">14,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/lablebi.jpg" alt="Lablebi">
-                <div class="card-info">
-                    <h3>Lablebi</h3>
-                    <p>Soupe de pois chiches, pain rassis, cumin, thon et oeuf (Harr !).</p>
-                    <span class="price">18,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/tastira.jpg" alt="Tastira + Hout">
-                <div class="card-info">
-                    <h3>Tastira & Poisson</h3>
-                    <p>Mélange de poivrons et oeufs frits accompagné d'un poisson frais.</p>
-                    <span class="price">17,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="src/ojja.webp" alt="Ojja">
-                <div class="card-info">
-                    <h3>Ojja Merguez</h3>
-                    <p>Oeufs pochés dans une sauce tomate piquante, poivrons et épices.</p>
-                    <span class="price">14,90 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
 
     <section id="boissons-chaudes" class="menu-section">
         <h2 class="section-title">Boissons Chaudes</h2>
         <div class="cards-grid">
+            <?php foreach ($menu['boissons_chaudes'] as $plat): ?>
             <div class="card">
-                <img src="src/placeholder.jpg" alt="Thé Vert">
+                <img src="<?= htmlspecialchars($plat[3]) ?>" alt="<?= htmlspecialchars($plat[1]) ?>">
                 <div class="card-info">
-                    <h3>Thé Vert à la Menthe</h3>
-                    <p>Le classique, servi avec des pignons de pin.</p>
-                    <span class="price">1,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
+                    <h3><?= htmlspecialchars($plat[1]) ?></h3>
+                    <p><?= htmlspecialchars($plat[4]) ?></p>
+                    <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
+                    
+                    <form action="carte.php" method="POST" style="margin: 0;">
+                        <input type="hidden" name="action" value="ajouter">
+                        <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
+                        <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
+                        <input type="hidden" name="prix_plat" value="<?= $plat[2] ?>">
+                        <button type="submit" class="btn-order">Ajouter au panier</button>
+                    </form>
                 </div>
             </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Thé Rouge">
-                <div class="card-info">
-                    <h3>Thé Rouge</h3>
-                    <p>Thé noir intense, infusé traditionnellement.</p>
-                    <span class="price">1,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Express">
-                <div class="card-info">
-                    <h3>Express</h3>
-                    <p>Café noir serré.</p>
-                    <span class="price">2,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Cappuccino">
-                <div class="card-info">
-                    <h3>Cappuccino (Direct)</h3>
-                    <p>Café au lait mousseux.</p>
-                    <span class="price">3,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Latte Machiato">
-                <div class="card-info">
-                    <h3>Latte Macchiato</h3>
-                    <p>Grand verre de lait chaud tacheté de café.</p>
-                    <span class="price">4,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
 
     <section id="boissons-froides" class="menu-section">
         <h2 class="section-title">Boissons Froides</h2>
         <div class="cards-grid">
+            <?php foreach ($menu['boissons_froides'] as $plat): ?>
             <div class="card">
-                <img src="src/placeholder.jpg" alt="Jus de fruit">
+                <img src="<?= htmlspecialchars($plat[3]) ?>" alt="<?= htmlspecialchars($plat[1]) ?>">
                 <div class="card-info">
-                    <h3>Jus Frais</h3>
-                    <p>Au choix : Orange, Banane, Fraise.</p>
-                    <span class="price">3,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
+                    <h3><?= htmlspecialchars($plat[1]) ?></h3>
+                    <p><?= htmlspecialchars($plat[4]) ?></p>
+                    <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
+                    
+                    <form action="carte.php" method="POST" style="margin: 0;">
+                        <input type="hidden" name="action" value="ajouter">
+                        <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
+                        <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
+                        <input type="hidden" name="prix_plat" value="<?= $plat[2] ?>">
+                        <button type="submit" class="btn-order">Ajouter au panier</button>
+                    </form>
                 </div>
             </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Boisson Gazeuse">
-                <div class="card-info">
-                    <h3>Boisson Gazeuse</h3>
-                    <p>Boga, Coca, Fanta... (Canette 33cl)</p>
-                    <span class="price">2,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Eau">
-                <div class="card-info">
-                    <h3>Eau Minérale</h3>
-                    <p>Plate ou Gazéifiée (1L).</p>
-                    <span class="price">2,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Cocktail">
-                <div class="card-info">
-                    <h3>Cocktail Maison</h3>
-                    <p>Mélange de fruits de saison.</p>
-                    <span class="price">5,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
 
     <section id="desserts" class="menu-section">
         <h2 class="section-title">Douceurs Sucrées</h2>
         <div class="cards-grid">
+            <?php foreach ($menu['desserts'] as $plat): ?>
             <div class="card">
-                <img src="src/placeholder.jpg" alt="Masfouf">
+                <img src="<?= htmlspecialchars($plat[3]) ?>" alt="<?= htmlspecialchars($plat[1]) ?>">
                 <div class="card-info">
-                    <h3>Masfouf</h3>
-                    <p>Couscous sucré aux fruits secs, dattes et grenades.</p>
-                    <span class="price">7,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
+                    <h3><?= htmlspecialchars($plat[1]) ?></h3>
+                    <p><?= htmlspecialchars($plat[4]) ?></p>
+                    <span class="price"><?= number_format($plat[2], 2, ',', ' ') ?> €</span>
+                    
+                    <form action="carte.php" method="POST" style="margin: 0;">
+                        <input type="hidden" name="action" value="ajouter">
+                        <input type="hidden" name="id_plat" value="<?= htmlspecialchars($plat[0]) ?>">
+                        <input type="hidden" name="nom_plat" value="<?= htmlspecialchars($plat[1]) ?>">
+                        <input type="hidden" name="prix_plat" value="<?= $plat[2] ?>">
+                        <button type="submit" class="btn-order">Ajouter au panier</button>
+                    </form>
                 </div>
             </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Shan Hlow">
-                <div class="card-info">
-                    <h3>S'han Hlow</h3>
-                    <p>Assiette dégustation de pâtisseries tunisiennes.</p>
-                    <span class="price">6,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Zlebia et Mkharak">
-                <div class="card-info">
-                    <h3>Shan Romdhan</h3>
-                    <p>Assortiment de Zlebia, Mkharak et Wedhnin el kadhi.</p>
-                    <span class="price">5,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Zrir">
-                <div class="card-info">
-                    <h3>Zrir</h3>
-                    <p>Crème de sésame et fruits secs, riche et énergisante.</p>
-                    <span class="price">5,50 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Bambalouni">
-                <div class="card-info">
-                    <h3>Bambalouni</h3>
-                    <p>Le fameux beignet de Sidi Bou Saïd, saupoudré de sucre.</p>
-                    <span class="price">3,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="src/placeholder.jpg" alt="Assida">
-                <div class="card-info">
-                    <h3>Assida</h3>
-                    <p>Crème dessert traditionnelle (Zgougou ou Noisette selon saison).</p>
-                    <span class="price">6,00 €</span>
-                    <button class="btn-order">Ajouter au panier</button>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
 
     <footer>
         <p>Bien Harr © 2026 - Projet Yumland</p>
     </footer>
+
+    <script>
+    // On récupère nos deux cases à cocher invisibles
+    const menuGauche = document.getElementById('menu-toggle');
+    const menuPanier = document.getElementById('toggle-panier');
+
+    // Quand on clique sur le menu de gauche (le Burger)
+    menuGauche.addEventListener('change', function() {
+        if(this.checked) {
+            menuPanier.checked = false; // On force le panier à se fermer
+        }
+    });
+
+    // Quand on clique sur le bouton de droite (le Panier)
+    if(menuPanier) {
+        menuPanier.addEventListener('change', function() {
+            if(this.checked) {
+                menuGauche.checked = false; // On force le menu de gauche à se fermer
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
