@@ -1590,3 +1590,233 @@ footer {
 .form-add-cart {
     margin: 0;
 }
+
+/* ==========================================================================
+   ESPACE LIVREUR (TERMINAL DE TERRAIN MODE SOMBRE)
+   ========================================================================== */
+
+/* On isole le fond sombre pour ne pas casser les autres pages */
+.body-livreur {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding-bottom: 30px;
+}
+
+.header-livreur {
+    background-color: var(--primary-blue, #0077B6);
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-livreur h1 { 
+    margin: 0; 
+    font-size: 1.5rem; 
+    font-weight: 800; 
+}
+
+.btn-retour {
+    color: white; 
+    font-size: 1.8rem; 
+    text-decoration: none;
+    padding: 10px;
+}
+
+.livraison-container { 
+    padding: 15px; 
+}
+
+/* LA CARTE DE COURSE (ÉNORME) */
+.course-card {
+    background-color: #2c2c2c;
+    border-left: 8px solid var(--accent-red, #E63946);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.course-id {
+    color: var(--accent-red, #E63946);
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.course-prix { 
+    color: #2ecc71; 
+}
+
+.course-adresse {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.course-adresse i { 
+    color: #888; 
+    margin-right: 10px; 
+}
+
+.course-details {
+    font-size: 1.1rem;
+    color: #aaa;
+    margin-bottom: 25px;
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* LE BOUTON D'ACTION (MASSIF POUR LES GANTS) */
+.btn-massive {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-blue, #0077B6);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    font-weight: 800;
+    padding: 25px 0;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 5px 0 #005b8c; 
+    transition: transform 0.1s;
+}
+
+.btn-massive:active {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #005b8c;
+}
+
+.livreur-empty-state {
+    text-align: center;
+    color: #666;
+    margin-top: 50px;
+    font-size: 1.5rem;
+}
+
+.livreur-empty-state i { 
+    font-size: 4rem; 
+    margin-bottom: 20px; 
+    color: #444; 
+}
+
+/* ==========================================================================
+   DÉTAILS LIVRAISON (ACTIONS DU LIVREUR)
+   ========================================================================== */
+.details-container {
+    padding: 20px;
+}
+
+.info-block {
+    background-color: #2c2c2c;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.info-block h2 {
+    color: #aaa;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.client-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.client-address {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    color: #ddd;
+}
+
+.action-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-gps { background-color: #27ae60; }
+.btn-call { background-color: #f39c12; }
+
+.btn-action i { font-size: 2rem; }
+
+.order-items-livraison {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+.order-items-livraison li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #444;
+}
+
+.btn-terminer {
+    background-color: var(--accent-red, #E63946);
+    box-shadow: 0 5px 0 #b02a35;
+}
+
+.btn-terminer:active {
+    box-shadow: 0 0 0 #b02a35;
+}
+
+/* ==========================================================================
+   BOUTONS DE FIN DE LIVRAISON
+   ========================================================================== */
+.btn-terminer {
+    background-color: #27ae60; /* Vert succès */
+    box-shadow: 0 5px 0 #1e8449;
+}
+.btn-terminer:active { box-shadow: 0 0 0 #1e8449; }
+
+.btn-annuler {
+    background-color: #c0392b; /* Rouge danger */
+    box-shadow: 0 5px 0 #922b21;
+}
+.btn-annuler:active { box-shadow: 0 0 0 #922b21; }
+
+.btn-attente {
+    background-color: #2980b9; /* Bleu neutre */
+    box-shadow: 0 5px 0 #1f618d;
+}
+.btn-attente:active { box-shadow: 0 0 0 #1f618d; }

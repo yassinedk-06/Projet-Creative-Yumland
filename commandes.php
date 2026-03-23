@@ -16,17 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $cmd_id_to_update = $_POST['cmd_id'];
     $new_etat = $_POST['new_etat'];
     
-    // On vérifie que l'état fait bien partie des choix autorisés
-    $etats_autorises = ['en attente', 'cuisine', 'en cours de livraison', 'Livrée', 'Annulée'];
+    // On met à jour la liste des états pour qu'ils correspondent exactement à ce qu'on utilise partout
+    $etats_autorises = ['en attente', 'cuisine', 'en livraison', 'livrée', 'annulée'];
     
-    if (in_array($new_etat, $etats_autorises) && file_exists($chemin_commandes)) {
+    // On nettoie la chaîne reçue pour éviter les bugs de majuscules
+    $new_etat_propre = mb_strtolower($new_etat, 'UTF-8');
+    
+    if (in_array($new_etat_propre, $etats_autorises) && file_exists($chemin_commandes)) {
         $cmd_data = file_get_contents($chemin_commandes);
         $commandes = json_decode($cmd_data, true);
         
         if ($commandes) {
             foreach ($commandes as &$cmd) {
                 if (isset($cmd['id']) && $cmd['id'] === $cmd_id_to_update) {
-                    $cmd['etat'] = $new_etat; // On met à jour l'état de la commande
+                    $cmd['etat'] = $new_etat_propre; // On sauvegarde l'état propre en minuscules
                     break;
                 }
             }
@@ -119,13 +122,16 @@ if (file_exists($chemin_commandes)) {
                                 $prix = number_format($cmd['prix'], 2, ',', ' ');
                                 $plats = htmlspecialchars(implode(" + ", $cmd['selection']));
                                 
-                                // On récupère l'état et on définit une classe CSS pour la couleur
-                                $etat = $cmd['etat'] ?? 'en attente';
+                                // On récupère l'état et on le force en minuscules pour éviter les erreurs !
+                                $etat_brut = $cmd['etat'] ?? 'en attente';
+                                $etat_propre = mb_strtolower($etat_brut, 'UTF-8');
+
+                                // Attribution de la bonne classe CSS
                                 $class_etat = 'attente';
-                                if ($etat == 'cuisine') $class_etat = 'cuisine';
-                                if ($etat == 'en cours de livraison') $class_etat = 'livraison';
-                                if ($etat == 'Livrée') $class_etat = 'livree';
-                                if ($etat == 'Annulée') $class_etat = 'annulee';
+                                if ($etat_propre === 'cuisine') $class_etat = 'cuisine';
+                                if ($etat_propre === 'en livraison') $class_etat = 'livraison';
+                                if ($etat_propre === 'livrée') $class_etat = 'livree';
+                                if ($etat_propre === 'annulée' || $etat_propre === 'annulé') $class_etat = 'annulee';
                             ?>
                             <tr>
                                 <td><strong>#<?php echo $id; ?></strong></td>
@@ -139,11 +145,11 @@ if (file_exists($chemin_commandes)) {
                                         <input type="hidden" name="cmd_id" value="<?php echo $id; ?>">
                                         
                                         <select name="new_etat" class="select-etat <?php echo $class_etat; ?>" onchange="this.form.submit()">
-                                            <option value="en attente" <?php if($etat == 'en attente') echo 'selected'; ?>>⏳ En attente</option>
-                                            <option value="cuisine" <?php if($etat == 'cuisine') echo 'selected'; ?>>🍳 En cuisine</option>
-                                            <option value="en cours de livraison" <?php if($etat == 'en cours de livraison') echo 'selected'; ?>>🛵 En livraison</option>
-                                            <option value="Livrée" <?php if($etat == 'Livrée') echo 'selected'; ?>>✅ Livrée</option>
-                                            <option value="Annulée" <?php if($etat == 'Annulée') echo 'selected'; ?>>❌ Annulée</option>
+                                            <option value="en attente" <?php if($etat_propre === 'en attente') echo 'selected'; ?>>⏳ En attente</option>
+                                            <option value="cuisine" <?php if($etat_propre === 'cuisine') echo 'selected'; ?>>🍳 En cuisine</option>
+                                            <option value="en livraison" <?php if($etat_propre === 'en livraison') echo 'selected'; ?>>🛵 En livraison</option>
+                                            <option value="livrée" <?php if($etat_propre === 'livrée') echo 'selected'; ?>>✅ Livrée</option>
+                                            <option value="annulée" <?php if($etat_propre === 'annulée' || $etat_propre === 'annulé') echo 'selected'; ?>>❌ Annulée</option>
                                         </select>
                                     </form>
                                 </td>

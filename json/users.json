@@ -7,15 +7,10 @@
         "address": "123 Main St, Anytown, USA",
         "infosupp": "appart 509",
         "points": 100,
-        "statut": "basic",
+        "statut": "silver",
         "password": "password123",
         "type": "client",
-        "commandes": [
-            "cmd001",
-            "cmd003",
-            "cmd004",
-            "cmd005"
-        ]
+        "commandes": []
     },
     {
         "nom": "bahri",
@@ -29,7 +24,7 @@
         "password": "password123",
         "type": "client",
         "commandes": [
-            "cmd002"
+            "cmd003"
         ]
     },
     {
@@ -48,7 +43,7 @@
     {
         "nom": "houari ",
         "prenom": "rayane",
-        "id": "xxxx",
+        "id": "YYYY",
         "num": "0707070707",
         "address": "3 rue lebon , 95000 cergy",
         "infosupp": "",
@@ -58,7 +53,6 @@
         "type": "livreur",
         "note": 3.5,
         "commandes": [
-            "cmd001",
             "cmd002",
             "cmd003"
         ]
@@ -74,7 +68,9 @@
         "statut": "basic",
         "password": "passwored123",
         "type": "client",
-        "commandes": []
+        "commandes": [
+            "cmd001"
+        ]
     },
     {
         "nom": "poliakov",
@@ -87,6 +83,8 @@
         "statut": "basic",
         "password": "password123",
         "type": "client",
-        "commandes": []
+        "commandes": [
+            "cmd002"
+        ]
     }
 ]
