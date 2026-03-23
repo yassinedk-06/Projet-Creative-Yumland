@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['connecte'])) {
     exit();
 }
 
-// 2. LECTURE DU PANIER
-$chemin_cart = 'json/cart.json';
-$cart_data = file_exists($chemin_cart) ? json_decode(file_get_contents($chemin_cart), true) : [];
+// 2. LECTURE DU PANIER DEPUIS LA SESSION (Fini le cart.json !)
+// On récupère le panier en mémoire. S'il n'y a rien, on met un tableau vide par sécurité.
+$cart_data = $_SESSION['panier'] ?? [];
 
 if (empty($cart_data)) {
     header('Location: carte.php'); // Panier vide, on le renvoie au menu
@@ -64,40 +64,34 @@ $nouvelle_commande = [
     "etat" => "cuisine", // Par défaut, la commande commence en cuisine
     "note" => [0, 0, ""],
     "livraison" => $livraison
-
 ];
 
-// C. Ajout et sauvegarde
+// C. Ajout et sauvegarde dans commandes.json
 $commandes[] = $nouvelle_commande;
 file_put_contents($chemin_commandes, json_encode($commandes, JSON_PRETTY_PRINT));
 
 
 // ====================================================================
-// 5. MISE À JOUR DE users.json
+// 5. MISE À JOUR DE users.json (Pour attribuer la commande au client)
 // ====================================================================
-// Note : Assure-toi que $_SESSION['id'] contient bien l'ID de l'utilisateur connecté (ex: "0004")
 $user_id_connecte = $_SESSION['id'] ?? null; 
 
 if ($user_id_connecte) {
     $chemin_users = 'json/users.json';
     $users = file_exists($chemin_users) ? json_decode(file_get_contents($chemin_users), true) : [];
 
-    // On cherche l'utilisateur dans le tableau
-    foreach ($users as &$user) { // Le "&" est crucial, il permet de modifier le tableau original directement
+    foreach ($users as &$user) { 
         if ($user['id'] === $user_id_connecte) {
             
-            // Si l'utilisateur n'a pas encore le tableau "commandes", on le crée
             if (!isset($user['commandes'])) {
                 $user['commandes'] = [];
             }
             
-            // On ajoute le nouvel ID de commande
             $user['commandes'][] = $nouvel_id_cmd;
-            break; // On a trouvé le client, on arrête de chercher
+            break; 
         }
     }
 
-    // On sauvegarde les utilisateurs modifiés
     file_put_contents($chemin_users, json_encode($users, JSON_PRETTY_PRINT));
 }
 
@@ -105,8 +99,8 @@ if ($user_id_connecte) {
 // 6. NETTOYAGE ET REDIRECTION
 // ====================================================================
 
-// On vide le panier JSON en y écrivant un tableau vide
-file_put_contents($chemin_cart, json_encode([]));
+// LA MAGIE EST ICI : On vide le panier en réinitialisant la session
+$_SESSION['panier'] = [];
 
 // On redirige vers l'accueil (menu principal)
 header('Location: index.php');

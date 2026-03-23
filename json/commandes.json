@@ -48,5 +48,20 @@
             ""
         ],
         "livraison": true
+    },
+    {
+        "id": "cmd004",
+        "date": "2026-03-23",
+        "prix": 9,
+        "selection": [
+            "Brik \u00e0 l'Oeuf"
+        ],
+        "etat": "livr\u00e9e",
+        "note": [
+            0,
+            0,
+            ""
+        ],
+        "livraison": true
     }
 ]

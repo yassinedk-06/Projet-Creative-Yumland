@@ -1,59 +1,56 @@
 <?php
 session_start(); 
 
+// 1. INITIALISATION DU PANIER EN SESSION (S'il n'existe pas encore)
+if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = [];
+}
+
 // ====================================================================
-// TRAITEMENT : AJOUT DANS cart.json
+// TRAITEMENT : SUPPRESSION D'UN ARTICLE DU PANIER
+// ====================================================================
+if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['index'])) {
+    $index = (int)$_GET['index'];
+    
+    // Si le plat existe à cet index, on le supprime
+    if (isset($_SESSION['panier'][$index])) {
+        unset($_SESSION['panier'][$index]);
+        // On réorganise les numéros du tableau pour éviter les trous
+        $_SESSION['panier'] = array_values($_SESSION['panier']); 
+    }
+    
+    header('Location: carte.php');
+    exit();
+}
+
+// ====================================================================
+// TRAITEMENT : AJOUT D'UN ARTICLE AU PANIER
 // ====================================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter') {
     
-    // 1. On prépare les données du plat cliqué
-    $nouvel_article = [
+    // On ajoute directement le nouveau plat dans la mémoire de session
+    $_SESSION['panier'][] = [
         'id_plat' => $_POST['id_plat'],
         'nom' => $_POST['nom_plat'],
-        'prix' => (float)$_POST['prix_plat'],
-        
+        'prix' => (float)$_POST['prix_plat']
     ];
 
-    $chemin_cart = 'json/cart.json';
-    $cart_data = [];
-
-    // 2. Si le fichier existe, on récupère ce qu'il y a déjà dedans
-    if (file_exists($chemin_cart)) {
-        $contenu = file_get_contents($chemin_cart);
-        if (!empty($contenu)) {
-            $cart_data = json_decode($contenu, true) ?? [];
-        }
-    }
-
-    // 3. On ajoute le nouveau plat à la liste
-    $cart_data[] = $nouvel_article;
-
-    // 4. On sauvegarde le fichier
-    file_put_contents($chemin_cart, json_encode($cart_data, JSON_PRETTY_PRINT));
-
-    // 5. On recharge la page pour éviter que l'action se répète si on fait F5
     header('Location: carte.php');
     exit();
 }
 // ====================================================================
 
+// LECTURE DU MENU DEPUIS LE JSON
 $json_data = file_get_contents('json/plats.json');
 $menu = json_decode($json_data, true);
 
-// On lit le fichier cart.json à chaque chargement de la page pour l'affichage
-$chemin_cart = 'json/cart.json';
-$cart_data = [];
+// PRÉPARATION DE L'AFFICHAGE DU PANIER
+$cart_data = $_SESSION['panier']; // On récupère simplement la session !
 $total_panier = 0;
 
-if (file_exists($chemin_cart)) {
-    $contenu_cart = file_get_contents($chemin_cart);
-    if (!empty($contenu_cart)) {
-        $cart_data = json_decode($contenu_cart, true) ?? [];
-        // Calcul du total
-        foreach ($cart_data as $item) {
-            $total_panier += $item['prix'];
-        }
-    }
+// Calcul du total
+foreach ($cart_data as $item) {
+    $total_panier += $item['prix'];
 }
 ?>
 <!DOCTYPE html>

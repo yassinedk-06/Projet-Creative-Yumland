@@ -1,24 +1,25 @@
 <?php
 session_start();
 
-$chemin_cart = 'json/cart.json';
+// 1. INITIALISATION DU PANIER EN SESSION (Sécurité)
+if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = [];
+}
 
 // ====================================================================
-// TRAITEMENT : SUPPRESSION D'UN ARTICLE
+// TRAITEMENT : SUPPRESSION D'UN ARTICLE DU PANIER
 // ====================================================================
 if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['index'])) {
     $index_a_supprimer = (int)$_GET['index'];
 
-    if (file_exists($chemin_cart)) {
-        $cart_data = json_decode(file_get_contents($chemin_cart), true) ?? [];
-
-        if (isset($cart_data[$index_a_supprimer])) {
-            unset($cart_data[$index_a_supprimer]);
-            $cart_data = array_values($cart_data); // On réorganise les numéros
-            file_put_contents($chemin_cart, json_encode($cart_data, JSON_PRETTY_PRINT));
-        }
+    // Si le plat existe dans la session, on le supprime
+    if (isset($_SESSION['panier'][$index_a_supprimer])) {
+        unset($_SESSION['panier'][$index_a_supprimer]);
+        // On réorganise les numéros du tableau
+        $_SESSION['panier'] = array_values($_SESSION['panier']); 
     }
-    // On recharge la page
+    
+    // On recharge la page proprement
     header('Location: validation.php');
     exit();
 }
@@ -26,17 +27,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['in
 // ====================================================================
 // LECTURE DU PANIER POUR L'AFFICHAGE
 // ====================================================================
-$cart_data = [];
+$cart_data = $_SESSION['panier']; // On récupère directement depuis la session
 $sous_total = 0;
 
-if (file_exists($chemin_cart)) {
-    $contenu_cart = file_get_contents($chemin_cart);
-    if (!empty($contenu_cart)) {
-        $cart_data = json_decode($contenu_cart, true) ?? [];
-        foreach ($cart_data as $item) {
-            $sous_total += $item['prix'];
-        }
-    }
+// On calcule le prix
+foreach ($cart_data as $item) {
+    $sous_total += $item['prix'];
 }
 
 // Frais de livraison (fixe)

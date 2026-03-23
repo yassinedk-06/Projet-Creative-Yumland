@@ -54,7 +54,8 @@
         "note": 3.5,
         "commandes": [
             "cmd002",
-            "cmd003"
+            "cmd003",
+            "cmd004"
         ]
     },
     {
@@ -69,7 +70,8 @@
         "password": "passwored123",
         "type": "client",
         "commandes": [
-            "cmd001"
+            "cmd001",
+            "cmd004"
         ]
     },
     {
