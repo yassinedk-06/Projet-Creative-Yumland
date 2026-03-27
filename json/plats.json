@@ -19,20 +19,20 @@
     ["15", "Ojja Merguez", 14.90, "src/ojja.webp", "Oeufs pochés dans une sauce tomate piquante, poivrons et épices."]
   ],
   "boissons_chaudes": [
-    ["16", "Thé Vert à la Menthe", 1.50, "src/placeholder.jpg", "Le classique, servi avec des pignons de pin."],
-    ["17", "Thé Rouge", 1.50, "src/placeholder.jpg", "Thé noir intense, infusé traditionnellement."],
-    ["18", "Express", 2.00, "src/placeholder.jpg", "Café noir serré."],
-    ["19", "Cappuccino (Direct)", 3.50, "src/placeholder.jpg", "Café au lait mousseux."],
-    ["20", "Latte Macchiato", 4.00, "src/placeholder.jpg", "Grand verre de lait chaud tacheté de café."]
+    ["16", "Thé Vert à la Menthe", 1.50, "src/the.jpg", "Le classique, servi avec des pignons de pin."],
+    ["17", "Thé Rouge", 1.50, "src/therouge.jpg", "Thé noir intense, infusé traditionnellement."],
+    ["18", "Express", 2.00, "src/express.jpg", "Café noir serré."],
+    ["19", "Cappuccino (Direct)", 3.50, "src/cappuccino.jpg", "Café au lait mousseux."],
+    ["20", "Latte Macchiato", 4.00, "src/latte.jpg", "Grand verre de lait chaud tacheté de café."]
   ],
   "boissons_froides": [
-    ["21", "Jus Frais", 3.50, "src/placeholder.jpg", "Au choix : Orange, Banane, Fraise."],
-    ["22", "Boisson Gazeuse", 2.50, "src/placeholder.jpg", "Boga, Coca, Fanta... (Canette 33cl)"],
-    ["23", "Eau Minérale", 2.00, "src/placeholder.jpg", "Plate ou Gazéifiée (1L)."],
-    ["24", "Cocktail Maison", 5.00, "src/placeholder.jpg", "Mélange de fruits de saison."]
+    ["21", "Jus Frais", 3.50, "src/jusfrais.jpg", "Au choix : Orange, Kiwi, Fraise."],
+    ["22", "Boisson Gazeuse", 2.50, "src/boissong.jpg", "Boga, Coca, Fanta... (Canette 33cl)"],
+    ["23", "Eau Minérale", 2.00, "src/eau.jpg", "Plate ou Gazéifiée (1L)."],
+    ["24", "Cocktail Maison", 5.00, "src/cocktail.jpg", "Mélange de fruits de saison."]
   ],
   "desserts": [
-    ["25", "Masfouf", 7.50, "src/placeholder.jpg", "Couscous sucré aux fruits secs, dattes et grenades."],
+    ["25", "Masfouf", 7.50, "src/masfouf.jpg", "Couscous sucré aux fruits secs, dattes et grenades."],
     ["26", "S'han Hlow", 6.00, "src/placeholder.jpg", "Assiette dégustation de pâtisseries tunisiennes."],
     ["27", "Shan Romdhan", 5.00, "src/placeholder.jpg", "Assortiment de Zlebia, Mkharak et Wedhnin el kadhi."],
     ["28", "Zrir", 5.50, "src/placeholder.jpg", "Crème de sésame et fruits secs, riche et énergisante."],
