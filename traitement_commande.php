@@ -113,7 +113,7 @@ if ($user_id_connecte) {
             }
 
             $user['commandes'][] = $nouvel_id_cmd;
-            $user['points'] += round($prix_total, 2); // On ajoute les points  ( PRIX SANS REMISE !!!!! ) gagnés à l'utilisateur
+            $user['points'] += round($prix_total, 2)*2; // On ajoute les points  ( PRIX SANS REMISE !!!!! ) gagnés à l'utilisateur
             
         }
         if ($user['id'] === $user_id_connecte && ($user['type'] === 'client' || $user['type'] === 'livreur')) {
