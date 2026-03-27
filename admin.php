@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $user_id_to_update = $_POST['user_id'];
     $new_statut = $_POST['new_statut'];
     
-    // On vérifie que le statut envoyé fait bien partie des choix autorisés
     $statuts_autorises = ['basic', 'silver', 'gold', 'VIP'];
     
     if (in_array($new_statut, $statuts_autorises) && file_exists($chemin_users)) {
@@ -26,14 +25,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         if ($utilisateurs) {
             foreach ($utilisateurs as &$user) {
                 if (isset($user['id']) && $user['id'] === $user_id_to_update) {
-                    $user['statut'] = $new_statut; // On met à jour le statut
+                    $user['statut'] = $new_statut; 
                     break;
                 }
             }
+            file_put_contents($chemin_users, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+            
+            header('Location: admin.php');
+            exit();
+        }
+    }
+}
+
+// ====================================================================
+// TRAITEMENT DE LA SUPPRESSION D'UN UTILISATEUR
+// ====================================================================
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete_user') {
+    $user_id_to_delete = $_POST['user_id'];
+    
+    if (file_exists($chemin_users)) {
+        $users_data = file_get_contents($chemin_users);
+        $utilisateurs = json_decode($users_data, true);
+        
+        if ($utilisateurs) {
+            foreach ($utilisateurs as $index => $user) {
+                // On s'assure qu'on a trouvé le bon ID ET qu'on ne supprime pas un collègue par erreur !
+                if (isset($user['id']) && $user['id'] === $user_id_to_delete && $user['type'] === 'client') {
+                    unset($utilisateurs[$index]); // On supprime la ligne
+                    break;
+                }
+            }
+            
+            // On réorganise les index du tableau proprement (pour éviter les trous dans le JSON)
+            $utilisateurs = array_values($utilisateurs);
+            
             // On sauvegarde le fichier
             file_put_contents($chemin_users, json_encode($utilisateurs, JSON_PRETTY_PRINT));
             
-            // On recharge la page pour éviter que le navigateur renvoie le formulaire si on fait F5
             header('Location: admin.php');
             exit();
         }
@@ -74,6 +102,7 @@ if (file_exists($chemin_users)) {
                 <li><div class="menu-header">ADMINISTRATION</div></li>
                 <li><a href="index.php">Retour au Site</a></li>
                 <li><a href="admin.php" class="active">Gestion Clients</a></li>
+                <li><a href="ajout_plat.php">Ajouter un Plat</a></li> 
                 <li><a href="commandes.php">Gestion Commandes</a></li>
                 <li><a href="deconnexion.php" style="color: var(--accent-red);">Déconnexion</a></li>
             </ul>
@@ -151,6 +180,7 @@ if (file_exists($chemin_users)) {
                                 </td>
                                 
                                 <td>
+                                    
                                     <form action="admin.php" method="POST" style="margin: 0;">
                                         <input type="hidden" name="action" value="update_statut">
                                         <input type="hidden" name="user_id" value="<?php echo $id; ?>">
@@ -162,12 +192,23 @@ if (file_exists($chemin_users)) {
                                             <option value="VIP" <?php if($statut == 'VIP') echo 'selected'; ?>>VIP</option>
                                         </select>
                                     </form>
+                                   
                                 </td>
                                 
                                 <td>
-                                    <button class="action-btn delete" title="Bloquer / Supprimer">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    <?php if ($type !== 'client'): ?>
+                                        <button class="action-btn delete" title="Impossible de supprimer un membre de l'équipe" disabled style="opacity: 0.3; cursor: not-allowed; background-color: #666; border: none; padding: 8px 12px; color: white; border-radius: 5px;">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    <?php else: ?>
+                                        <form action="admin.php" method="POST" style="margin: 0;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer définitivement le compte de ce client ?');">
+                                            <input type="hidden" name="action" value="delete_user">
+                                            <input type="hidden" name="user_id" value="<?php echo $id; ?>">
+                                            <button type="submit" class="action-btn delete" title="Supprimer ce client" style="background-color: var(--accent-red); border: none; padding: 8px 12px; color: white; border-radius: 5px; cursor: pointer;">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

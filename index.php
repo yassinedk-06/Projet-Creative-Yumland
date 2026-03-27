@@ -1,5 +1,4 @@
 <?php 
-
 session_start(); 
 ?>
 <!DOCTYPE html>
@@ -31,8 +30,6 @@ session_start();
                     </a>
                     <a href="livraison.php" class="icon-btn" title="Espace Livreur">Livreur</a>
                 <?php endif; ?>
-
-                
 
                 <?php if (isset($_SESSION['connecte']) && $_SESSION['type'] == 'livreur'): ?>
                     <a href="livraison.php" class="icon-btn" title="Espace Livreur">
@@ -69,7 +66,7 @@ session_start();
     <section class="hero">
         <div class="hero-content">
             <?php if (isset($_SESSION['connecte'])): ?>
-                <h1>Bonjour <?php echo htmlspecialchars($_SESSION['prenom']); ?> !</h1>
+                <h1>Bonjour <?php echo htmlspecialchars($_SESSION['prenom'] ?? ''); ?> !</h1>
                 <p>Prêt pour une bonne commande ? L'art du piment, l'âme de Tunis.</p>
             <?php else: ?>
                 <h1>L'art du piment, l'âme de Tunis.</h1>
@@ -94,7 +91,18 @@ session_start();
                     <h3>Couscous Royal</h3>
                     <p>Semoule fine, légumes du soleil et notre harissa maison.</p>
                     <span class="price">18,50 €</span>
-                    <button class="btn-order">Commander</button>
+                    
+                    <?php if (isset($_SESSION['connecte'])): ?>
+                        <form action="carte.php" method="POST" style="margin: 0;">
+                            <input type="hidden" name="action" value="ajouter">
+                            <input type="hidden" name="id_plat" value="sugg_01">
+                            <input type="hidden" name="nom_plat" value="Couscous Royal">
+                            <input type="hidden" name="prix_plat" value="18.50">
+                            <button type="submit" class="btn-order" style="width: 100%;">Commander</button>
+                        </form>
+                    <?php else: ?>
+                        <a href="connexion.php" class="btn-order" style="display: block; text-align: center; text-decoration: none; box-sizing: border-box;">Commander</a>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -104,7 +112,18 @@ session_start();
                     <h3>Ojja Merguez</h3>
                     <p>Oeufs brouillés dans une sauce tomate pimentée aux merguez.</p>
                     <span class="price">14,90 €</span>
-                    <button class="btn-order">Commander</button>
+                    
+                    <?php if (isset($_SESSION['connecte'])): ?>
+                        <form action="carte.php" method="POST" style="margin: 0;">
+                            <input type="hidden" name="action" value="ajouter">
+                            <input type="hidden" name="id_plat" value="sugg_02">
+                            <input type="hidden" name="nom_plat" value="Ojja Merguez">
+                            <input type="hidden" name="prix_plat" value="14.90">
+                            <button type="submit" class="btn-order" style="width: 100%;">Commander</button>
+                        </form>
+                    <?php else: ?>
+                        <a href="connexion.php" class="btn-order" style="display: block; text-align: center; text-decoration: none; box-sizing: border-box;">Commander</a>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -114,7 +133,18 @@ session_start();
                     <h3>Kafteji Traditionnel</h3>
                     <p>Mélange de légumes frits, oeufs, persil et épices.</p>
                     <span class="price">13,50 €</span>
-                    <button class="btn-order">Commander</button>
+                    
+                    <?php if (isset($_SESSION['connecte'])): ?>
+                        <form action="carte.php" method="POST" style="margin: 0;">
+                            <input type="hidden" name="action" value="ajouter">
+                            <input type="hidden" name="id_plat" value="sugg_03">
+                            <input type="hidden" name="nom_plat" value="Kafteji Traditionnel">
+                            <input type="hidden" name="prix_plat" value="13.50">
+                            <button type="submit" class="btn-order" style="width: 100%;">Commander</button>
+                        </form>
+                    <?php else: ?>
+                        <a href="connexion.php" class="btn-order" style="display: block; text-align: center; text-decoration: none; box-sizing: border-box;">Commander</a>
+                    <?php endif; ?>
                 </div>
             </div>
 

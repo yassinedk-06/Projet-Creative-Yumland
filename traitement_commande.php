@@ -32,6 +32,27 @@ if (isset($_POST['mode_retrait']) && $_POST['mode_retrait'] === 'livraison') {
     $livraison = true;
     $prix_total += 2.50; 
 }
+$nv_prix = $prix_total; // On garde une copie du prix avant réduction pour l'affichage du récapitulatif
+
+
+if (isset($_SESSION['connecte']) && isset($_SESSION['statut'])) {
+    
+    $statut_client = $_SESSION['statut']; // On récupère son statut
+
+    if ($statut_client === 'VIP') {
+        $nv_prix *= 0.6; // 40% de réduction pour les VIP
+    }
+    elseif ($statut_client === 'gold') {
+        $nv_prix *= 0.8; // 20% de réduction pour les gold
+    }
+    elseif ($statut_client === 'silver') {
+        $nv_prix *= 0.9; // 10% de réduction pour les silver
+    }
+    else {
+    $nv_prix *= 1; // Aucune réduction pour les basic
+    }
+}
+
 
 // ====================================================================
 // 4. MISE À JOUR DE commandes.json
@@ -59,7 +80,7 @@ $nouvel_id_cmd = 'cmd' . str_pad($nouveau_num, 3, '0', STR_PAD_LEFT);
 $nouvelle_commande = [
     "id" => $nouvel_id_cmd,
     "date" => date("Y-m-d"),
-    "prix" => round($prix_total, 2),
+    "prix" => round($nv_prix, 2),  // ON AJOUTE LES PRIX AVEC LA RÉDUCTION POUR L'AFFICHAGE DU RÉCAPITULATIF
     "selection" => $selection_plats,
     "etat" => "cuisine", // Par défaut, la commande commence en cuisine
     "note" => [0, 0, ""],
@@ -87,15 +108,30 @@ if ($user_id_connecte) {
                 $user['commandes'] = [];
             }
             
-            if (!isset($user['point'])) {
-                $user['point'] = 0;
+            if (!isset($user['points'])) {
+                $user['points'] = 0;
             }
 
             $user['commandes'][] = $nouvel_id_cmd;
-            $user['points'] += round($prix_total, 2); // On ajoute les points gagnés à l'utilisateur
+            $user['points'] += round($prix_total, 2)*2; // On ajoute les points  ( PRIX SANS REMISE !!!!! ) gagnés à l'utilisateur
+            
+        }
+        if ($user['id'] === $user_id_connecte && ($user['type'] === 'client' || $user['type'] === 'livreur')) {
+            if($user['points'] >= 100 ) {
+                $user['statut'] = 'silver';
+            } 
+            if($user['points'] >= 200 ) {
+                $user['statut'] = 'gold';
+            }
+            if($user['points'] >= 300 ) {
+                $user['statut'] = 'VIP';
+            }
+            $_SESSION['statut'] = $user['statut'];
+
             break; 
         }
     }
+
 
     file_put_contents($chemin_users, json_encode($users, JSON_PRETTY_PRINT));
 }

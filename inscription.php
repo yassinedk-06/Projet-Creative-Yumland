@@ -11,48 +11,63 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
     $adresse_saisie = $_POST['adresse'];
     $infosupp_saisie = $_POST['complement'];
     $mdp_saisi = $_POST['password'];
-    $nouvel_id = sprintf("%04d", count($liste_utilisateurs) + 1);
 
-    // 3. On prépare le profil du nouveau client (exactement comme la structure de ton JSON)
-    $nouvel_utilisateur = [
-        "id" => $nouvel_id,
-        "nom" => $nom_saisi,
-        "prenom" => $prenom_saisi,
-        "num" => $num_saisi,
-        "address" => $adresse_saisie,
-        "infosupp" => $infosupp_saisie,
-        "points" => 0,               // Un nouveau client commence avec 0 point
-        "statut" => "basic",
-        "password" => $mdp_saisi,
-        "type" => "client",          // Par défaut, quelqu'un qui s'inscrit est un client
-        "commandes" => []            // Historique vide
-    ];
+    // 3. On OUVRE le fichier JSON AVANT de créer le profil
+    $chemin_users = 'json/users.json';
+    $liste_utilisateurs = file_exists($chemin_users) ? json_decode(file_get_contents($chemin_users), true) : []; 
+    if (!$liste_utilisateurs) {
+        $liste_utilisateurs = [];
+    }
 
-    // 4. On ouvre le fichier JSON actuel
-    $fichier = file_get_contents('json/users.json');
-    $liste_utilisateurs = json_decode($fichier, true); 
-
-    // Petite sécurité : on vérifie si le numéro de téléphone n'est pas déjà pris
+    // 4. On cherche le plus grand ID existant et on vérifie le numéro de téléphone
     $numero_existe = false;
+    $dernier_id_num = 0;
+
     foreach ($liste_utilisateurs as $user) {
-        if ($user['num'] == $num_saisi) {
+        // Vérification du numéro de téléphone
+        if (isset($user['num']) && $user['num'] == $num_saisi) {
             $numero_existe = true;
-            break;
+        }
+        
+        // Recherche du plus grand ID
+        if (isset($user['id'])) {
+            $id_actuel = (int)$user['id']; 
+            if ($id_actuel > $dernier_id_num) {
+                $dernier_id_num = $id_actuel;
+            }
         }
     }
 
     if ($numero_existe == true) {
         $erreur = "Ce numéro de téléphone possède déjà un compte.";
     } else {
-        // 5. On AJOUTE le nouveau client à la liste existante
+        // 5. On calcule le nouvel ID de manière 100% sécurisée
+        $nouveau_num = $dernier_id_num + 1;
+        $nouvel_id = sprintf("%04d", $nouveau_num);
+
+        // 6. On prépare le profil du nouveau client
+        $nouvel_utilisateur = [
+            "id" => $nouvel_id,
+            "nom" => $nom_saisi,
+            "prenom" => $prenom_saisi,
+            "num" => $num_saisi,
+            "address" => $adresse_saisie,
+            "infosupp" => $infosupp_saisie,
+            "points" => 0,               // Un nouveau client commence avec 0 point
+            "statut" => "basic",
+            "password" => $mdp_saisi,
+            "type" => "client",          // Par défaut, quelqu'un qui s'inscrit est un client
+            "commandes" => []            // Historique vide
+        ];
+
+        // 7. On AJOUTE le nouveau client à la liste existante
         $liste_utilisateurs[] = $nouvel_utilisateur;
 
-        // 6. On re-transforme la liste en texte JSON et on SAUVEGARDE le fichier
-        // JSON_PRETTY_PRINT permet de garder le fichier users.json lisible et bien aligné
+        // 8. On re-transforme la liste en texte JSON et on SAUVEGARDE le fichier
         $nouveau_json = json_encode($liste_utilisateurs, JSON_PRETTY_PRINT);
-        file_put_contents('json/users.json', $nouveau_json);
+        file_put_contents($chemin_users, $nouveau_json);
 
-        // 7. C'est un succès ! On le renvoie vers la page de connexion
+        // 9. C'est un succès ! On le renvoie vers la page de connexion
         header('Location: connexion.php');
         exit();
     }
@@ -100,7 +115,7 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
             <p>Inscrivez-vous pour commander plus vite et cumuler des points de fidélité !</p>
 
             <?php if ($erreur != ""): ?>
-                <p style="color: white; background-color: red; padding: 10px; border-radius: 5px; text-align: center;">
+                <p style="color: white; background-color: #c0392b; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold;">
                     <?php echo $erreur; ?>
                 </p>
             <?php endif; ?>

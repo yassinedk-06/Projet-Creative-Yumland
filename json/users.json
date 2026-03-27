@@ -1,18 +1,5 @@
 [
     {
-        "nom": "kamel",
-        "prenom": "michel",
-        "id": "0001",
-        "num": "1234567890",
-        "address": "123 Main St, Anytown, USA",
-        "infosupp": "appart 509",
-        "points": 100,
-        "statut": "silver",
-        "password": "password123",
-        "type": "client",
-        "commandes": []
-    },
-    {
         "nom": "bahri",
         "prenom": "neira",
         "id": "0002",
@@ -34,7 +21,7 @@
         "num": "0606060606",
         "address": "11 avenue du saint propre 95000 , Pontoise",
         "infosupp": "",
-        "points": 27.5,
+        "points": 114,
         "statut": "VIP",
         "password": "password123",
         "type": "admin",
@@ -43,7 +30,12 @@
             "cmd010",
             "cmd011",
             "cmd012",
-            "cmd013"
+            "cmd013",
+            "cmd014",
+            "cmd015",
+            "cmd016",
+            "cmd017",
+            "cmd018"
         ]
     },
     {
@@ -57,14 +49,17 @@
         "statut": "basic",
         "password": "password123",
         "type": "livreur",
-        "note": 3.5,
+        "note": 1,
         "commandes": [
             "cmd002",
             "cmd003",
             "cmd004",
             "cmd006",
             "cmd008",
-            "cmd010"
+            "cmd010",
+            "cmd019",
+            "cmd020",
+            "cmd021"
         ]
     },
     {
@@ -88,18 +83,34 @@
         ]
     },
     {
-        "nom": "poliakov",
+        "id": "0005",
+        "nom": "michel",
+        "prenom": "kamal",
+        "num": "1111111111",
+        "address": "chera3 hbib borguiba",
+        "infosupp": "maison num 11",
+        "points": 142.8,
+        "statut": "silver",
+        "password": "password123",
+        "type": "client",
+        "commandes": [
+            "cmd019",
+            "cmd020"
+        ]
+    },
+    {
+        "id": "0006",
+        "nom": "roum",
         "prenom": "rafael",
-        "id": "0004",
-        "num": "987899474",
-        "address": "59, rue de Ponthieu 75008",
-        "infosupp": "",
-        "points": 0,
+        "num": "2222222222",
+        "address": "5rue de strasbourg",
+        "infosupp": "Batiment 1 <b>",
+        "points": 33.5,
         "statut": "basic",
         "password": "password123",
         "type": "client",
         "commandes": [
-            "cmd002"
+            "cmd021"
         ]
     }
 ]
