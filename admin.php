@@ -92,7 +92,7 @@ if (file_exists($chemin_users)) {
 
         <div class="admin-tabs">
             <button class="tab-btn active">Tous les utilisateurs (<?php echo count($utilisateurs); ?>)</button>
-            <button class="tab-btn">Clients avec commandes</button>
+            
         </div>
 
         <section class="admin-table-wrapper dashboard-card">

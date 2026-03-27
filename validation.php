@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+//$users_data = 'json/users.json';
+//$users = file_exists($users_data) ? json_decode(file_get_contents($users_data), true) : [];
+
 // 1. INITIALISATION DU PANIER EN SESSION (Sécurité)
 if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
@@ -29,11 +32,34 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['in
 // ====================================================================
 $cart_data = $_SESSION['panier']; // On récupère directement depuis la session
 $sous_total = 0;
+$remise = "";
 
 // On calcule le prix
 foreach ($cart_data as $item) {
     $sous_total += $item['prix'];
 }
+
+if (isset($_SESSION['connecte']) && isset($_SESSION['statut'])) {
+    
+    $statut_client = $_SESSION['statut']; // On récupère son statut
+
+    if ($statut_client === 'VIP') {
+        $sous_total *= 0.6; // 40% de réduction pour les VIP
+        $remise = "40% de réduction appliquée pour votre statut VIP !";
+    }
+    elseif ($statut_client === 'gold') {
+        $sous_total *= 0.8; // 20% de réduction pour les gold
+        $remise = "20% de réduction appliquée pour votre statut Gold !";
+    }
+    elseif ($statut_client === 'silver') {
+        $sous_total *= 0.9; // 10% de réduction pour les silver
+        $remise = "10% de réduction appliquée pour votre statut Silver !";
+    }
+    else {
+    $remise = "Aucune réduction appliquée. Devenez Silver, Gold ou VIP pour profiter de nos offres exclusives !";
+}
+}
+
 
 // Frais de livraison (fixe)
 $frais_livraison = 2.50;
@@ -126,6 +152,9 @@ $frais_livraison = 2.50;
             
             <div class="recap-total">
                 <strong>Sous-total : <?= number_format($sous_total, 2, ',', ' ') ?> €</strong>
+                
+                <p style="font-size: 0.85rem; color: #888; font-weight: normal; margin-top: 5px;"><?= $remise ?></p> 
+                
                 <p style="font-size: 0.85rem; color: #888; font-weight: normal; margin-top: 5px;">(Hors frais de livraison éventuels)</p>
             </div>
         <?php else: ?>

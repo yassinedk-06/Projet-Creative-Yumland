@@ -87,7 +87,12 @@ if ($user_id_connecte) {
                 $user['commandes'] = [];
             }
             
+            if (!isset($user['point'])) {
+                $user['point'] = 0;
+            }
+
             $user['commandes'][] = $nouvel_id_cmd;
+            $user['points'] += round($prix_total, 2); // On ajoute les points gagnés à l'utilisateur
             break; 
         }
     }
