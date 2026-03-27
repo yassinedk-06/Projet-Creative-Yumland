@@ -74,6 +74,7 @@ if (file_exists($chemin_users)) {
                 <li><div class="menu-header">ADMINISTRATION</div></li>
                 <li><a href="index.php">Retour au Site</a></li>
                 <li><a href="admin.php" class="active">Gestion Clients</a></li>
+                <li><a href="ajout_plat.php">Ajouter un Plat</a></li> 
                 <li><a href="commandes.php">Gestion Commandes</a></li>
                 <li><a href="deconnexion.php" style="color: var(--accent-red);">Déconnexion</a></li>
             </ul>

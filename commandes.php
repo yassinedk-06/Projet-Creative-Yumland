@@ -51,9 +51,10 @@ if (file_exists($chemin_commandes)) {
     $json_data = file_get_contents($chemin_commandes);
     $toutes_les_commandes = json_decode($json_data, true) ?? [];
     
-    // Bonus : Trier les commandes de la plus récente à la plus ancienne
+    // NOUVEAU : Trier les commandes par numéro d'ID (cmd001, cmd002, etc.)
     usort($toutes_les_commandes, function($a, $b) {
-        return strtotime($b['date']) - strtotime($a['date']);
+        // strnatcmp compare les chaînes de caractères "naturellement"
+        return strnatcmp($a['id'], $b['id']); 
     });
 }
 ?>
@@ -82,7 +83,10 @@ if (file_exists($chemin_commandes)) {
                 <li><a href="index.php">Retour au Site</a></li>
                 <?php if ($_SESSION['type'] === 'admin'): ?>
                     <li><a href="admin.php">Gestion Clients</a></li>
+                    <li><a href="ajout_plat.php">Ajouter un Plat</a></li> <!-- Seul l'admin peut ajouter un plat -->
                 <?php endif; ?>
+                
+                
                 <li><a href="commandes.php" class="active">Gestion Commandes</a></li>
                 <li><a href="deconnexion.php" style="color: var(--accent-red);">Déconnexion</a></li>
             </ul>
@@ -108,8 +112,7 @@ if (file_exists($chemin_commandes)) {
                         <th>Plats à préparer</th>
                         <th>Prix</th>
                         <th>État de la commande</th>
-                        <th>Détails</th>
-                    </tr>
+                        <th>Livraison</th> </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($toutes_les_commandes)): ?>
@@ -132,6 +135,9 @@ if (file_exists($chemin_commandes)) {
                                 if ($etat_propre === 'en livraison') $class_etat = 'livraison';
                                 if ($etat_propre === 'livrée') $class_etat = 'livree';
                                 if ($etat_propre === 'annulée' || $etat_propre === 'annulé') $class_etat = 'annulee';
+
+                                // NOUVEAU : On gère l'affichage Oui / Non pour la livraison
+                                $est_livraison = (isset($cmd['livraison']) && $cmd['livraison'] === true);
                             ?>
                             <tr>
                                 <td><strong>#<?php echo $id; ?></strong></td>
@@ -154,10 +160,12 @@ if (file_exists($chemin_commandes)) {
                                     </form>
                                 </td>
                                 
-                                <td>
-                                    <button class="action-btn view" title="Voir les détails de la commande">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
+                                <td style="text-align: center;">
+                                    <?php if ($est_livraison): ?>
+                                        <span style="color: var(--primary-blue); font-weight: bold;">Oui 🛵</span>
+                                    <?php else: ?>
+                                        <span style="color: #888; font-weight: bold;">Non 🥡</span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -34,7 +34,7 @@
         "num": "0606060606",
         "address": "11 avenue du saint propre 95000 , Pontoise",
         "infosupp": "",
-        "points": 27.5,
+        "points": 114,
         "statut": "VIP",
         "password": "password123",
         "type": "admin",
@@ -43,8 +43,14 @@
             "cmd010",
             "cmd011",
             "cmd012",
-            "cmd013"
+            "cmd013",
+            "cmd014",
+            "cmd015",
+            "cmd016",
+            "cmd017",
+            "cmd018"
         ]
+        
     },
     {
         "nom": "houari ",
