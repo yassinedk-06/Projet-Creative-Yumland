@@ -20,7 +20,7 @@
         "address": "2 Rue de la Paix, Paris, France",
         "infosupp": "appart 305",
         "points": 50,
-        "statut": "basic",
+        "statut": "gold",
         "password": "password123",
         "type": "client",
         "commandes": [
@@ -34,11 +34,18 @@
         "num": "0606060606",
         "address": "11 avenue du saint propre 95000 , Pontoise",
         "infosupp": "",
-        "points": 0,
+        "points": 27.5,
         "statut": "VIP",
         "password": "password123",
         "type": "admin",
-        "commandes": []
+        "commandes": [
+            "cmd009",
+            "cmd010",
+            "cmd011",
+            "cmd012",
+            "cmd013"
+        ],
+        "point": 44.5
     },
     {
         "nom": "houari ",
@@ -55,7 +62,10 @@
         "commandes": [
             "cmd002",
             "cmd003",
-            "cmd004"
+            "cmd004",
+            "cmd006",
+            "cmd008",
+            "cmd010"
         ]
     },
     {
@@ -66,12 +76,16 @@
         "address": "11 AVENUE DES 3 FONTAINES, 95000 CERGY",
         "infosupp": "appart 509",
         "points": 0,
-        "statut": "basic",
+        "statut": "gold",
         "password": "passwored123",
         "type": "client",
         "commandes": [
             "cmd001",
-            "cmd004"
+            "cmd004",
+            "cmd005",
+            "cmd006",
+            "cmd007",
+            "cmd008"
         ]
     },
     {
