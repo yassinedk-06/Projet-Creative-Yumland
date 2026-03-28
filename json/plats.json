@@ -109,7 +109,7 @@
         ],
         [
             "plat_69c693ac77578",
-            "makloub",
+            "Makloub",
             8.5,
             "src\/1774621612_dc7dd48314ea1003d980847203bf4d5e.png",
             "salades , tomates ,onions "
@@ -120,35 +120,35 @@
             "16",
             "Thé Vert à la Menthe",
             1.5,
-            "src\/placeholder.jpg",
+            "src\/the.jpg",
             "Le classique, servi avec des pignons de pin."
         ],
         [
             "17",
             "Thé Rouge",
             1.5,
-            "src\/placeholder.jpg",
+            "src\/therouge.jpg",
             "Thé noir intense, infusé traditionnellement."
         ],
         [
             "18",
             "Express",
             2,
-            "src\/placeholder.jpg",
+            "src\/express.jpg",
             "Café noir serré."
         ],
         [
             "19",
             "Cappuccino (Direct)",
             3.5,
-            "src\/placeholder.jpg",
+            "src\/cappuccino.jpg",
             "Café au lait mousseux."
         ],
         [
             "20",
             "Latte Macchiato",
             4,
-            "src\/placeholder.jpg",
+            "src\/latte.jpg",
             "Grand verre de lait chaud tacheté de café."
         ]
     ],
@@ -157,28 +157,28 @@
             "21",
             "Jus Frais",
             3.5,
-            "src\/placeholder.jpg",
+            "src\/jusfrais.jpg",
             "Au choix : Orange, Banane, Fraise."
         ],
         [
             "22",
             "Boisson Gazeuse",
             2.5,
-            "src\/placeholder.jpg",
+            "src\/boissong.jpg",
             "Boga, Coca, Fanta... (Canette 33cl)"
         ],
         [
             "23",
             "Eau Minérale",
             2,
-            "src\/placeholder.jpg",
+            "src\/eau.jpg",
             "Plate ou Gazéifiée (1L)."
         ],
         [
             "24",
             "Cocktail Maison",
             5,
-            "src\/placeholder.jpg",
+            "src\/cocktail.jpg",
             "Mélange de fruits de saison."
         ],
         [
@@ -194,42 +194,42 @@
             "25",
             "Masfouf",
             7.5,
-            "src\/placeholder.jpg",
+            "src\/masfouf.jpg",
             "Couscous sucré aux fruits secs, dattes et grenades."
         ],
         [
             "26",
-            "S'han Hlow",
+            "Shan Hlow",
             6,
-            "src\/placeholder.jpg",
+            "src\/hlow.jpg",
             "Assiette dégustation de pâtisseries tunisiennes."
         ],
         [
             "27",
             "Shan Romdhan",
             5,
-            "src\/placeholder.jpg",
+            "src\/romdhan.jpg",
             "Assortiment de Zlebia, Mkharak et Wedhnin el kadhi."
         ],
         [
             "28",
             "Zrir",
             5.5,
-            "src\/placeholder.jpg",
+            "src\/zrirt.jpg",
             "Crème de sésame et fruits secs, riche et énergisante."
         ],
         [
             "29",
             "Bambalouni",
             3,
-            "src\/placeholder.jpg",
+            "src\/bambalouni.jpg",
             "Le fameux beignet de Sidi Bou Saïd, saupoudré de sucre."
         ],
         [
             "30",
             "Assida",
             6,
-            "src\/placeholder.jpg",
+            "src\/assida.jpg",
             "Crème dessert traditionnelle (Zgougou ou Noisette selon saison)."
         ]
     ]
