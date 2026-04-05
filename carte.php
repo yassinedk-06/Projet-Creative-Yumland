@@ -301,27 +301,6 @@ foreach ($cart_data as $item) {
         <p>Bien Harr © 2026 - Projet Yumland</p>
     </footer>
 
-    <script>
-    // On récupère nos deux cases à cocher invisibles
-    const menuGauche = document.getElementById('menu-toggle');
-    const menuPanier = document.getElementById('toggle-panier');
-
-    // Quand on clique sur le menu de gauche (le Burger)
-    menuGauche.addEventListener('change', function() {
-        if(this.checked) {
-            menuPanier.checked = false; // On force le panier à se fermer
-        }
-    });
-
-    // Quand on clique sur le bouton de droite (le Panier)
-    if(menuPanier) {
-        menuPanier.addEventListener('change', function() {
-            if(this.checked) {
-                menuGauche.checked = false; // On force le menu de gauche à se fermer
-            }
-        });
-    }
-</script>
-
+   
 </body>
 </html>
