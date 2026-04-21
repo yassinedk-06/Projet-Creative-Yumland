@@ -1821,3 +1821,26 @@ footer {
 }
 .btn-attente:active { box-shadow: 0 0 0 #1f618d; }
 
+/* Style spécifique pour le bouton de changement de thème */
+#btn-theme {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--pure-white); /* Assure la visibilité sur le fond bleu du header */
+    padding: 0 10px;
+    transition: transform 0.2s ease;
+}
+
+#btn-theme:hover {
+    background: none; /* On garde le fond transparent au survol */
+    transform: scale(1.1); /* Petit effet de zoom au survol */
+}
+
+.form-container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--primary-blue); }
+        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 1rem; box-sizing: border-box; }
+        .btn-submit { background-color: var(--accent-red); color: white; border: none; padding: 15px; width: 100%; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background-color: #a82315; }
+        .alert-success { background-color: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; text-align: center; }

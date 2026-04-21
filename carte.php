@@ -58,7 +58,17 @@ foreach ($cart_data as $item) {
 <head>
     <meta charset="UTF-8">
     <title>La Carte - Bien Harr</title>
-    <link rel="stylesheet" href="style.css">
+    <?php
+    // 1. On définit les thèmes autorisés (Sécurité pour éviter qu'on injecte n'importe quoi)
+    $themes_autorises = ['style.css', 'style-dark.css'];
+    $theme_actuel = 'style.css'; // Le thème par défaut
+
+    // 2. On vérifie si le cookie existe ET si sa valeur est cohérente (autorisée)
+    if (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], $themes_autorises)) {
+        $theme_actuel = $_COOKIE['theme'];
+    }
+    ?>
+    <link id="theme-style" rel="stylesheet" href="<?= htmlspecialchars($theme_actuel) ?>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 </head>
 <body>

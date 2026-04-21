@@ -88,7 +88,17 @@ foreach ($commandes as $cmd) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Espace Livreur - Bien Harr</title>
-    <link rel="stylesheet" href="style.css"> 
+    <?php
+    // 1. On définit les thèmes autorisés (Sécurité pour éviter qu'on injecte n'importe quoi)
+    $themes_autorises = ['style.css', 'style-dark.css'];
+    $theme_actuel = 'style.css'; // Le thème par défaut
+
+    // 2. On vérifie si le cookie existe ET si sa valeur est cohérente (autorisée)
+    if (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], $themes_autorises)) {
+        $theme_actuel = $_COOKIE['theme'];
+    }
+    ?>
+    <link id="theme-style" rel="stylesheet" href="<?= htmlspecialchars($theme_actuel) ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 </head>

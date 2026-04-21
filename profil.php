@@ -52,7 +52,17 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
 <head>
     <meta charset="UTF-8">
     <title>Mon Profil - Bien Harr</title>
-    <link rel="stylesheet" href="style.css">
+    <?php
+    // 1. On définit les thèmes autorisés (Sécurité pour éviter qu'on injecte n'importe quoi)
+    $themes_autorises = ['style.css', 'style-dark.css'];
+    $theme_actuel = 'style.css'; // Le thème par défaut
+
+    // 2. On vérifie si le cookie existe ET si sa valeur est cohérente (autorisée)
+    if (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], $themes_autorises)) {
+        $theme_actuel = $_COOKIE['theme'];
+    }
+    ?>
+    <link id="theme-style" rel="stylesheet" href="<?= htmlspecialchars($theme_actuel) ?>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -69,13 +79,16 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
             <div class="header-actions">
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'admin'): ?>
                     <a href="admin.php" class="icon-btn" title="Espace Admin"><i class="fas fa-user-shield"></i> <span class="desktop-only">Admin</span></a>
+                    
                 <?php endif; ?>
-                <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'restaurateur'): ?>
-                    <a href="commandes.php" class="icon-btn" title="Espace Restaurateur"><i class="fas fa-utensils"></i> <span class="desktop-only">Cuisine</span></a>
-                <?php endif; ?>
+
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'livreur'): ?>
                     <a href="livraison.php" class="icon-btn" title="Espace Livreur"><i class="fas fa-motorcycle"></i> <span class="desktop-only">Livreur</span></a>
                 <?php endif; ?>
+
+                <button id="btn-theme" class="icon-btn" title="Changer le thème">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
 
             <ul class="menu-links">
@@ -205,5 +218,42 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
         <p>Bien Harr © 2026 - Projet Yumland</p>
     </footer>
 
+<script>
+    document.getElementById('btn-theme').addEventListener('click', function() {
+        // 1. On récupère la balise <link> du CSS
+        const themeLink = document.getElementById('theme-style');
+        const themeIcon = this.querySelector('i');
+        
+        // 2. On regarde quel est le thème actuel
+        let currentTheme = themeLink.getAttribute('href');
+        let newTheme = 'style.css'; // Par défaut, on remet le clair
+        
+        // 3. Logique de bascule (Toggle)
+        if (currentTheme === 'style.css') {
+            newTheme = 'style-dark.css';
+            themeIcon.classList.replace('fa-moon', 'fa-sun'); // Change l'icône
+        } else {
+            newTheme = 'style.css';
+            themeIcon.classList.replace('fa-sun', 'fa-moon'); // Change l'icône
+        }
+        
+        // 4. On change le CSS EN DIRECT (sans recharger la page !)
+        themeLink.setAttribute('href', newTheme);
+        
+        // 5. On sauvegarde le choix dans un COOKIE (valable 30 jours)
+        let dateExpiration = new Date();
+        dateExpiration.setTime(dateExpiration.getTime() + (30 * 24 * 60 * 60 * 1000));
+        document.cookie = "theme=" + newTheme + "; expires=" + dateExpiration.toUTCString() + "; path=/";
+    });
+
+    // Petit bonus : Mettre la bonne icône au chargement de la page selon le cookie
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const themeLink = document.getElementById('theme-style');
+        const themeIcon = document.querySelector('#btn-theme i');
+        if (themeLink && themeIcon && themeLink.getAttribute('href') === 'style-dark.css') {
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+    });
+    </script>
 </body>
 </html>

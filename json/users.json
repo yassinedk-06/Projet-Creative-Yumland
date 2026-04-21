@@ -21,7 +21,7 @@
         "num": "0606060606",
         "address": "11 avenue du saint propre 95000 , Pontoise",
         "infosupp": "",
-        "points": 114,
+        "points": 127,
         "statut": "VIP",
         "password": "password123",
         "type": "admin",
@@ -35,7 +35,8 @@
             "cmd015",
             "cmd016",
             "cmd017",
-            "cmd018"
+            "cmd018",
+            "cmd022"
         ]
     },
     {
