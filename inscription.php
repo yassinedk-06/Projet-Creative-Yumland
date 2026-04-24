@@ -24,12 +24,9 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
     $dernier_id_num = 0;
 
     foreach ($liste_utilisateurs as $user) {
-        // Vérification du numéro de téléphone
         if (isset($user['num']) && $user['num'] == $num_saisi) {
             $numero_existe = true;
         }
-        
-        // Recherche du plus grand ID
         if (isset($user['id'])) {
             $id_actuel = (int)$user['id']; 
             if ($id_actuel > $dernier_id_num) {
@@ -41,11 +38,11 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
     if ($numero_existe == true) {
         $erreur = "Ce numéro de téléphone possède déjà un compte.";
     } else {
-        // 5. On calcule le nouvel ID de manière 100% sécurisée
+        // 5. On calcule le nouvel ID
         $nouveau_num = $dernier_id_num + 1;
         $nouvel_id = sprintf("%04d", $nouveau_num);
 
-        // 6. On prépare le profil du nouveau client
+        // 6. On prépare le profil
         $nouvel_utilisateur = [
             "id" => $nouvel_id,
             "nom" => $nom_saisi,
@@ -53,21 +50,19 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
             "num" => $num_saisi,
             "address" => $adresse_saisie,
             "infosupp" => $infosupp_saisie,
-            "points" => 0,               // Un nouveau client commence avec 0 point
+            "points" => 0,               
             "statut" => "basic",
             "password" => $mdp_saisi,
-            "type" => "client",          // Par défaut, quelqu'un qui s'inscrit est un client
-            "commandes" => []            // Historique vide
+            "type" => "client",          
+            "commandes" => []            
         ];
 
-        // 7. On AJOUTE le nouveau client à la liste existante
+        // 7. On AJOUTE et on SAUVEGARDE
         $liste_utilisateurs[] = $nouvel_utilisateur;
-
-        // 8. On re-transforme la liste en texte JSON et on SAUVEGARDE le fichier
         $nouveau_json = json_encode($liste_utilisateurs, JSON_PRETTY_PRINT);
         file_put_contents($chemin_users, $nouveau_json);
 
-        // 9. C'est un succès ! On le renvoie vers la page de connexion
+        // 8. C'est un succès ! 
         header('Location: connexion.php');
         exit();
     }
@@ -80,17 +75,15 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
     <meta charset="UTF-8">
     <title>Inscription - Bien Harr</title>
     <?php
-    // 1. On définit les thèmes autorisés (Sécurité pour éviter qu'on injecte n'importe quoi)
     $themes_autorises = ['style.css', 'style-dark.css'];
-    $theme_actuel = 'style.css'; // Le thème par défaut
-
-    // 2. On vérifie si le cookie existe ET si sa valeur est cohérente (autorisée)
+    $theme_actuel = 'style.css';
     if (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], $themes_autorises)) {
         $theme_actuel = $_COOKIE['theme'];
     }
     ?>
     <link id="theme-style" rel="stylesheet" href="<?= htmlspecialchars($theme_actuel) ?>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -130,36 +123,63 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
                 </p>
             <?php endif; ?>
 
-            <form action="inscription.php" method="POST" class="auth-form">
+            <form action="inscription.php" method="POST" class="auth-form" id="formInscription">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="nom">Nom</label>
-                        <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                        <input type="text" id="nom" name="nom" placeholder="Votre nom" maxlength="30">
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <span class="error-msg" style="color: var(--accent-red); font-size: 0.8rem;"></span>
+                            <span id="counter-nom" style="font-size: 0.8rem; color: #888;">0/30</span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="prenom">Prénom</label>
-                        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" maxlength="30">
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <span class="error-msg" style="color: var(--accent-red); font-size: 0.8rem;"></span>
+                            <span id="counter-prenom" style="font-size: 0.8rem; color: #888;">0/30</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="tel">Numéro de téléphone</label>
-                    <input type="tel" id="tel" name="tel" placeholder="Ex: 06 12 34 56 78" required>
+                    <input type="tel" id="tel" name="tel" placeholder="Ex: 0612345678" maxlength="10">
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                        <span class="error-msg" style="color: var(--accent-red); font-size: 0.8rem;"></span>
+                        <span id="counter-tel" style="font-size: 0.8rem; color: #888;">0/10</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="adresse">Adresse de livraison</label>
-                    <input type="text" id="adresse" name="adresse" placeholder="N°, rue, ville et code postal" required>
+                    <input type="text" id="adresse" name="adresse" placeholder="N°, rue, ville et code postal" maxlength="100">
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                        <span class="error-msg" style="color: var(--accent-red); font-size: 0.8rem;"></span>
+                        <span id="counter-adresse" style="font-size: 0.8rem; color: #888;">0/100</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="complement">Informations complémentaires</label>
-                    <textarea id="complement" name="complement" rows="3" placeholder="Code interphone, étage, bâtiment..."></textarea>
+                    <textarea id="complement" name="complement" rows="3" placeholder="Code interphone, étage, bâtiment..." maxlength="150"></textarea>
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                        <span class="error-msg" style="color: var(--accent-red); font-size: 0.8rem;"></span>
+                        <span id="counter-complement" style="font-size: 0.8rem; color: #888;">0/150</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" placeholder="********" required>
+                    <div style="position: relative;">
+                        <input type="password" id="password" name="password" placeholder="********" style="width: 100%; box-sizing: border-box;" maxlength="50">
+                        <i class="fas fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;"></i>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                        <span class="error-msg" style="color: var(--accent-red); font-size: 0.8rem;"></span>
+                        <span id="counter-password" style="font-size: 0.8rem; color: #888;">0/50</span>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-order">Créer mon compte</button>
@@ -174,6 +194,105 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
     <footer>
         <p>Bien Harr © 2026 - Projet Yumland</p>
     </footer>
+
+    <script>
+        // 1. GESTION DE L'AFFICHAGE DU MOT DE PASSE (Œil)
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // 2. COMPTEURS DE CARACTÈRES EN TEMPS RÉEL (Nouveau !)
+        function setupCharCounter(inputId, maxLimit) {
+            const input = document.getElementById(inputId);
+            const counter = document.getElementById('counter-' + inputId);
+            
+            if (input && counter) {
+                // 'input' se déclenche à chaque fois qu'on tape ou efface une touche
+                input.addEventListener('input', function() {
+                    const length = this.value.length;
+                    counter.textContent = length + '/' + maxLimit;
+                    
+                    // Si on atteint la limite, on met le compteur en rouge
+                    if (length >= maxLimit) {
+                        counter.style.color = 'var(--accent-red)';
+                        counter.style.fontWeight = 'bold';
+                    } else {
+                        counter.style.color = '#888';
+                        counter.style.fontWeight = 'normal';
+                    }
+                });
+            }
+        }
+
+        // On active la fonction pour chaque champ avec sa limite
+        setupCharCounter('nom', 30);
+        setupCharCounter('prenom', 30);
+        setupCharCounter('tel', 10);
+        setupCharCounter('adresse', 100);
+        setupCharCounter('complement', 150);
+        setupCharCounter('password', 50);
+
+        // 3. VALIDATION DU FORMULAIRE SANS RECHARGER LA PAGE
+        document.getElementById('formInscription').addEventListener('submit', function(e) {
+            let isValid = true;
+
+            const nom = document.getElementById('nom');
+            const prenom = document.getElementById('prenom');
+            const tel = document.getElementById('tel');
+            const adresse = document.getElementById('adresse');
+            const pass = document.getElementById('password');
+
+            const regexNom = /^[a-zA-ZÀ-ÿ\s\-]{2,}$/; 
+            const regexTel = /^0[1-9]([-. ]?[0-9]{2}){4}$/;
+            const regexPass = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+            function showError(input, message) {
+                let errorSpan = input.parentNode.querySelector('.error-msg');
+                if(!errorSpan) {
+                    errorSpan = input.parentNode.parentNode.querySelector('.error-msg');
+                }
+                errorSpan.textContent = message;
+                input.style.borderColor = 'var(--accent-red)';
+                isValid = false;
+            }
+
+            function clearError(input) {
+                let errorSpan = input.parentNode.querySelector('.error-msg');
+                if(!errorSpan) {
+                    errorSpan = input.parentNode.parentNode.querySelector('.error-msg');
+                }
+                if(errorSpan) errorSpan.textContent = '';
+                input.style.borderColor = ''; 
+            }
+
+            clearError(nom); clearError(prenom); clearError(tel); clearError(adresse); clearError(pass);
+
+            if (!regexNom.test(nom.value.trim())) {
+                showError(nom, "Le nom est invalide (lettres uniquement, min. 2).");
+            }
+            if (!regexNom.test(prenom.value.trim())) {
+                showError(prenom, "Le prénom est invalide (lettres uniquement, min. 2).");
+            }
+            if (!regexTel.test(tel.value.trim())) {
+                showError(tel, "Le numéro est invalide (ex: 0612345678).");
+            }
+            if (adresse.value.trim().length < 5) {
+                showError(adresse, "Veuillez saisir une adresse complète.");
+            }
+            if (!regexPass.test(pass.value)) {
+                showError(pass, "Le mot de passe doit faire au moins 8 caractères, 1 majuscule et 1 chiffre.");
+            }
+
+            if (!isValid) {
+                e.preventDefault(); 
+            }
+        });
+    </script>
 
 </body>
 </html>

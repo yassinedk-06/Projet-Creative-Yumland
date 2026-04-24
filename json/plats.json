@@ -4,43 +4,49 @@
             "01",
             "Slata Mechouia",
             10.5,
-            "src\/slatam.jpg",
-            "Salade grillée de poivrons, tomates et oignons, relevée à l'huile d'olive."
+            "src/slatam.jpg",
+            "Salade grillée de poivrons, tomates et oignons, relevée à l'huile d'olive.",
+            ["salé", "épicé", "vege", "froid", "sans gluten"]
         ],
         [
             "02",
             "Brik à l'Oeuf",
             6.5,
-            "src\/brick.jpg",
-            "Feuille de malsouka croustillante, oeuf coulant, thon et persil."
+            "src/brick.jpg",
+            "Feuille de malsouka croustillante, oeuf coulant, thon et persil.",
+            ["salé", "proteine", "frit", "chaud"]
         ],
         [
             "03",
             "Omek Houria",
             10.5,
-            "src\/houria.jpg",
-            "Purée de carottes épicée au carvi, harissa et huile d'olive."
+            "src/houria.jpg",
+            "Purée de carottes épicée au carvi, harissa et huile d'olive.",
+            ["salé", "épicé", "vege", "froid", "sans gluten"]
         ],
         [
             "04",
             "Zit & Harissa",
             4.5,
-            "src\/harissa.jpg",
-            "L'incontournable duo : Harissa maison et huile d'olive vierge avec pain tabouna."
+            "src/harissa.jpg",
+            "L'incontournable duo : Harissa maison et huile d'olive vierge avec pain tabouna.",
+            ["salé", "épicé", "vege", "froid"]
         ],
         [
             "05",
             "S'han Tounsi",
             12.5,
-            "src\/tounsi.jpg",
-            "Assiette tunisienne complète : oeuf, thon, légumes frais et variantes."
+            "src/tounsi.jpg",
+            "Assiette tunisienne complète : oeuf, thon, légumes frais et variantes.",
+            ["salé", "proteine", "froid"]
         ],
         [
             "06",
             "Chorba Frik",
             7,
-            "src\/chorba.jpg",
-            "Soupe traditionnelle au blé concassé, agneau et céleri."
+            "src/chorba.jpg",
+            "Soupe traditionnelle au blé concassé, agneau et céleri.",
+            ["salé", "proteine", "chaud"]
         ]
     ],
     "plats": [
@@ -48,71 +54,81 @@
             "07",
             "Couscous Royal",
             20.5,
-            "src\/couscous.jpg",
-            "Couscous fin à la viande d'agneau tendre et légumes du potager."
+            "src/couscous.jpg",
+            "Couscous fin à la viande d'agneau tendre et légumes du potager.",
+            ["salé", "proteine", "chaud"]
         ],
         [
             "08",
             "Dwida mfawra",
             16.5,
-            "src\/dwida.jpg",
-            "Pâtes \"langues d'oiseau\" cuites à la vapeur en sauce rouge."
+            "src/dwida.jpg",
+            "Pâtes \"langues d'oiseau\" cuites à la vapeur en sauce rouge.",
+            ["salé", "chaud"]
         ],
         [
             "09",
             "Nwasser",
             16.5,
-            "src\/nwasser.jpg",
-            "Carrés de pâtes traditionnels cuits à la vapeur, poulet et pois chiches."
+            "src/nwasser.jpg",
+            "Carrés de pâtes traditionnels cuits à la vapeur, poulet et pois chiches.",
+            ["salé", "proteine", "chaud"]
         ],
         [
             "10",
             "Makrouna Tounsia",
             15,
-            "src\/makrouna.jpg",
-            "Pâtes en sauce piquante, ail et laurier (Salsa)."
+            "src/makrouna.jpg",
+            "Pâtes en sauce piquante, ail et laurier (Salsa).",
+            ["salé", "épicé", "chaud"]
         ],
         [
             "11",
             "Mlokhia",
             16,
-            "src\/mloukhia.jpg",
-            "Ragoût onctueux de corète potagère mijoté pendant des heures."
+            "src/mloukhia.jpg",
+            "Ragoût onctueux de corète potagère mijoté pendant des heures.",
+            ["salé", "proteine", "chaud"]
         ],
         [
             "12",
             "Kafteji Traditionnel",
             14.5,
-            "src\/kafteji.jpg",
-            "Mélange coloré de légumes frits, oeufs et épices, coupé grossièrement."
+            "src/kafteji.jpg",
+            "Mélange coloré de légumes frits, oeufs et épices, coupé grossièrement.",
+            ["salé", "vege", "frit", "chaud"]
         ],
         [
             "13",
             "Lablebi",
             18,
-            "src\/lablebi.jpg",
-            "Soupe de pois chiches, pain rassis, cumin, thon et oeuf (Harr !)."
+            "src/lablebi.jpg",
+            "Soupe de pois chiches, pain rassis, cumin, thon et oeuf (Harr !).",
+            ["salé", "épicé", "proteine", "chaud"]
         ],
         [
             "14",
             "Tastira & Poisson",
             17,
-            "src\/tastira.jpg",
-            "Mélange de poivrons et oeufs frits accompagné d'un poisson frais."
+            "src/tastira.jpg",
+            "Mélange de poivrons et oeufs frits accompagné d'un poisson frais.",
+            ["salé", "proteine", "frit", "chaud"]
         ],
         [
             "15",
             "Ojja Merguez",
             14.9,
-            "src\/ojja.webp",
-            "Oeufs pochés dans une sauce tomate piquante, poivrons et épices."
+            "src/ojja.webp",
+            "Oeufs pochés dans une sauce tomate piquante, poivrons et épices.",
+            ["salé", "épicé", "proteine", "chaud"]
         ],
         [
             "plat_69c693ac77578",
             "Makloub",
             8.5,
-            "src\/1774621612_dc7dd48314ea1003d980847203bf4d5e.png",
-            "salades , tomates ,onions "
+            "src/1774621612_dc7dd48314ea1003d980847203bf4d5e.png",
+            "salades, tomates, oignons",
+            ["salé", "chaud"]
         ]
     ],
     "boissons_chaudes": [
@@ -120,36 +136,41 @@
             "16",
             "Thé Vert à la Menthe",
             1.5,
-            "src\/the.jpg",
-            "Le classique, servi avec des pignons de pin."
+            "src/the.jpg",
+            "Le classique, servi avec des pignons de pin.",
+            ["sucré", "chaud", "fruits à coque"]
         ],
         [
             "17",
             "Thé Rouge",
             1.5,
-            "src\/therouge.jpg",
-            "Thé noir intense, infusé traditionnellement."
+            "src/therouge.jpg",
+            "Thé noir intense, infusé traditionnellement.",
+            ["sucré", "chaud"]
         ],
         [
             "18",
             "Express",
             2,
-            "src\/express.jpg",
-            "Café noir serré."
+            "src/express.jpg",
+            "Café noir serré.",
+            ["chaud", "doux"]
         ],
         [
             "19",
             "Cappuccino (Direct)",
             3.5,
-            "src\/cappuccino.jpg",
-            "Café au lait mousseux."
+            "src/cappuccino.jpg",
+            "Café au lait mousseux.",
+            ["sucré", "chaud", "doux"]
         ],
         [
             "20",
             "Latte Macchiato",
             4,
-            "src\/latte.jpg",
-            "Grand verre de lait chaud tacheté de café."
+            "src/latte.jpg",
+            "Grand verre de lait chaud tacheté de café.",
+            ["sucré", "chaud", "doux"]
         ]
     ],
     "boissons_froides": [
@@ -157,29 +178,33 @@
             "21",
             "Jus Frais",
             3.5,
-            "src\/jusfrais.jpg",
-            "Au choix : Orange, Banane, Fraise."
+            "src/jusfrais.jpg",
+            "Au choix : Orange, Banane, Fraise.",
+            ["sucré", "froid", "rafraîchissant"]
         ],
         [
             "22",
             "Boisson Gazeuse",
             2.5,
-            "src\/boissong.jpg",
-            "Boga, Coca, Fanta... (Canette 33cl)"
+            "src/boissong.jpg",
+            "Boga, Coca, Fanta... (Canette 33cl)",
+            ["sucré", "froid", "rafraîchissant"]
         ],
         [
             "23",
             "Eau Minérale",
             2,
-            "src\/eau.jpg",
-            "Plate ou Gazéifiée (1L)."
+            "src/eau.jpg",
+            "Plate ou Gazéifiée (1L).",
+            ["froid", "rafraîchissant"]
         ],
         [
             "24",
             "Cocktail Maison",
             5,
-            "src\/cocktail.jpg",
-            "Mélange de fruits de saison."
+            "src/cocktail.jpg",
+            "Mélange de fruits de saison.",
+            ["sucré", "froid", "rafraîchissant"]
         ]
     ],
     "desserts": [
@@ -187,43 +212,49 @@
             "25",
             "Masfouf",
             7.5,
-            "src\/masfouf.jpg",
-            "Couscous sucré aux fruits secs, dattes et grenades."
+            "src/masfouf.jpg",
+            "Couscous sucré aux fruits secs, dattes et grenades.",
+            ["sucré", "froid", "fruits à coque"]
         ],
         [
             "26",
             "Shan Hlow",
             6,
-            "src\/hlow.jpg",
-            "Assiette dégustation de pâtisseries tunisiennes."
+            "src/hlow.jpg",
+            "Assiette dégustation de pâtisseries tunisiennes.",
+            ["sucré", "fruits à coque"]
         ],
         [
             "27",
             "Shan Romdhan",
             5,
-            "src\/romdhan.jpg",
-            "Assortiment de Zlebia, Mkharak et Wedhnin el kadhi."
+            "src/romdhan.jpg",
+            "Assortiment de Zlebia, Mkharak et Wedhnin el kadhi.",
+            ["sucré", "frit"]
         ],
         [
             "28",
             "Zrir",
             5.5,
-            "src\/zrirt.jpg",
-            "Crème de sésame et fruits secs, riche et énergisante."
+            "src/zrirt.jpg",
+            "Crème de sésame et fruits secs, riche et énergisante.",
+            ["sucré", "fruits à coque"]
         ],
         [
             "29",
             "Bambalouni",
             3,
-            "src\/bambalouni.jpg",
-            "Le fameux beignet de Sidi Bou Saïd, saupoudré de sucre."
+            "src/bambalouni.jpg",
+            "Le fameux beignet de Sidi Bou Saïd, saupoudré de sucre.",
+            ["sucré", "frit", "chaud"]
         ],
         [
             "30",
             "Assida",
             6,
-            "src\/assida.jpg",
-            "Crème dessert traditionnelle (Zgougou ou Noisette selon saison)."
+            "src/assida.jpg",
+            "Crème dessert traditionnelle (Zgougou ou Noisette selon saison).",
+            ["sucré", "fruits à coque"]
         ]
     ]
 }

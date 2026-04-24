@@ -19,9 +19,9 @@
         "prenom": "yassine",
         "id": "xxxx",
         "num": "0606060606",
-        "address": "11 avenue du saint propre 95000 , Pontoise",
-        "infosupp": "",
-        "points": 127,
+        "address": "11 avenue du saint propre 95000 , Cergy",
+        "infosupp": "apartement 509",
+        "points": 173,
         "statut": "VIP",
         "password": "password123",
         "type": "admin",
@@ -36,7 +36,8 @@
             "cmd016",
             "cmd017",
             "cmd018",
-            "cmd022"
+            "cmd022",
+            "cmd023"
         ]
     },
     {
@@ -69,10 +70,10 @@
         "id": "0003",
         "num": "0775849982",
         "address": "11 AVENUE DES 3 FONTAINES, 95000 CERGY",
-        "infosupp": "appart 509",
-        "points": 0,
+        "infosupp": "appart 506",
+        "points": 57,
         "statut": "gold",
-        "password": "passwored123",
+        "password": "password123",
         "type": "client",
         "commandes": [
             "cmd001",
@@ -80,8 +81,10 @@
             "cmd005",
             "cmd006",
             "cmd007",
-            "cmd008"
-        ]
+            "cmd008",
+            "cmd024"
+        ],
+        "bloque": false
     },
     {
         "id": "0005",
@@ -113,5 +116,18 @@
         "commandes": [
             "cmd021"
         ]
+    },
+    {
+        "id": "0007",
+        "nom": "sef",
+        "prenom": "efs",
+        "num": "fssfe",
+        "address": "fesfe",
+        "infosupp": "fsefse",
+        "points": 0,
+        "statut": "basic",
+        "password": "efsesf",
+        "type": "client",
+        "commandes": []
     }
 ]

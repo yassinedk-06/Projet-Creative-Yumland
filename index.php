@@ -1,5 +1,23 @@
 <?php 
 session_start(); 
+// --- SYSTÈME D'EXPULSION INSTANTANÉE (Si le compte est bloqué par l'admin) ---
+if (isset($_SESSION['id']) && file_exists('json/users.json')) {
+    $utilisateurs_check = json_decode(file_get_contents('json/users.json'), true);
+    if ($utilisateurs_check) {
+        foreach ($utilisateurs_check as $u) {
+            if (isset($u['id']) && $u['id'] === $_SESSION['id']) {
+                if (isset($u['bloque']) && $u['bloque'] === true) {
+                    // L'utilisateur a été bloqué en arrière-plan ! On détruit la session.
+                    session_destroy();
+                    header('Location: connexion.php?erreur=compte_suspendu');
+                    exit();
+                }
+                break;
+            }
+        }
+    }
+}
+// ----------------------------------------------------------------------------
 ?>
 <!DOCTYPE html>
 <html lang="fr">

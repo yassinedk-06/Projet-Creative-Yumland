@@ -7,11 +7,49 @@ if (!isset($_SESSION['connecte'])) {
     exit();
 }
 
+// ====================================================================
+// NOUVEAU : INTERCEPTEUR AJAX (Pour la sauvegarde asynchrone)
+// ====================================================================
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_profil') {
+    header('Content-Type: application/json'); // On précise qu'on répond en format JSON
+
+    $new_adresse = $_POST['adresse'] ?? '';
+    $new_infosupp = $_POST['infosupp'] ?? '';
+
+    $chemin_users = 'json/users.json';
+    $success = false;
+
+    if (file_exists($chemin_users)) {
+        $utilisateurs = json_decode(file_get_contents($chemin_users), true);
+        if ($utilisateurs) {
+            foreach ($utilisateurs as &$user) {
+                // On trouve l'utilisateur connecté et on met à jour ses données
+                if (isset($user['id']) && $user['id'] === $_SESSION['id']) {
+                    $user['address'] = htmlspecialchars($new_adresse);
+                    $user['infosupp'] = htmlspecialchars($new_infosupp);
+                    $success = true;
+                    break;
+                }
+            }
+            // Si on a bien modifié, on sauvegarde le fichier
+            if ($success) {
+                file_put_contents($chemin_users, json_encode($utilisateurs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+            }
+        }
+    }
+
+    // On renvoie un signal de succès au JavaScript et on ARRÊTE le script PHP
+    echo json_encode(['success' => $success]);
+    exit(); 
+}
+// ====================================================================
+
+
 // 2. RÉCUPÉRATION DES DONNÉES DE L'UTILISATEUR
 $adresse = "Non renseignée";
 $infosupp = "Aucun complément";
 $points = 0;
-$mes_commandes_ids = []; // Pour stocker les identifiants (ex: "cmd001", "cmd003")
+$mes_commandes_ids = []; 
 
 if (file_exists('json/users.json')) {
     $json_data = file_get_contents('json/users.json');
@@ -23,7 +61,7 @@ if (file_exists('json/users.json')) {
                 $adresse = $user['address'] ?? "Non renseignée";
                 $infosupp = empty($user['infosupp']) ? "Aucun complément" : $user['infosupp'];
                 $points = $user['points'] ?? 0;
-                $mes_commandes_ids = $user['commandes'] ?? []; // On récupère sa liste de commandes
+                $mes_commandes_ids = $user['commandes'] ?? []; 
                 break;
             }
         }
@@ -38,7 +76,6 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
     
     if ($toutes_les_commandes) {
         foreach ($toutes_les_commandes as $cmd) {
-            // Si l'ID de la commande est dans la liste de l'utilisateur, on la garde
             if (in_array($cmd['id'], $mes_commandes_ids)) {
                 $historique_commandes[] = $cmd;
             }
@@ -53,11 +90,8 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
     <meta charset="UTF-8">
     <title>Mon Profil - Bien Harr</title>
     <?php
-    // 1. On définit les thèmes autorisés (Sécurité pour éviter qu'on injecte n'importe quoi)
     $themes_autorises = ['style.css', 'style-dark.css'];
-    $theme_actuel = 'style.css'; // Le thème par défaut
-
-    // 2. On vérifie si le cookie existe ET si sa valeur est cohérente (autorisée)
+    $theme_actuel = 'style.css'; 
     if (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], $themes_autorises)) {
         $theme_actuel = $_COOKIE['theme'];
     }
@@ -65,6 +99,23 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
     <link id="theme-style" rel="stylesheet" href="<?= htmlspecialchars($theme_actuel) ?>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Petits styles pour les champs éditables */
+        .edit-input {
+            width: 75%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-blue);
+            background: transparent;
+            color: inherit;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .edit-input:focus { border-color: var(--accent-red); }
+        .save-icon { transition: transform 0.2s; }
+        .save-icon:hover { transform: scale(1.2); }
+    </style>
 </head>
 <body class="user-connected"> 
     <header>
@@ -79,7 +130,6 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
             <div class="header-actions">
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'admin'): ?>
                     <a href="admin.php" class="icon-btn" title="Espace Admin"><i class="fas fa-user-shield"></i> <span class="desktop-only">Admin</span></a>
-                    
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 'livreur'): ?>
@@ -122,28 +172,39 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
                     <label>Nom & Prénom</label>
                     <div class="info-value">
                         <span><?php echo htmlspecialchars($_SESSION['nom'] ?? '') . ' ' . htmlspecialchars($_SESSION['prenom'] ?? ''); ?></span>
-                        
                     </div>
                 </div>
+                
                 <div class="info-item">
                     <label>Téléphone</label>
                     <div class="info-value">
                         <span><?php echo htmlspecialchars($_SESSION['num'] ?? ''); ?></span>
-                        
                     </div>
                 </div>
+                
                 <div class="info-item">
                     <label>Adresse</label>
-                    <div class="info-value">
-                        <span><?php echo htmlspecialchars($adresse); ?></span>
-                        <i class="fas fa-pencil-alt edit-icon"></i>
+                    <div class="info-value" id="box-adresse">
+                        <span class="text-display"><?php echo htmlspecialchars($adresse); ?></span>
+                        <input type="text" class="edit-input" id="input-adresse" value="<?php echo htmlspecialchars($adresse, ENT_QUOTES); ?>" style="display: none;">
+                        
+                        <div class="actions">
+                            <i class="fas fa-pencil-alt edit-icon btn-edit" title="Modifier"></i>
+                            <i class="fas fa-check save-icon btn-save" title="Sauvegarder" style="display: none; color: #2ecc71; cursor: pointer; font-size: 1.2rem;"></i>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="info-item">
                     <label>Complément d'adresse</label>
-                    <div class="info-value">
-                        <span><?php echo htmlspecialchars($infosupp); ?></span>
-                        <i class="fas fa-pencil-alt edit-icon"></i>
+                    <div class="info-value" id="box-infosupp">
+                        <span class="text-display"><?php echo htmlspecialchars($infosupp); ?></span>
+                        <input type="text" class="edit-input" id="input-infosupp" value="<?php echo htmlspecialchars($infosupp, ENT_QUOTES); ?>" style="display: none;">
+                        
+                        <div class="actions">
+                            <i class="fas fa-pencil-alt edit-icon btn-edit" title="Modifier"></i>
+                            <i class="fas fa-check save-icon btn-save" title="Sauvegarder" style="display: none; color: #2ecc71; cursor: pointer; font-size: 1.2rem;"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -184,25 +245,28 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
                         <?php foreach ($historique_commandes as $cmd): ?>
                             <tr>
                                 <td><?php echo date('d/m/Y', strtotime($cmd['date'])); ?></td>
-                                
                                 <td><?php echo htmlspecialchars(implode(" + ", $cmd['selection'])); ?></td>
-                                
                                 <td><?php echo number_format($cmd['prix'], 2, ',', ' '); ?> €</td>
-                                
                                 <td><span class="status delivered"><?php echo htmlspecialchars($cmd['etat']); ?></span></td>
-                                
                                 <td>
                                     <?php 
-                                    // La note[0] représente la note de la cuisine. Si elle est > 0, c'est noté.
                                     if (isset($cmd['note']) && $cmd['note'][0] > 0): 
-                                        // Affiche autant d'étoiles que la note (ex: 4 = ⭐⭐⭐⭐)
                                         $etoiles = str_repeat('⭐', $cmd['note'][0]);
                                     ?>
                                         <span title="Cuisine: <?php echo $cmd['note'][0]; ?>/5 - Commentaire: <?php echo htmlspecialchars($cmd['note'][2]); ?>">
                                             <?php echo $etoiles; ?>
                                         </span>
-                                    <?php else: ?>
+                                    <?php else: 
+                                        
+                                        $etat_commande = $cmd['etat'];
+                                        
+                                        // On vérifie si c'est livré ou annulé (avec ou sans accent)
+                                        if (in_array($etat_commande, ['livr\u00e9e', 'livree','livrée', 'annul\u00e9', 'annulé','annulée'])):
+                                    ?>
                                         <a href="notation.php?id=<?php echo htmlspecialchars($cmd['id']); ?>" class="rate-link">Noter</a>
+                                    <?php else: ?>
+                                        <span style="color: #666; cursor: not-allowed; font-size: 0.9rem; font-style: italic;" title="Attendez la fin de la commande pour noter">En cours...</span>
+                                    <?php endif; ?>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -219,34 +283,28 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
     </footer>
 
 <script>
+    // --- GESTION DU THÈME ---
     document.getElementById('btn-theme').addEventListener('click', function() {
-        // 1. On récupère la balise <link> du CSS
         const themeLink = document.getElementById('theme-style');
         const themeIcon = this.querySelector('i');
-        
-        // 2. On regarde quel est le thème actuel
         let currentTheme = themeLink.getAttribute('href');
-        let newTheme = 'style.css'; // Par défaut, on remet le clair
+        let newTheme = 'style.css'; 
         
-        // 3. Logique de bascule (Toggle)
         if (currentTheme === 'style.css') {
             newTheme = 'style-dark.css';
-            themeIcon.classList.replace('fa-moon', 'fa-sun'); // Change l'icône
+            themeIcon.classList.replace('fa-moon', 'fa-sun'); 
         } else {
             newTheme = 'style.css';
-            themeIcon.classList.replace('fa-sun', 'fa-moon'); // Change l'icône
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
         }
         
-        // 4. On change le CSS EN DIRECT (sans recharger la page !)
         themeLink.setAttribute('href', newTheme);
         
-        // 5. On sauvegarde le choix dans un COOKIE (valable 30 jours)
         let dateExpiration = new Date();
         dateExpiration.setTime(dateExpiration.getTime() + (30 * 24 * 60 * 60 * 1000));
         document.cookie = "theme=" + newTheme + "; expires=" + dateExpiration.toUTCString() + "; path=/";
     });
 
-    // Petit bonus : Mettre la bonne icône au chargement de la page selon le cookie
     window.addEventListener('DOMContentLoaded', (event) => {
         const themeLink = document.getElementById('theme-style');
         const themeIcon = document.querySelector('#btn-theme i');
@@ -254,6 +312,72 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
             themeIcon.classList.replace('fa-moon', 'fa-sun');
         }
     });
-    </script>
+
+    // ====================================================================
+    // NOUVEAU : GESTION DE LA MODIFICATION ASYNCHRONE (AJAX / FETCH)
+    // ====================================================================
+    function setupInlineEdit(fieldId) {
+        const box = document.getElementById('box-' + fieldId);
+        if (!box) return;
+
+        const textDisplay = box.querySelector('.text-display');
+        const editInput = box.querySelector('.edit-input');
+        const btnEdit = box.querySelector('.btn-edit');
+        const btnSave = box.querySelector('.btn-save');
+
+        // 1. Quand on clique sur le crayon
+        btnEdit.addEventListener('click', () => {
+            textDisplay.style.display = 'none';    // Cache le texte
+            editInput.style.display = 'block';     // Montre le champ input
+            btnEdit.style.display = 'none';        // Cache le crayon
+            btnSave.style.display = 'block';       // Montre la coche (valider)
+            editInput.focus();
+        });
+
+        // 2. Quand on clique sur la coche (Valider)
+        btnSave.addEventListener('click', () => {
+            // On récupère les deux valeurs pour être sûr de tout sauvegarder
+            const adresseValue = document.getElementById('input-adresse').value.trim();
+            const infosuppValue = document.getElementById('input-infosupp').value.trim();
+
+            // On prépare les données à envoyer (comme un formulaire classique)
+            const formData = new FormData();
+            formData.append('action', 'update_profil');
+            formData.append('adresse', adresseValue);
+            formData.append('infosupp', infosuppValue);
+
+            // Appel Asynchrone vers le serveur (même page)
+            fetch('profil.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) // On s'attend à recevoir {success: true}
+            .then(data => {
+                if(data.success) {
+                    // Si le serveur dit OK, on met à jour l'interface HTML
+                    textDisplay.textContent = editInput.value;
+                    textDisplay.style.display = 'block';
+                    editInput.style.display = 'none';
+                    btnSave.style.display = 'none';
+                    btnEdit.style.display = 'block';
+
+                    // Petit effet visuel vert pour confirmer à l'utilisateur
+                    textDisplay.style.color = '#2ecc71';
+                    setTimeout(() => { textDisplay.style.color = ''; }, 1500);
+                } else {
+                    alert("Erreur lors de la sauvegarde.");
+                }
+            })
+            .catch(error => {
+                console.error("Erreur Fetch:", error);
+                alert("Erreur de connexion avec le serveur.");
+            });
+        });
+    }
+
+    // On active la fonction pour nos deux champs
+    setupInlineEdit('adresse');
+    setupInlineEdit('infosupp');
+</script>
 </body>
 </html>

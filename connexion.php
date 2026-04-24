@@ -44,7 +44,7 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
         exit();
     } else {
         // Il s'est trompé -> On remplit la boîte d'erreur
-        $erreur = "Numéro ou mot de passe incorrect.";
+        $erreur = "Numéro de téléphone ou mot de passe incorrect.";
     }
 }
 ?>
@@ -66,6 +66,7 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
     ?>
     <link id="theme-style" rel="stylesheet" href="<?= htmlspecialchars($theme_actuel) ?>">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -100,26 +101,28 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
             <p>Connectez-vous pour accéder à vos commandes et vos points fidélité.</p>
 
             <?php if ($erreur != ""): ?>
-                <p style="color: white; background-color: red; padding: 10px; border-radius: 5px; text-align: center;">
+                <p style="color: white; background-color: #c0392b; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold;">
                     <?php echo $erreur; ?>
                 </p>
             <?php endif; ?>
 
-            <form action="connexion.php" method="POST" class="auth-form">
+            <form action="connexion.php" method="POST" class="auth-form" id="formConnexion">
                 <div class="form-group">
                     <label for="num">Numéro de téléphone</label>
-                    <input type="text" id="num" name="num" placeholder="Ex: 0606060606" required>
+                    <input type="tel" id="num" name="num" placeholder="Ex: 0606060606">
+                    <span class="error-msg" style="color: var(--accent-red); font-size: 0.8rem; margin-top: 5px;"></span>
                 </div>
 
                 <div class="form-group">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <label for="password">Mot de passe</label>
-                        
                     </div>
-                    <input type="password" id="password" name="password" placeholder="********" required>
+                    <div style="position: relative;">
+                        <input type="password" id="password" name="password" placeholder="********" style="width: 100%; box-sizing: border-box;">
+                        <i class="fas fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;"></i>
+                    </div>
+                    <span class="error-msg" style="color: var(--accent-red); font-size: 0.8rem; margin-top: 5px;"></span>
                 </div>
-
-                
 
                 <button type="submit" class="btn-order">Se connecter</button>
             </form>
@@ -133,6 +136,71 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
     <footer>
         <p>Bien Harr © 2026 - Projet Yumland</p>
     </footer>
+
+    <script>
+        // 1. GESTION DE L'AFFICHAGE DU MOT DE PASSE
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            // Bascule le type de l'input entre "password" et "text"
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // Change l'icône (œil ouvert / œil barré)
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // 2. VALIDATION DU FORMULAIRE SANS RECHARGER LA PAGE
+        document.getElementById('formConnexion').addEventListener('submit', function(e) {
+            let isValid = true;
+
+            // Récupération des champs
+            const num = document.getElementById('num');
+            const pass = document.getElementById('password');
+
+            // Regex (Numéro de téléphone français standard)
+            const regexTel = /^0[1-9]([-. ]?[0-9]{2}){4}$/;
+
+            // Fonction pour afficher l'erreur
+            function showError(input, message) {
+                let errorSpan = input.parentNode.querySelector('.error-msg');
+                if(!errorSpan) {
+                    errorSpan = input.parentNode.parentNode.querySelector('.error-msg'); // Cas du mot de passe avec le wrapper
+                }
+                if(errorSpan) errorSpan.textContent = message;
+                input.style.borderColor = 'var(--accent-red)';
+                isValid = false;
+            }
+
+            // Fonction pour effacer l'erreur
+            function clearError(input) {
+                let errorSpan = input.parentNode.querySelector('.error-msg');
+                if(!errorSpan) {
+                    errorSpan = input.parentNode.parentNode.querySelector('.error-msg');
+                }
+                if(errorSpan) errorSpan.textContent = '';
+                input.style.borderColor = ''; // Remet la bordure par défaut
+            }
+
+            // On nettoie toutes les erreurs avant de vérifier
+            clearError(num); 
+            clearError(pass);
+
+            // VÉRIFICATIONS :
+            if (!regexTel.test(num.value.trim())) {
+                showError(num, "Le numéro de téléphone est invalide (ex: 0612345678).");
+            }
+
+            if (pass.value.trim() === "") {
+                showError(pass, "Veuillez saisir votre mot de passe.");
+            }
+
+            // Si isValid est passé à FALSE, on bloque l'envoi au serveur !
+            if (!isValid) {
+                e.preventDefault(); 
+            }
+        });
+    </script>
 
 </body>
 </html>
