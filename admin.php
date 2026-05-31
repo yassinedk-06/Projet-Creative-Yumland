@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'fonctions.php';
 
 // 1. SÉCURITÉ : On vérifie si l'utilisateur est connecté et si c'est bien un admin
 if (!isset($_SESSION['connecte']) || $_SESSION['type'] !== 'admin') {
@@ -41,6 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             }
             if ($success) {
                 file_put_contents($chemin_users, json_encode($utilisateurs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+                $action_texte = $new_status ? "BLOCAGE_CLIENT" : "DEBLOCAGE_CLIENT";
+                $details_texte = $new_status ? "L'admin a bloqué le client ID : " . $user_id_to_toggle : "L'admin a débloqué le client ID : " . $user_id_to_toggle;
+                ajouterLog($_SESSION['id'], $_SESSION['type'], $action_texte, $details_texte, "WARNING");
             }
         }
     }
@@ -72,6 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 }
             }
             file_put_contents($chemin_users, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+            
+            ajouterLog(
+                $_SESSION['id'], 
+                $_SESSION['type'], 
+                "MODIFICATION_STATUT", 
+                "L'admin a passé le client ID : " . $user_id_to_update . " au statut " . strtoupper($new_statut)
+            );
             
             header('Location: admin.php');
             exit();

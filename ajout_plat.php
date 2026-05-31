@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'fonctions.php';
 
 // 1. SÉCURITÉ : Accès réservé à l'Admin
 if (!isset($_SESSION['connecte']) || $_SESSION['type'] !== 'admin') {
@@ -20,41 +21,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $prix = (float)$_POST['prix'];
     $description = htmlspecialchars($_POST['description']);
     
+    // NOUVEAU : Récupération des caractéristiques cochées (ou un tableau vide si rien n'est coché)
+    $caracteristiques = isset($_POST['caracteristiques']) ? $_POST['caracteristiques'] : [];
+    
     // Gestion de l'image (Upload)
     $chemin_photo = 'src/default.jpg'; // Image par défaut si oubli
 
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
         $nom_fichier_original = basename($_FILES['photo']['name']);
-        
-        // On nettoie le nom du fichier pour éviter les bugs (espaces, accents...)
         $nom_fichier_propre = preg_replace("/[^a-zA-Z0-9.]/", "_", $nom_fichier_original);
-        
-        // On rajoute un numéro unique devant pour éviter d'écraser une image existante
         $chemin_cible = 'src/' . time() . '_' . $nom_fichier_propre;
         
-        // On déplace l'image du dossier temporaire vers notre dossier "src/"
         if (move_uploaded_file($_FILES['photo']['tmp_name'], $chemin_cible)) {
             $chemin_photo = $chemin_cible;
         }
     }
 
-    // Création du nouvel ID (ex: plat_64abc123)
     $nouvel_id = uniqid('plat_');
 
-    // Création du tableau du plat au même format que ton plats.json
-    // Format : [0: ID, 1: Nom, 2: Prix, 3: Image, 4: Description]
+    // NOUVEAU : On ajoute la variable $caracteristiques comme 6ème élément du tableau !
     $nouveau_plat = [
         $nouvel_id,
         $nom,
         $prix,
         $chemin_photo,
-        $description
+        $description,
+        $caracteristiques
     ];
 
     // Lecture du fichier JSON
     $plats_data = file_exists($chemin_plats) ? json_decode(file_get_contents($chemin_plats), true) : [];
 
-    // Sécurité : Si la catégorie n'existe pas encore, on la crée
     if (!isset($plats_data[$categorie])) {
         $plats_data[$categorie] = [];
     }
@@ -65,7 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     // Sauvegarde dans le fichier JSON
     file_put_contents($chemin_plats, json_encode($plats_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
+    ajouterLog(
+        $_SESSION['id'], 
+        $_SESSION['type'], 
+        "NOUVEAU_PLAT", 
+        "Ajout du plat '" . $nom . "' dans la catégorie : " . $categorie
+    );
+
     $message = "✅ Le plat '{$nom}' a été ajouté avec succès à la carte !";
+
 }
 ?>
 
@@ -75,11 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <meta charset="UTF-8">
     <title>Ajouter un Plat - Bien Harr</title>
     <?php
-    // 1. On définit les thèmes autorisés (Sécurité pour éviter qu'on injecte n'importe quoi)
     $themes_autorises = ['style.css', 'style-dark.css'];
-    $theme_actuel = 'style.css'; // Le thème par défaut
-
-    // 2. On vérifie si le cookie existe ET si sa valeur est cohérente (autorisée)
+    $theme_actuel = 'style.css'; 
     if (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], $themes_autorises)) {
         $theme_actuel = $_COOKIE['theme'];
     }
@@ -87,7 +89,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <link id="theme-style" rel="stylesheet" href="<?= htmlspecialchars($theme_actuel) ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
-   
+    
+    <style>
+        /* NOUVEAU : Petit style pour que les cases à cocher soient jolies */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+            padding: 15px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .checkbox-grid label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin: 0;
+        }
+        .checkbox-grid input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body class="admin-page admin-body">
 
@@ -118,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
         <div class="form-container">
             <?php if (!empty($message)): ?>
-                <div class="alert-success"><?= $message ?></div>
+                <div class="alert-success" style="background: #2ecc71; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; font-weight: bold;"><?= $message ?></div>
             <?php endif; ?>
 
             <form action="ajout_plat.php" method="POST" enctype="multipart/form-data">
@@ -151,11 +178,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 </div>
 
                 <div class="form-group">
+                    <label><i class="fas fa-filter"></i> Filtres et Caractéristiques</label>
+                    <div class="checkbox-grid">
+                        <label><input type="checkbox" name="caracteristiques[]" value="salé"> Salé</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="sucré"> Sucré</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="épicé"> Épicé</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="vege"> Végétarien</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="proteine"> Protéiné</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="frit"> Frit</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="froid"> Froid</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="chaud"> Chaud</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="sans gluten"> Sans gluten</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="fruits à coque"> Fruits à coque</label>
+                        <label><input type="checkbox" name="caracteristiques[]" value="rafraîchissant"> Rafraîchissant</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="photo"><i class="fas fa-camera"></i> Photo du plat (JPG, PNG)</label>
                     <input type="file" name="photo" id="photo" class="form-control" accept="image/*" required>
                 </div>
 
-                <button type="submit" class="btn-submit">
+                <button type="submit" class="btn-submit" style="width: 100%; padding: 15px; font-size: 1.1rem; background: var(--primary-blue); color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                     <i class="fas fa-plus-circle"></i> Ajouter à la carte
                 </button>
             </form>

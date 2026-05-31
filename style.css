@@ -1941,3 +1941,83 @@ footer {
             background: rgba(0, 119, 182, 0.1); color: var(--primary-blue);
             padding: 4px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase;
         }
+
+/* =========================================
+   PAGE DE PAIEMENT (THÈME CLAIR)
+   ========================================= */
+.payment-card { 
+    max-width: 500px; 
+    margin: 50px auto; 
+    padding: 30px; 
+    border-radius: 15px; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+    border: 1px solid #eee; 
+    background: var(--bg-light, #ffffff); 
+}
+
+.total-box {
+    background: var(--primary-blue, #2980b9); 
+    color: white; 
+    padding: 15px; 
+    border-radius: 8px; 
+    text-align: center; 
+    font-size: 1.2rem; 
+    margin-bottom: 20px;
+}
+
+.options-wrapper { 
+    background: rgba(0,0,0,0.03); 
+    padding: 20px; 
+    border-radius: 8px; 
+    border: 1px solid #eee; 
+    margin-bottom: 20px;
+}
+
+.radio-option { 
+    margin-bottom: 10px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    display: block; 
+    font-size: 1.05rem; 
+}
+
+.cb-fields { 
+    display: none; 
+    margin-top: 15px; 
+    padding-top: 20px; 
+    border-top: 1px dashed #ccc; 
+}
+
+.cb-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px; 
+    margin-top: 10px; 
+}
+
+.form-group { margin-bottom: 15px; }
+.titre-champ { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+
+.form-control { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    font-family: inherit; 
+    font-size: 1rem; 
+    box-sizing: border-box; 
+}
+
+.form-control:focus { 
+    outline: none; 
+    border-color: var(--primary-blue, #2980b9); 
+}
+
+.error-msg { 
+    color: var(--accent-red, #e74c3c); 
+    font-size: 0.85rem; 
+    display: block; 
+    margin-top: 5px; 
+    font-weight: bold; 
+    text-align: center;
+}

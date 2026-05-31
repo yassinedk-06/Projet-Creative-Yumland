@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-
+require_once 'fonctions.php';
 // 1. SÉCURITÉ
 if (!isset($_SESSION['connecte'])) {
     header('Location: connexion.php');
@@ -34,6 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             // Si on a bien modifié, on sauvegarde le fichier
             if ($success) {
                 file_put_contents($chemin_users, json_encode($utilisateurs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                ajouterLog(
+                    $_SESSION['id'], 
+                    $_SESSION['type'], 
+                    "MODIFICATION_PROFIL", 
+                    "Mise à jour de l'adresse de livraison."
+                );
             }
         }
     }

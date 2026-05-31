@@ -1,7 +1,7 @@
 <?php
 // 1. On allume la mémoire du serveur pour cet utilisateur
 session_start();
-
+require_once 'fonctions.php';
 $erreur = ""; // On prépare une boîte vide pour un éventuel message d'erreur
 
 // 2. On vérifie si l'utilisateur a cliqué sur "Se connecter" (le formulaire a envoyé les données)
@@ -40,10 +40,12 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
     // 5. On agit en fonction du résultat
     if ($connexion_ok == true) {
         // Il a le bon mot de passe -> On le redirige vers l'accueil
+        ajouterLog($user['id'], $user['type'], "CONNEXION", "L'utilisateur s'est connecté.");
         header('Location: index.php');
         exit();
     } else {
         // Il s'est trompé -> On remplit la boîte d'erreur
+        
         $erreur = "Numéro de téléphone ou mot de passe incorrect.";
     }
 }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'fonctions.php';
 
 // 1. SÉCURITÉ
 if (!isset($_SESSION['connecte']) || !in_array($_SESSION['type'], ['admin', 'livreur'])) {
@@ -52,6 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
     // On sauvegarde la modification
     file_put_contents($chemin_commandes, json_encode($commandes, JSON_PRETTY_PRINT));
+
+    ajouterLog(
+                $_SESSION['id'], 
+                $_SESSION['type'], 
+                "MISE_A_JOUR_COMMANDE", 
+                "La commande " . $commande_actuelle['id'] . " est passée à l'état : " . $commandes[$commande_index]['etat'] 
+            );
     
     // Et hop, retour à la liste des courses !
     header('Location: livraison.php');

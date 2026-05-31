@@ -1,5 +1,6 @@
 <?php
 $erreur = ""; // Pour afficher si le numéro existe déjà
+require_once 'fonctions.php';
 
 // 1. On vérifie si l'utilisateur a cliqué sur "Créer mon compte"
 if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) && isset($_POST['prenom']) && isset($_POST['adresse'])) {
@@ -63,6 +64,7 @@ if (isset($_POST['nom']) && isset($_POST['tel']) && isset($_POST['password']) &&
         file_put_contents($chemin_users, $nouveau_json);
 
         // 8. C'est un succès ! 
+        ajouterLog($nouvel_utilisateur['id'], $nouvel_utilisateur['type'], "INSCRIPTION", "L'utilisateur s'est inscrit.");
         header('Location: connexion.php');
         exit();
     }

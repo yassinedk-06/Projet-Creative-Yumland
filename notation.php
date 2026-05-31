@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'fonctions.php';
 
 // 1. SÉCURITÉ : L'utilisateur doit être connecté
 if (!isset($_SESSION['connecte'])) {
@@ -59,7 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // On sauvegarde le fichier JSON mis à jour
+
         file_put_contents($chemin_commandes, json_encode($toutes_les_commandes, JSON_PRETTY_PRINT));
+        ajouterLog(
+                    $_SESSION['id'], 
+                    $_SESSION['type'], 
+                    "NOTATION_COMMANDE", 
+                    "ajout d'une notation pour la commande " . $cmd_id
+                );
         
         // ====================================================================
         // NOUVEAU CODE : MISE À JOUR DE LA MOYENNE DU LIVREUR

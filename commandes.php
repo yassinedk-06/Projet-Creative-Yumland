@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once 'fonctions.php';
+
 // 1. SÉCURITÉ : On autorise l'accès à l'Admin ET au Restaurateur
 if (!isset($_SESSION['connecte']) || ($_SESSION['type'] !== 'admin' && $_SESSION['type'] !== 'restaurateur')) {
     header('Location: index.php');
@@ -36,6 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             // On sauvegarde le fichier
             file_put_contents($chemin_commandes, json_encode($commandes, JSON_PRETTY_PRINT));
             
+            ajouterLog(
+                $_SESSION['id'], 
+                $_SESSION['type'], 
+                "MISE_A_JOUR_COMMANDE", 
+                "La commande " . $cmd_id_to_update . " est passée à l'état : " . $new_etat_propre
+            );
             // On recharge la page pour valider
             header('Location: commandes.php');
             exit();

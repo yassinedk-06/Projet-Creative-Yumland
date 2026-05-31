@@ -1,62 +1,62 @@
 [
     {
         "id": "cmd001",
-        "date": "2026-03-23",
-        "prix": 29.5,
+        "date": "2026-05-31",
+        "prix": 51.6,
         "selection": [
-            "Slata Mechouia",
-            "Brik \u00e0 l'Oeuf",
+            "Brik à l'Oeuf",
+            "Omek Houria",
+            "S'han Tounsi",
+            "Dwida mfawra",
+            "Mlokhia"
+        ],
+        "etat": "livrée",
+        "note": [
+            5,
+            5,
+            "excellent "
+        ],
+        "livraison": true
+    },
+    {
+        "id": "cmd002",
+        "date": "2026-05-31",
+        "prix": 11.25,
+        "selection": [
             "S'han Tounsi"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "livrée",
         "note": [
-            0,
-            0,
+            2,
+            5,
             ""
         ],
         "livraison": false
     },
     {
-        "id": "cmd002",
-        "date": "2026-03-23",
-        "prix": 23.5,
-        "selection": [
-            "Brik \u00e0 l'Oeuf",
-            "Kafteji Traditionnel"
-        ],
-        "etat": "Annul\u00e9e",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
-    },
-    {
         "id": "cmd003",
-        "date": "2026-03-23",
-        "prix": 40.5,
+        "date": "2026-05-31",
+        "prix": 8.1,
         "selection": [
-            "Makrouna Tounsia",
-            "Brik \u00e0 l'Oeuf",
-            "Dwida mfawra"
+            "Brik à l'Oeuf"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "annulée",
         "note": [
-            0,
-            0,
+            1,
+            1,
             ""
         ],
         "livraison": true
     },
     {
         "id": "cmd004",
-        "date": "2026-03-23",
-        "prix": 9,
+        "date": "2026-05-31",
+        "prix": 17.55,
         "selection": [
-            "Brik \u00e0 l'Oeuf"
+            "Brik à l'Oeuf",
+            "Omek Houria"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "livrée",
         "note": [
             0,
             0,
@@ -66,13 +66,12 @@
     },
     {
         "id": "cmd005",
-        "date": "2026-03-24",
-        "prix": 23,
+        "date": "2026-05-31",
+        "prix": 5.2,
         "selection": [
-            "Brik \u00e0 l'Oeuf",
-            "Dwida mfawra"
+            "Brik à l'Oeuf"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "livrée",
         "note": [
             0,
             0,
@@ -82,310 +81,23 @@
     },
     {
         "id": "cmd006",
-        "date": "2026-03-24",
-        "prix": 19,
+        "date": "2026-05-31 14:17:32",
+        "prix": 14.8,
         "selection": [
-            "Dwida mfawra"
-        ],
-        "etat": "livr\u00e9e",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
-    },
-    {
-        "id": "cmd007",
-        "date": "2026-03-24",
-        "prix": 25.5,
-        "selection": [
-            "Brik \u00e0 l'Oeuf",
-            "Brik \u00e0 l'Oeuf",
-            "S'han Tounsi"
-        ],
-        "etat": "livr\u00e9e",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd008",
-        "date": "2026-03-24",
-        "prix": 8.5,
-        "selection": [
-            "S'han Hlow"
-        ],
-        "etat": "annul\u00e9",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
-    },
-    {
-        "id": "cmd009",
-        "date": "2026-03-24",
-        "prix": 10.5,
-        "selection": [
-            "Omek Houria"
-        ],
-        "etat": "en attente",
-        "note": [
-            5,
-            5,
-            "test"
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd010",
-        "date": "2026-03-24",
-        "prix": 13,
-        "selection": [
-            "Omek Houria"
-        ],
-        "etat": "annul\u00e9",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
-    },
-    {
-        "id": "cmd011",
-        "date": "2026-03-24",
-        "prix": 31.5,
-        "selection": [
-            "Dwida mfawra",
-            "S'han Tounsi"
-        ],
-        "etat": "cuisine",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
-    },
-    {
-        "id": "cmd012",
-        "date": "2026-03-27",
-        "prix": 26,
-        "selection": [
-            "Brik \u00e0 l'Oeuf",
-            "Omek Houria",
-            "Brik \u00e0 l'Oeuf"
-        ],
-        "etat": "cuisine",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
-    },
-    {
-        "id": "cmd013",
-        "date": "2026-03-27",
-        "prix": 1.5,
-        "selection": [
-            "Th\u00e9 Rouge"
-        ],
-        "etat": "cuisine",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd014",
-        "date": "2026-03-27",
-        "prix": 10.5,
-        "selection": [
-            "Omek Houria"
-        ],
-        "etat": "cuisine",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd015",
-        "date": "2026-03-27",
-        "prix": 10.5,
-        "selection": [
-            "Omek Houria"
-        ],
-        "etat": "cuisine",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd016",
-        "date": "2026-03-27",
-        "prix": 33,
-        "selection": [
-            "Nwasser",
-            "Dwida mfawra"
-        ],
-        "etat": "cuisine",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd017",
-        "date": "2026-03-27",
-        "prix": 16.5,
-        "selection": [
-            "Dwida mfawra"
-        ],
-        "etat": "cuisine",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd018",
-        "date": "2026-03-27",
-        "prix": 9.6,
-        "selection": [
-            "Mlokhia"
-        ],
-        "etat": "cuisine",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd019",
-        "date": "2026-03-27",
-        "prix": 70.4,
-        "selection": [
-            "Brik \u00e0 l'Oeuf",
-            "Brik \u00e0 l'Oeuf",
+            "Brik à l'Oeuf",
             "Slata Mechouia",
-            "Couscous Royal",
-            "Ojja Merguez",
-            "Th\u00e9 Vert \u00e0 la Menthe",
-            "Masfouf"
+            "Thé Vert à la Menthe"
         ],
-        "etat": "annul\u00e9",
+        "etat": "cuisine",
         "note": [
             0,
             0,
             ""
         ],
-        "livraison": true
-    },
-    {
-        "id": "cmd020",
-        "date": "2026-03-27",
-        "prix": 43.44,
-        "selection": [
-            "Ojja Merguez",
-            "Brik \u00e0 l'Oeuf",
-            "Slata Mechouia",
-            "Brik \u00e0 l'Oeuf",
-            "Couscous Royal",
-            "Th\u00e9 Vert \u00e0 la Menthe",
-            "Jus Frais",
-            "S'han Hlow"
-        ],
-        "etat": "livr\u00e9e",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
-    },
-    {
-        "id": "cmd021",
-        "date": "2026-03-27",
-        "prix": 33.5,
-        "selection": [
-            "Couscous Royal",
-            "S'han Tounsi"
-        ],
-        "etat": "livr\u00e9e",
-        "note": [
-            2,
-            1,
-            "trop \u00e9pic\u00e9es"
-        ],
-        "livraison": true
-    },
-    {
-        "id": "cmd022",
-        "date": "2026-04-21",
-        "prix": 3.9,
-        "selection": [
-            "Brik \u00e0 l'Oeuf"
-        ],
-        "etat": "en attente",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": false
-    },
-    {
-        "id": "cmd023",
-        "date": "2026-04-22",
-        "prix": 13.8,
-        "selection": [
-            "Couscous Royal"
-        ],
-        "etat": "en attente",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
-    },
-    {
-        "id": "cmd024",
-        "date": "2026-04-22",
-        "prix": 22.8,
-        "selection": [
-            "Brik \u00e0 l'Oeuf",
-            "Brik \u00e0 l'Oeuf",
-            "Omek Houria",
-            "Boisson Gazeuse"
-        ],
-        "etat": "annul\u00e9e",
-        "note": [
-            0,
-            0,
-            ""
-        ],
-        "livraison": true
+        "livraison": false,
+        "adresse": "",
+        "heure": "ASAP",
+        "commentaire": "",
+        "paiement": "carte"
     }
 ]

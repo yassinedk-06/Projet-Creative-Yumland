@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+require_once 'fonctions.php';
+
+
 // --- SYSTÈME D'EXPULSION INSTANTANÉE (Si le compte est bloqué par l'admin) ---
 if (isset($_SESSION['id']) && file_exists('json/users.json')) {
     $utilisateurs_check = json_decode(file_get_contents('json/users.json'), true);
@@ -39,6 +43,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['in
         // On réorganise les numéros du tableau
         $_SESSION['panier'] = array_values($_SESSION['panier']); 
     }
+    
+    // NOUVEAU LOG CORRECT ICI (Optionnel) : On signale juste un retrait du panier
+    ajouterLog($_SESSION['id'], $_SESSION['type'], "MODIFICATION_PANIER", "Un article a été retiré du panier.");
     
     // On recharge la page proprement
     header('Location: validation.php');
@@ -108,7 +115,7 @@ $frais_livraison = 2.50;
             display: flex; gap: 30px; flex-wrap: wrap;
         }
         .checkout-section {
-            background: white; padding: 30px; border-radius: 15px;
+             padding: 30px; border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05); flex: 1; min-width: 300px;
             border: 1px solid #eee;
         }
@@ -197,7 +204,7 @@ $frais_livraison = 2.50;
     <div class="checkout-section">
         <h2>🛵 Mode de retrait</h2>
         
-        <form action="traitement_commande.php" method="POST">
+        <form action="paiement.php" method="POST">
             
             <div class="form-group">
                 <label class="titre-champ">Comment souhaitez-vous récupérer votre commande ?</label>
