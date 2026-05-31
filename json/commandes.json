@@ -4,13 +4,13 @@
         "date": "2026-05-31",
         "prix": 51.6,
         "selection": [
-            "Brik \u00e0 l'Oeuf",
+            "Brik à l'Oeuf",
             "Omek Houria",
             "S'han Tounsi",
             "Dwida mfawra",
             "Mlokhia"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "livrée",
         "note": [
             5,
             5,
@@ -25,7 +25,7 @@
         "selection": [
             "S'han Tounsi"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "livrée",
         "note": [
             2,
             5,
@@ -38,9 +38,9 @@
         "date": "2026-05-31",
         "prix": 8.1,
         "selection": [
-            "Brik \u00e0 l'Oeuf"
+            "Brik à l'Oeuf"
         ],
-        "etat": "annul\u00e9e",
+        "etat": "annulée",
         "note": [
             1,
             1,
@@ -53,10 +53,10 @@
         "date": "2026-05-31",
         "prix": 17.55,
         "selection": [
-            "Brik \u00e0 l'Oeuf",
+            "Brik à l'Oeuf",
             "Omek Houria"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "livrée",
         "note": [
             0,
             0,
@@ -69,9 +69,9 @@
         "date": "2026-05-31",
         "prix": 5.2,
         "selection": [
-            "Brik \u00e0 l'Oeuf"
+            "Brik à l'Oeuf"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "livrée",
         "note": [
             0,
             0,
@@ -84,11 +84,11 @@
         "date": "2026-05-31 14:17:32",
         "prix": 14.8,
         "selection": [
-            "Brik \u00e0 l'Oeuf",
+            "Brik à l'Oeuf",
             "Slata Mechouia",
-            "Th\u00e9 Vert \u00e0 la Menthe"
+            "Thé Vert à la Menthe"
         ],
-        "etat": "livr\u00e9e",
+        "etat": "livrée",
         "note": [
             0,
             0,
@@ -99,5 +99,43 @@
         "heure": "ASAP",
         "commentaire": "",
         "paiement": "carte"
+    },
+    {
+        "id": "cmd007",
+        "date": "2026-05-31 21:15:50",
+        "prix": 5.2,
+        "selection": [
+            "Brik à l'Oeuf"
+        ],
+        "etat": "cuisine",
+        "note": [
+            0,
+            0,
+            ""
+        ],
+        "livraison": false,
+        "adresse": "",
+        "heure": "ASAP",
+        "commentaire": "",
+        "paiement": "cash"
+    },
+    {
+        "id": "cmd008",
+        "date": "2026-05-31 21:19:26",
+        "prix": 13.92,
+        "selection": [
+            "Ojja Merguez"
+        ],
+        "etat": "cuisine",
+        "note": [
+            0,
+            0,
+            ""
+        ],
+        "livraison": true,
+        "adresse": "",
+        "heure": "ASAP",
+        "commentaire": "",
+        "paiement": "cash"
     }
 ]

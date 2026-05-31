@@ -1,5 +1,85 @@
 [
     {
+        "date": "2026-05-31 22:09:35",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "BLOCAGE_CLIENT",
+        "details": "L'admin a bloqu\u00e9 le client ID : 0006",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-05-31 21:37:55",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0002 au statut SILVER",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 21:37:52",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0002 au statut VIP",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 21:37:48",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0002 au statut SILVER",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 21:37:44",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0002 au statut GOLD",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 21:34:23",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "DEBLOCAGE_CLIENT",
+        "details": "L'admin a d\u00e9bloqu\u00e9 le client ID : 0005",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-05-31 21:34:11",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "BLOCAGE_CLIENT",
+        "details": "L'admin a bloqu\u00e9 le client ID : 0005",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-05-31 21:19:26",
+        "user_id": "0003",
+        "role": "client",
+        "action": "NOUVELLE_COMMANDE",
+        "details": "Cr\u00e9ation de la commande cmd008 pour un montant de 13,92 \u20ac (Paiement: CASH)",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 21:15:50",
+        "user_id": "0003",
+        "role": "client",
+        "action": "NOUVELLE_COMMANDE",
+        "details": "Cr\u00e9ation de la commande cmd007 pour un montant de 5,20 \u20ac (Paiement: CASH)",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 20:46:42",
+        "user_id": "0003",
+        "role": "client",
+        "action": "MODIFICATION_PANIER",
+        "details": "Un article a \u00e9t\u00e9 retir\u00e9 du panier.",
+        "niveau": "INFO"
+    },
+    {
         "date": "2026-05-31 20:38:31",
         "user_id": "0003",
         "role": "client",

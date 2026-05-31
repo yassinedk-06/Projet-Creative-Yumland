@@ -253,63 +253,114 @@ if (file_exists($chemin_users)) {
         // ====================================================================
         // SCRIPT AJAX POUR BLOQUER/DÉBLOQUER SANS RECHARGER LA PAGE
         // ====================================================================
+
+        // 1. SÉLECTION ET ÉCOUTE DES BOUTONS
+        // On cherche sur toute la page tous les éléments HTML qui ont la classe '.btn-toggle-block'.
+        // Ensuite, avec '.forEach()', on passe sur chaque bouton trouvé pour lui attacher une action.
         document.querySelectorAll('.btn-toggle-block').forEach(button => {
+            
+            // On ajoute un "écouteur d'événement" : à chaque fois qu'on clique sur ce bouton, la fonction s'exécute.
             button.addEventListener('click', function() {
+                
+                // 2. RÉCUPÉRATION DES DONNÉES DU BOUTON
+                // 'this' représente le bouton sur lequel on vient de cliquer.
+                // On récupère la valeur de son attribut caché 'data-id' (l'ID du client).
                 const userId = this.getAttribute('data-id');
+                
+                // On récupère l'attribut 'data-blocked'. S'il vaut exactement le texte 'true', 
+                // la variable 'isBlocked' sera vraie (true), sinon elle sera fausse (false).
                 const isBlocked = this.getAttribute('data-blocked') === 'true';
                 
-                // Message de confirmation dynamique
+                // 3. DEMANDE DE CONFIRMATION
+                // On prépare une phrase différente selon si le client est déjà bloqué ou non.
                 const confirmMessage = isBlocked 
                     ? "Voulez-vous débloquer ce client ?" 
                     : "Voulez-vous bloquer ce client ? Sa session en cours sera fermée immédiatement.";
                 
-                if (!confirm(confirmMessage)) return; // Si on annule, on arrête tout
+                // La fonction 'confirm()' affiche une petite fenêtre (pop-up) avec "OK" ou "Annuler".
+                // Le '!' veut dire "Si l'admin ne confirme PAS (s'il clique sur Annuler)".
+                // Dans ce cas, on fait un 'return' : cela stoppe immédiatement la fonction, rien ne se passe.
+                if (!confirm(confirmMessage)) return; 
 
-                // Préparation des données à envoyer
+                // 4. PRÉPARATION DU COLIS (LES DONNÉES À ENVOYER)
+                // FormData est un outil JavaScript qui crée un formulaire virtuel (invisible).
                 const formData = new FormData();
+                // On y ajoute une étiquette 'action' avec la valeur 'toggle_block' (pour que le PHP comprenne quoi faire).
                 formData.append('action', 'toggle_block');
+                // On y ajoute l'ID du client qu'on veut modifier.
                 formData.append('user_id', userId);
 
-                // Appel AJAX vers admin.php
+                // 5. ENVOI AU SERVEUR (LA REQUÊTE AJAX / FETCH)
+                // La fonction 'fetch' part contacter le fichier 'admin.php' en arrière-plan.
                 fetch('admin.php', {
-                    method: 'POST',
-                    body: formData
+                    method: 'POST', // On utilise la méthode POST (comme un vrai formulaire)
+                    body: formData  // On glisse notre colis (le FormData) dans le corps du message
                 })
+                
+                // 6. RÉCEPTION DE LA RÉPONSE DU SERVEUR
+                // Quand le serveur PHP a fini, il renvoie une réponse. On transforme cette réponse brute en format JSON utilisable.
                 .then(response => response.json())
+                
+                // Maintenant, 'data' contient le tableau JSON envoyé par PHP (ex: {success: true, is_blocked: true})
                 .then(data => {
+                    
+                    // Si le serveur confirme que l'action a réussi dans la base de données...
                     if (data.success) {
-                        // Mise à jour visuelle du bouton sans recharger la page !
+                        
+                        // 7. MISE À JOUR VISUELLE (SANS RECHARGER LA PAGE)
+                        
+                        // CAS A : Le serveur nous dit que le client est maintenant BLOQUÉ
                         if (data.is_blocked) {
+                            // On met à jour l'attribut caché du bouton pour le prochain clic
                             this.setAttribute('data-blocked', 'true');
-                            this.style.backgroundColor = '#27ae60'; // Devient vert (Débloquer)
+                            // On change la couleur du bouton en vert (car la prochaine action possible sera de le débloquer)
+                            this.style.backgroundColor = '#27ae60'; 
+                            // On change l'infobulle quand on passe la souris dessus
                             this.title = 'Débloquer ce client';
+                            // On remplace l'icône de cadenas fermé par un cadenas ouvert
                             this.innerHTML = '<i class="fas fa-unlock"></i>';
                             
-                            // Petit effet barré sur le nom du client (optionnel mais très pro)
+                            // -- Effet sur la ligne du tableau --
+                            // On remonte au parent (la ligne <tr> entière), on cherche le span contenant le nom du client
                             const nomSpan = this.closest('tr').querySelector('.user-info span');
+                            // On cherche le rond contenant les initiales
                             const avatarSpan = this.closest('tr').querySelector('.avatar');
+                            
+                            // On barre le nom et on le grise pour montrer qu'il est inactif
                             nomSpan.style.textDecoration = 'line-through';
                             nomSpan.style.color = '#888';
+                            // On grise l'avatar
                             avatarSpan.style.backgroundColor = '#666';
+                        
+                        // CAS B : Le serveur nous dit que le client est maintenant DÉBLOQUÉ
                         } else {
+                            // On remet l'attribut caché à false
                             this.setAttribute('data-blocked', 'false');
-                            this.style.backgroundColor = 'var(--accent-red)'; // Devient rouge (Bloquer)
+                            // On remet le bouton en rouge
+                            this.style.backgroundColor = 'var(--accent-red)'; 
                             this.title = 'Bloquer ce client';
+                            // On remet l'icône du cadenas fermé
                             this.innerHTML = '<i class="fas fa-lock"></i>';
                             
-                            // On enlève l'effet barré
+                            // On retire le style barré sur le nom du client
                             const nomSpan = this.closest('tr').querySelector('.user-info span');
                             const avatarSpan = this.closest('tr').querySelector('.avatar');
                             nomSpan.style.textDecoration = 'none';
                             nomSpan.style.color = '';
-                            avatarSpan.style.backgroundColor = ''; // Revient à la couleur par défaut
+                            // L'avatar reprend sa couleur de base
+                            avatarSpan.style.backgroundColor = ''; 
                         }
+                    
+                    // Si le serveur a rencontré un problème (ex: client introuvable)
                     } else {
                         alert("Erreur lors de l'opération.");
                     }
                 })
+                
+                // 8. GESTION DES ERREURS RÉSEAU
+                // Si le serveur est tombé en panne ou que la connexion internet a sauté pendant l'envoi
                 .catch(error => {
-                    console.error("Erreur Fetch:", error);
+                    console.error("Erreur Fetch:", error); // Affiche l'erreur technique dans la console F12
                     alert("Problème de connexion avec le serveur.");
                 });
             });

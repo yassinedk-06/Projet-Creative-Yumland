@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     
     // On met à jour la liste des états pour qu'ils correspondent exactement à ce qu'on utilise partout
     $etats_autorises = ['en attente', 'cuisine', 'en livraison', 'livrée', 'annulée'];
+    $etats_autorises_nonlivraison = [ 'cuisine' , 'livrée', 'annulée'];
     
     // On nettoie la chaîne reçue pour éviter les bugs de majuscules
     $new_etat_propre = mb_strtolower($new_etat, 'UTF-8');
@@ -168,13 +169,21 @@ if (file_exists($chemin_commandes)) {
                                         <input type="hidden" name="action" value="update_etat">
                                         <input type="hidden" name="cmd_id" value="<?php echo $id; ?>">
                                         
-                                        <select name="new_etat" class="select-etat <?php echo $class_etat; ?>" onchange="this.form.submit()">
+                                    <select name="new_etat" class="select-etat <?php echo $class_etat; ?>" onchange="this.form.submit()">
+                                        <?php if ($est_livraison): ?>
                                             <option value="en attente" <?php if($etat_propre === 'en attente') echo 'selected'; ?>>⏳ En attente</option>
-                                            <option value="cuisine" <?php if($etat_propre === 'cuisine') echo 'selected'; ?>>🍳 En cuisine</option>
+                                        <?php endif; ?>
+                                        
+                                        <option value="cuisine" <?php if($etat_propre === 'cuisine') echo 'selected'; ?>>🍳 En cuisine</option>
+                                        
+                                        <?php if ($est_livraison): ?>
                                             <option value="en livraison" <?php if($etat_propre === 'en livraison') echo 'selected'; ?>>🛵 En livraison</option>
-                                            <option value="livrée" <?php if($etat_propre === 'livrée') echo 'selected'; ?>>✅ Livrée</option>
-                                            <option value="annulée" <?php if($etat_propre === 'annulée' || $etat_propre === 'annulé') echo 'selected'; ?>>❌ Annulée</option>
-                                        </select>
+                                        <?php endif; ?>
+                                        
+                                        <option value="livrée" <?php if($etat_propre === 'livrée') echo 'selected'; ?>>✅ Livrée / Récupérée</option>
+                                        
+                                        <option value="annulée" <?php if($etat_propre === 'annulée' || $etat_propre === 'annulé') echo 'selected'; ?>>❌ Annulée</option>
+                                    </select>
                                     </form>
                                 </td>
                                 

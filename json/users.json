@@ -7,7 +7,7 @@
         "address": "2 Rue de la Paix, Paris, France",
         "infosupp": "appart 305",
         "points": 0,
-        "statut": "basic",
+        "statut": "silver",
         "password": "password123",
         "type": "client",
         "commandes": [],
@@ -51,8 +51,8 @@
         "num": "0775849982",
         "address": "11 AVENUE DES 3 FONTAINES, 95000 CERGY",
         "infosupp": "appart 506",
-        "points": 261,
-        "statut": "gold",
+        "points": 308.8,
+        "statut": "VIP",
         "password": "password123",
         "type": "client",
         "commandes": [
@@ -61,7 +61,9 @@
             "cmd003",
             "cmd004",
             "cmd005",
-            "cmd006"
+            "cmd006",
+            "cmd007",
+            "cmd008"
         ],
         "bloque": false
     },
@@ -76,7 +78,8 @@
         "statut": "silver",
         "password": "password123",
         "type": "client",
-        "commandes": []
+        "commandes": [],
+        "bloque": false
     },
     {
         "id": "0006",
@@ -89,7 +92,8 @@
         "statut": "basic",
         "password": "password123",
         "type": "client",
-        "commandes": []
+        "commandes": [],
+        "bloque": true
     },
     {
         "id": "0007",
