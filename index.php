@@ -101,10 +101,10 @@ if (isset($_SESSION['id']) && file_exists('json/users.json')) {
                 <p>Une cuisine authentique dans un écrin de modernité.</p>
             <?php endif; ?>
             
-            <div class="search-bar">
-                <input type="text" placeholder="Envie d'un Couscous, d'une Brick ?">
-                <button>Chercher</button>
-            </div>
+            <form action="carte.php" method="GET" class="search-bar" style="margin: 0;">
+                <input type="text" name="search" placeholder="Envie d'un Couscous, d'une Brick ?">
+                <button type="submit">Chercher</button>
+            </form>
         </div>
     </section>
 

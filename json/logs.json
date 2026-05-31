@@ -1,5 +1,37 @@
 [
     {
+        "date": "2026-05-31 20:38:31",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 14:24:15",
+        "user_id": "0003",
+        "role": "client",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 14:23:21",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd006 est pass\u00e9e \u00e0 l'\u00e9tat : livr\u00e9e",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-05-31 14:23:17",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd006 est pass\u00e9e \u00e0 l'\u00e9tat : en attente",
+        "niveau": "INFO"
+    },
+    {
         "date": "2026-05-31 14:17:32",
         "user_id": "0003",
         "role": "client",

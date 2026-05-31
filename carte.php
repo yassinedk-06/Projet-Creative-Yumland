@@ -195,7 +195,8 @@ foreach ($cart_data as $item) {
     
     <div class="search-and-filter-container">
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Rechercher un plat (ex: Mloukhia)...">
+            <?php $recherche_initiale = $_GET['search'] ?? ''; ?>
+            <input type="text" id="searchInput" value="<?= htmlspecialchars($recherche_initiale) ?>" placeholder="Rechercher un plat (ex: Mloukhia)...">
         </div>
         <button id="btnOpenModal" class="btn-open-filtres"><i class="fas fa-sliders-h"></i> Filtres</button>
     </div>
@@ -496,6 +497,17 @@ foreach ($cart_data as $item) {
 
     document.getElementById('searchInput').addEventListener('input', fetchFilteredData);
     btnApply.addEventListener('click', () => { fetchFilteredData(); modal.style.display = 'none'; });
+
+    // =====================================================================================
+    // NOUVEAU : LANCEMENT DE LA RECHERCHE AU CHARGEMENT (Depuis l'accueil)
+    // =====================================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+        // Si la barre de recherche n'est pas vide au chargement de la page
+        if (document.getElementById('searchInput').value.trim() !== '') {
+            // On simule un clic sur le bouton "Appliquer" ou on lance la fonction
+            fetchFilteredData();
+        }
+    });
 
 </script>
 
