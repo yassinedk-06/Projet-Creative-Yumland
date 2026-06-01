@@ -23,8 +23,6 @@ if (isset($_SESSION['id']) && file_exists('json/users.json')) {
 }
 // ----------------------------------------------------------------------------
 
-//$users_data = 'json/users.json';
-//$users = file_exists($users_data) ? json_decode(file_get_contents($users_data), true) : [];
 
 // 1. INITIALISATION DU PANIER EN SESSION (Sécurité)
 if (!isset($_SESSION['panier'])) {
