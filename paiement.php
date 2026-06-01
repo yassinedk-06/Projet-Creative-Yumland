@@ -106,56 +106,114 @@ $total_a_payer = $sous_total + $frais_livraison;
 </main>
 
 <script>
-    // 1. Afficher/Cacher la zone CB
+    // ====================================================================
+    // 1. AFFICHER / CACHER LA ZONE DE CARTE BANCAIRE
+    // ====================================================================
+    // On récupère les éléments HTML grâce à leur ID
     const radioCash = document.getElementById('radio-cash');
     const radioCarte = document.getElementById('radio-carte');
     const zoneCb = document.getElementById('zone-cb');
 
+    // On écoute le changement d'état du bouton radio "Carte"
+    // S'il est sélectionné, on modifie le CSS pour afficher la zone (display: 'block')
     radioCarte.addEventListener('change', () => zoneCb.style.display = 'block');
+    
+    // Si l'utilisateur change d'avis et sélectionne "Cash"
     radioCash.addEventListener('change', () => {
+        // On recache la zone de la carte
         zoneCb.style.display = 'none';
+        // On vide l'éventuel message d'erreur qui serait resté affiché
         document.getElementById('erreur-cb').textContent = ''; 
     });
 
-    // 2. Formatage automatique du numéro de carte (ajoute des espaces)
+    // ====================================================================
+    // 2. FORMATAGE DYNAMIQUE DU NUMÉRO DE CARTE (AJOUT D'ESPACES)
+    // ====================================================================
+    // 'input' est déclenché à chaque fois qu'une touche est pressée ou effacée
     document.getElementById('cb_num').addEventListener('input', function (e) {
+        
+        // a) NETTOYAGE : On prend ce que l'utilisateur vient de taper
+        // .replace(/\s+/g, '') supprime tous les espaces existants
+        // .replace(/[^0-9]/gi, '') supprime tout ce qui n'est pas un chiffre (lettres, symboles)
         let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        
         let formattedValue = '';
+        
+        // b) RECONSTRUCTION : On parcourt les chiffres nettoyés un par un
         for (let i = 0; i < value.length; i++) {
+            // Si on n'est pas au premier chiffre (i > 0) ET qu'on est à un multiple de 4 (i % 4 === 0)
+            // On ajoute un espace avant d'ajouter le chiffre
             if (i > 0 && i % 4 === 0) formattedValue += ' ';
             formattedValue += value[i];
         }
+        
+        // On remplace la valeur dans le champ de saisie par notre nouvelle valeur formatée
         e.target.value = formattedValue;
     });
 
-    // 3. Formatage de la date (ajoute le slash)
+    // ====================================================================
+    // 3. FORMATAGE DYNAMIQUE DE LA DATE D'EXPIRATION (MM/YY)
+    // ====================================================================
     document.getElementById('cb_date').addEventListener('input', function (e) {
+        
+        // Nettoyage : On supprime les slashs '/' existants et tout ce qui n'est pas un chiffre
         let value = e.target.value.replace(/\//g, '').replace(/[^0-9]/gi, '');
-        if (value.length >= 2) value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        
+        // Si l'utilisateur a tapé au moins 2 chiffres (le mois est complet)
+        if (value.length >= 2) {
+            // On coupe la chaîne en deux et on insère un '/' au milieu
+            // substring(0, 2) prend les 2 premiers chiffres (Mois)
+            // substring(2, 4) prend les chiffres suivants (Année)
+            value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        }
+        
+        // On met à jour l'affichage
         e.target.value = value;
     });
 
-    // 4. Vérification avant l'envoi
+    // ====================================================================
+    // 4. VÉRIFICATION DE SÉCURITÉ AVANT L'ENVOI DU FORMULAIRE
+    // ====================================================================
+    // On écoute l'événement 'submit' (quand on clique sur le bouton "Payer et Commander")
     document.getElementById('formPaiement').addEventListener('submit', function(e) {
+        
+        // On ne fait ces vérifications complexes QUE si le client a choisi de payer par carte
         if (radioCarte.checked) {
+            
+            // On récupère les valeurs actuelles des champs (en enlevant les espaces du numéro de carte)
             const num = document.getElementById('cb_num').value.replace(/\s/g, '');
             const date = document.getElementById('cb_date').value;
             const cvv = document.getElementById('cb_cvv').value;
-            let erreur = "";
+            
+            let erreur = ""; // Variable pour stocker le message d'erreur
 
+            // TEST 1 : La longueur du numéro de carte
             if (num.length !== 16) {
                 erreur = "Le numéro de carte doit contenir 16 chiffres.";
-            } else if (!date.match(/^(0[1-9]|1[0-2])\/\d{2}$/)) {
+            } 
+            // TEST 2 : Le format de la date (grâce à une expression régulière)
+            // ^(0[1-9]|1[0-2]) vérifie que le mois va de 01 à 12
+            // \/\d{2}$ vérifie qu'il y a bien un '/' suivi de 2 chiffres exacts
+            else if (!date.match(/^(0[1-9]|1[0-2])\/\d{2}$/)) {
                 erreur = "La date d'expiration est invalide (format MM/YY attendu).";
-            } else if (cvv.length !== 3 || isNaN(cvv)) {
+            } 
+            // TEST 3 : Le CVV
+            // On vérifie qu'il fait 3 caractères ET que ce n'est pas "Not a Number" (!isNaN)
+            else if (cvv.length !== 3 || isNaN(cvv)) {
                 erreur = "Le cryptogramme (CVV) doit contenir 3 chiffres.";
             }
 
+            // CONCLUSION DE L'ANALYSE
+            // Si la variable erreur n'est plus vide, c'est qu'un des 3 tests a échoué
             if (erreur !== "") {
+                // e.preventDefault() est LA commande vitale ici : elle annule l'envoi du formulaire au serveur (PHP) !
                 e.preventDefault(); 
+                
+                // On affiche le message d'erreur rouge à l'utilisateur pour qu'il corrige
                 document.getElementById('erreur-cb').textContent = erreur;
             }
         }
+        // Si aucune erreur, le code continue normalement et le formulaire part vers 'traitement_commande.php'
     });
 </script>
 </body>

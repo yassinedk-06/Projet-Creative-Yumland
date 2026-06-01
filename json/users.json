@@ -51,7 +51,7 @@
         "num": "0775849982",
         "address": "11 AVENUE DES 3 FONTAINES, 95000 CERGY",
         "infosupp": "appart 506",
-        "points": 308.8,
+        "points": 351.8,
         "statut": "VIP",
         "password": "password123",
         "type": "client",
@@ -63,7 +63,8 @@
             "cmd005",
             "cmd006",
             "cmd007",
-            "cmd008"
+            "cmd008",
+            "cmd009"
         ],
         "bloque": false
     },
