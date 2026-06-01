@@ -51,10 +51,9 @@ if (isset($_SESSION['connecte']) && isset($_SESSION['statut'])) {
 // NOUVEAU : RÉCUPÉRATION DES INFOS DE PAIEMENT ET LIVRAISON
 // ====================================================================
 $mode_paiement = $_POST['mode_paiement'] ?? 'non_defini';
-$adresse_livraison = $_POST['adresse'] ?? '';
+$adresse_livraison = htmlspecialchars(trim($_POST['adresse'] ?? ''), ENT_QUOTES, 'UTF-8');
 $heure_retrait = $_POST['heure_retrait'] ?? 'ASAP';
-$commentaire = $_POST['commentaire'] ?? '';
-
+$commentaire = htmlspecialchars(trim($_POST['commentaire'] ?? ''), ENT_QUOTES, 'UTF-8');
 
 // ====================================================================
 // 4. MISE À JOUR DE commandes.json

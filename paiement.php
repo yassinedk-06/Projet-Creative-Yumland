@@ -10,9 +10,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['panier'])) {
 
 // 1. ON RÉCUPÈRE LES INFOS DE LA PAGE PRÉCÉDENTE
 $mode_retrait = $_POST['mode_retrait'] ?? 'sur_place';
-$adresse = $_POST['adresse'] ?? '';
+
+// SÉCURITÉ XSS : On filtre l'adresse pour bloquer les balises HTML/JavaScript
+$adresse = htmlspecialchars(trim($_POST['adresse'] ?? ''), ENT_QUOTES, 'UTF-8');
+
 $heure_retrait = $_POST['heure_retrait'] ?? 'ASAP';
-$commentaire = $_POST['commentaire'] ?? '';
+
+// SÉCURITÉ XSS : On filtre le commentaire de la même manière
+$commentaire = htmlspecialchars(trim($_POST['commentaire'] ?? ''), ENT_QUOTES, 'UTF-8');
 
 // 2. ON RECALCULE LE TOTAL
 $sous_total = 0;
