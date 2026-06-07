@@ -12,7 +12,7 @@ if (!isset($_SESSION['panier'])) {
 if (isset($_GET['ajax']) && $_GET['ajax'] === 'filter') {
     header('Content-Type: application/json'); 
     
-    $json_data = file_get_contents('json/plats.php');
+    $json_data = file_get_contents('json/plats.json');
     $menu = json_decode($json_data, true);
 
     $selectedTags = !empty($_GET['tags']) ? explode(',', strtolower($_GET['tags'])) : [];

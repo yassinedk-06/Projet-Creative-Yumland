@@ -107,7 +107,7 @@
         "selection": [
             "Brik à l'Oeuf"
         ],
-        "etat": "cuisine",
+        "etat": "livrée",
         "note": [
             0,
             0,
@@ -126,7 +126,7 @@
         "selection": [
             "Ojja Merguez"
         ],
-        "etat": "cuisine",
+        "etat": "annulée",
         "note": [
             0,
             0,
@@ -146,13 +146,73 @@
             "Brik à l'Oeuf",
             "S'han Tounsi"
         ],
-        "etat": "cuisine",
+        "etat": "livrée",
         "note": [
             0,
             0,
             ""
         ],
         "livraison": true,
+        "adresse": "",
+        "heure": "ASAP",
+        "commentaire": "",
+        "paiement": "cash"
+    },
+    {
+        "id": "cmd010",
+        "date": "2026-06-07 19:05:38",
+        "prix": 25.2,
+        "selection": [
+            "Kafteji Traditionnel",
+            "Brik à l'Oeuf",
+            "S'han Tounsi",
+            "Chorba Frik"
+        ],
+        "etat": "annulé",
+        "note": [
+            3,
+            4,
+            "DHFKBSFDLKJFD"
+        ],
+        "livraison": true,
+        "adresse": "",
+        "heure": "ASAP",
+        "commentaire": "",
+        "paiement": "carte"
+    },
+    {
+        "id": "cmd011",
+        "date": "2026-06-07 19:11:14",
+        "prix": 8.94,
+        "selection": [
+            "Ojja Merguez"
+        ],
+        "etat": "livrée",
+        "note": [
+            0,
+            0,
+            ""
+        ],
+        "livraison": false,
+        "adresse": "",
+        "heure": "ASAP",
+        "commentaire": "",
+        "paiement": "cash"
+    },
+    {
+        "id": "cmd012",
+        "date": "2026-06-07 19:29:54",
+        "prix": 3.9,
+        "selection": [
+            "Brik à l'Oeuf"
+        ],
+        "etat": "cuisine",
+        "note": [
+            0,
+            0,
+            ""
+        ],
+        "livraison": false,
         "adresse": "",
         "heure": "ASAP",
         "commentaire": "",

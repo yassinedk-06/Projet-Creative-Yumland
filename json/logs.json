@@ -1,5 +1,356 @@
-
 [
+    {
+        "date": "2026-06-07 19:29:54",
+        "user_id": "0003",
+        "role": "client",
+        "action": "NOUVELLE_COMMANDE",
+        "details": "Cr\u00e9ation de la commande cmd012 pour un montant de 3,90 \u20ac (Paiement: CASH)",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:28:48",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:28:43",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:28:39",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:27:02",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : annul\u00e9",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:27:00",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd009 est pass\u00e9e \u00e0 l'\u00e9tat : livr\u00e9e",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:26:58",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd009 est pass\u00e9e \u00e0 l'\u00e9tat : en attente",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:26:29",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : en attente",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:26:23",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd009 est pass\u00e9e \u00e0 l'\u00e9tat : en attente",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:26:20",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd009 est pass\u00e9e \u00e0 l'\u00e9tat : cuisine",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:26:15",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd009 est pass\u00e9e \u00e0 l'\u00e9tat : en livraison",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:26:11",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : en livraison",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:23:35",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd011 est pass\u00e9e \u00e0 l'\u00e9tat : livr\u00e9e",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:21:53",
+        "user_id": "0003",
+        "role": "client",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:14:21",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:11:14",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "NOUVELLE_COMMANDE",
+        "details": "Cr\u00e9ation de la commande cmd011 pour un montant de 8,94 \u20ac (Paiement: CASH)",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:10:13",
+        "user_id": "0003",
+        "role": "client",
+        "action": "MODIFICATION_PROFIL",
+        "details": "Mise \u00e0 jour de l'adresse de livraison.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:10:12",
+        "user_id": "0003",
+        "role": "client",
+        "action": "MODIFICATION_PROFIL",
+        "details": "Mise \u00e0 jour de l'adresse de livraison.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:09:13",
+        "user_id": "0003",
+        "role": "client",
+        "action": "NOTATION_COMMANDE",
+        "details": "ajout d'une notation pour la commande cmd010",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:08:51",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd009 est pass\u00e9e \u00e0 l'\u00e9tat : cuisine",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:08:18",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd007 est pass\u00e9e \u00e0 l'\u00e9tat : livr\u00e9e",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:08:16",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd007 est pass\u00e9e \u00e0 l'\u00e9tat : cuisine",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:07:58",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : livr\u00e9e",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:07:53",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : en attente",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:07:48",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : annul\u00e9",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:07:34",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : en attente",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:07:02",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : en attente",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:06:55",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : cuisine",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:06:39",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd010 est pass\u00e9e \u00e0 l'\u00e9tat : en attente",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:06:35",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd009 est pass\u00e9e \u00e0 l'\u00e9tat : annul\u00e9e",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:06:31",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd008 est pass\u00e9e \u00e0 l'\u00e9tat : annul\u00e9e",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:06:29",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MISE_A_JOUR_COMMANDE",
+        "details": "La commande cmd007 est pass\u00e9e \u00e0 l'\u00e9tat : annul\u00e9e",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 19:05:38",
+        "user_id": "0003",
+        "role": "client",
+        "action": "NOUVELLE_COMMANDE",
+        "details": "Cr\u00e9ation de la commande cmd010 pour un montant de 25,20 \u20ac (Paiement: CARTE)",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 18:58:14",
+        "user_id": "YYYY",
+        "role": "livreur",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 18:58:03",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-06 18:24:25",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "BLOCAGE_CLIENT",
+        "details": "L'admin a bloqu\u00e9 le client ID : 0002",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-06-06 18:24:19",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-06 18:24:12",
+        "user_id": "0003",
+        "role": "client",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-06 18:24:05",
+        "user_id": "0003",
+        "role": "client",
+        "action": "MODIFICATION_PROFIL",
+        "details": "Mise \u00e0 jour de l'adresse de livraison.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-06 18:24:01",
+        "user_id": "0003",
+        "role": "client",
+        "action": "MODIFICATION_PROFIL",
+        "details": "Mise \u00e0 jour de l'adresse de livraison.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-06 18:23:46",
+        "user_id": "0003",
+        "role": "client",
+        "action": "MODIFICATION_PROFIL",
+        "details": "Mise \u00e0 jour de l'adresse de livraison.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-06 18:23:42",
+        "user_id": "0003",
+        "role": "client",
+        "action": "MODIFICATION_PROFIL",
+        "details": "Mise \u00e0 jour de l'adresse de livraison.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-06 18:23:32",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-03 10:14:01",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
     {
         "date": "2026-06-01 18:32:17",
         "user_id": "0003",
