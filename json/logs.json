@@ -1,5 +1,117 @@
 [
     {
+        "date": "2026-06-08 15:41:49",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "DEBLOCAGE_CLIENT",
+        "details": "L'admin a d\u00e9bloqu\u00e9 le client ID : 0002",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-06-08 15:41:45",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "BLOCAGE_CLIENT",
+        "details": "L'admin a bloqu\u00e9 le client ID : 0002",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-06-08 15:40:59",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "DEBLOCAGE_CLIENT",
+        "details": "L'admin a d\u00e9bloqu\u00e9 le client ID : 0002",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-06-08 15:40:47",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "BLOCAGE_CLIENT",
+        "details": "L'admin a bloqu\u00e9 le client ID : 0002",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-06-08 15:40:37",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:40:09",
+        "user_id": "0002",
+        "role": "client",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:31:51",
+        "user_id": "0002",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:31:40",
+        "user_id": "0002",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:31:30",
+        "user_id": "0002",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:30:13",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:23:24",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:22:48",
+        "user_id": "0002",
+        "role": "client",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 12:00:27",
+        "user_id": "0002",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 12:00:08",
+        "user_id": "0002",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
         "date": "2026-06-07 19:29:54",
         "user_id": "0003",
         "role": "client",

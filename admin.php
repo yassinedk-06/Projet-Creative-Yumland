@@ -1,4 +1,5 @@
-<?php
+
+<?php //AJAX envoie un message à php pour qu'il change l'état du client
 session_start();
 require_once 'fonctions.php';
 
@@ -21,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $new_status = false; // false = non bloqué, true = bloqué
 
     if (file_exists($chemin_users)) {
-        $utilisateurs = json_decode(file_get_contents($chemin_users), true);
+        $utilisateurs = json_decode(file_get_contents($chemin_users), true);//Lecture du contenu textuel. Il est traduis en tableau PHP manipulable. Grâce au paramètre "true", on force la création d'un tableau associatif et non un objet.
         if ($utilisateurs) {
-            foreach ($utilisateurs as &$user) {
-                // On s'assure qu'on modifie un client et pas un autre admin
-                if (isset($user['id']) && $user['id'] === $user_id_to_toggle && $user['type'] === 'client') {
+            foreach ($utilisateurs as &$user) { //& garantie le changement du status / Variable qui modifie l'élément d'origine à l'intérieur du grand tableau. 
+                // On s'assure qu'on modifie un client et pas un autre admin ou bien son propre compte
+                if (isset($user['id']) && $user['id'] === $user_id_to_toggle && $user['type'] === 'client') { 
                     
                     // Si la case "bloque" n'existe pas ou est sur false, on le bloque
                     if (!isset($user['bloque']) || $user['bloque'] === false) {
@@ -41,10 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 }
             }
             if ($success) {
+                //Etape de sauvegarde. tableau convertit en fichier JSON (Mise ne forme avec JSON_PRETTY_PRINT et JSON_UNESCAPED_UNICODE empèche le php de massacrer les accents)
+                // L'ancien fichier est écrasé et remplacer par une nouvelle version
                 file_put_contents($chemin_users, json_encode($utilisateurs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
+                //Format: Variable = (Condition à vérifier) ? "Valeur si c'est VRAI" : "Valeur si c'est FAUX";
                 $action_texte = $new_status ? "BLOCAGE_CLIENT" : "DEBLOCAGE_CLIENT";
                 $details_texte = $new_status ? "L'admin a bloqué le client ID : " . $user_id_to_toggle : "L'admin a débloqué le client ID : " . $user_id_to_toggle;
+                //Fonction présente dans le fichier fonctions.php
+                //On remplace INFO par WARNING (change l'affichage en rouge)
                 ajouterLog($_SESSION['id'], $_SESSION['type'], $action_texte, $details_texte, "WARNING");
             }
         }
@@ -69,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $users_data = file_get_contents($chemin_users);
         $utilisateurs = json_decode($users_data, true);
         
+        //Chercher l'utilisateur concerné pour changer son status
         if ($utilisateurs) {
             foreach ($utilisateurs as &$user) {
                 if (isset($user['id']) && $user['id'] === $user_id_to_update) {
@@ -93,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // ====================================================================
 
 // 2. RÉCUPÉRATION DES UTILISATEURS POUR L'AFFICHAGE
+// Garantie le fait d'avoir les dernières données à jour des users.
 $utilisateurs = [];
 if (file_exists($chemin_users)) {
     $json_data = file_get_contents($chemin_users);
@@ -113,8 +121,8 @@ if (file_exists($chemin_users)) {
     }
     ?>
     <link id="theme-style" rel="stylesheet" href="<?= htmlspecialchars($theme_actuel) ?>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!--Bibliothèque pour les images-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet"><!--Bibliothèque pour la police d'écriture-->
 </head>
 <body class="admin-page admin-body">
 

@@ -23,7 +23,7 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
         // Est-ce que le numéro ET le mot de passe correspondent ?
         if ($user['num'] == $num_saisi && $user['password'] == $mdp_saisi) {
             
-            // BINGO ! On le mémorise dans la session
+            // On le mémorise dans la session
             $_SESSION['connecte'] = true;
             $_SESSION['id'] = $user['id'];
             $_SESSION['type'] = $user['type']; // On retient s'il est admin, client, etc.

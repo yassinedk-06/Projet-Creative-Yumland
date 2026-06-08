@@ -11,7 +11,7 @@
         "password": "password123",
         "type": "client",
         "commandes": [],
-        "bloque": true
+        "bloque": false
     },
     {
         "nom": "dhahak",
