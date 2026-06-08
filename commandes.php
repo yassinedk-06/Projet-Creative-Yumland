@@ -116,10 +116,7 @@ if (file_exists($chemin_commandes)) {
         
         <div class="admin-header">
             <h1>Suivi des Commandes</h1>
-            <div class="admin-search">
-                <input type="text" placeholder="N° Commande...">
-                <button><i class="fas fa-search"></i></button>
-            </div>
+            
         </div>
 
         <section class="admin-table-wrapper dashboard-card">

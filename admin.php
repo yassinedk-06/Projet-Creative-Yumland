@@ -141,10 +141,7 @@ if (file_exists($chemin_users)) {
         
         <div class="admin-header">
             <h1>Gestion des Utilisateurs</h1>
-            <div class="admin-search">
-                <input type="text" placeholder="Rechercher (Nom, ID, Tel)...">
-                <button><i class="fas fa-search"></i></button>
-            </div>
+            
         </div>
 
         <div class="admin-tabs">
