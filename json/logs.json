@@ -1,5 +1,109 @@
 [
     {
+        "date": "2026-06-09 05:19:25",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:24",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:24",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:23",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:23",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:22",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:22",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:21",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:20",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:20",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:19",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:17",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:12",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
         "date": "2026-06-08 23:05:06",
         "user_id": "xxxx",
         "role": "admin",
