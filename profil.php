@@ -215,18 +215,78 @@ if (!empty($mes_commandes_ids) && file_exists('json/commandes.json')) {
                 </div>
             </div>
         </section>
+        <?php
+            // On s'assure que $points existe (tu le récupères sûrement de ta base de données ou session)
+            $points = $points ?? 0; 
 
+            // 1. Définition des paliers de fidélité
+            $paliers = [
+                [
+                    'nom' => 'Bronze',
+                    'seuil' => 0,
+                    'avantage' => 'Cumul de points à chaque commande.'
+                ],
+                [
+                    'nom' => 'Silver',
+                    'seuil' => 100,
+                    'avantage' => '10% de réduction sur toutes vos commandes.'
+                ],
+                [
+                    'nom' => 'Gold',
+                    'seuil' => 200,
+                    'avantage' => '20% de réduction sur toutes vos commandes.'
+                ],
+                [
+                    'nom' => 'Platine',
+                    'seuil' => 300,
+                    'avantage' => '40% de réduction sur toutes vos commandes '
+                ]
+            ];
+
+            // 2. Calcul du grade actuel et du prochain grade
+            $gradeActuel = $paliers[0];
+            $prochainGrade = null;
+
+            foreach ($paliers as $index => $palier) {
+                if ($points >= $palier['seuil']) {
+                    $gradeActuel = $palier;
+                    // Vérifie s'il existe un palier supérieur
+                    if (isset($paliers[$index + 1])) {
+                        $prochainGrade = $paliers[$index + 1];
+                    } else {
+                        $prochainGrade = null; // Le client a atteint le rang maximum
+                    }
+                } else {
+                    break; // On arrête la boucle dès qu'un seuil n'est pas atteint
+                }
+            }
+
+            // 3. Calcul des points restants
+            $pointsRestants = $prochainGrade ? ($prochainGrade['seuil'] - $points) : 0;
+            ?>
         <section class="loyalty-card">
             <div class="loyalty-content">
                 <i class="fas fa-crown gold-crown"></i>
                 <div class="loyalty-text">
-                    <h3>Compte Fidélité</h3>
-                    <p class="points"><span><?php echo $points; ?></span> Points</p>
-                    <p class="reward">Chaque commande compte !</p>
+                    <h3>Compte Fidélité : <?= htmlspecialchars($gradeActuel['nom']) ?></h3>
+                    <p class="points"><span><?= $points; ?></span> Points</p>
+                    
+                    <?php if ($prochainGrade): ?>
+                        <p class="reward">
+                            Plus que <strong><?= $pointsRestants ?> points</strong> pour le grade <strong><?= htmlspecialchars($prochainGrade['nom']) ?></strong> !
+                        </p>
+                        <p class="advantages" style="margin-top: 5px; font-size: 0.9em; color: #ffffff;">
+                            <i class="fas fa-gift"></i> <strong>Avantage débloqué :</strong> <?= htmlspecialchars($prochainGrade['avantage']) ?>
+                        </p>
+                    <?php else: ?>
+                        <p class="reward">
+                            <strong>Félicitations !</strong> Vous avez atteint le grade maximum.
+                        </p>
+                        <p class="advantages" style="margin-top: 5px; font-size: 0.9em; color: #ffffff;">
+                            <i class="fas fa-star"></i> <strong>Votre avantage :</strong> <?= htmlspecialchars($gradeActuel['avantage']) ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 50%;"></div>
             </div>
         </section>
 

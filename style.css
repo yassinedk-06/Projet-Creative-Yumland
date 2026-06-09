@@ -750,6 +750,8 @@ footer {
     font-weight: 600;
 }
 
+
+
 /* Responsive */
 @media (max-width: 600px) {
     .info-grid { grid-template-columns: 1fr; }
