@@ -23,7 +23,14 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
         // Est-ce que le numéro ET le mot de passe correspondent ?
         if ($user['num'] == $num_saisi && $user['password'] == $mdp_saisi) {
             
-            // On le mémorise dans la session
+            // NOUVEAU : On vérifie si le compte est bloqué
+            // On gère l'orthographe avec et sans accent au cas où
+            if (isset($user['statut']) && (strtolower($user['statut']) === 'bloque' || strtolower($user['statut']) === 'bloqué')) {
+                $erreur = "Accès refusé : votre compte a été bloqué par un administrateur.";
+                break; // On arrête la boucle ici, on ne le connecte surtout pas
+            }
+
+            // BINGO ! Le compte n'est pas bloqué, on le mémorise dans la session
             $_SESSION['connecte'] = true;
             $_SESSION['id'] = $user['id'];
             $_SESSION['type'] = $user['type']; // On retient s'il est admin, client, etc.
@@ -44,9 +51,10 @@ if (isset($_POST['num']) && isset($_POST['password'])) {
         header('Location: index.php');
         exit();
     } else {
-        // Il s'est trompé -> On remplit la boîte d'erreur
-        
-        $erreur = "Numéro de téléphone ou mot de passe incorrect.";
+        // NOUVEAU : On s'assure de ne pas écraser le message d'erreur si c'est un compte bloqué
+        if ($erreur === "") {
+            $erreur = "Numéro de téléphone ou mot de passe incorrect.";
+        }
     }
 }
 ?>

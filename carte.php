@@ -46,11 +46,11 @@ if (isset($_GET['ajax']) && $_GET['ajax'] === 'filter') {
 // ====================================================================
 // TRAITEMENT : SUPPRESSION D'UN ARTICLE DU PANIER
 // ====================================================================
-if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['index'])) {
+if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['index'])) { // Vérifie que l'index de l'article à supprimer est bien présent
     $index = (int)$_GET['index'];
     if (isset($_SESSION['panier'][$index])) {
-        unset($_SESSION['panier'][$index]);
-        $_SESSION['panier'] = array_values($_SESSION['panier']); 
+        unset($_SESSION['panier'][$index]); // Supprime l'article du panier
+        $_SESSION['panier'] = array_values($_SESSION['panier']); // Réindexation du tableau
     }
     header('Location: carte.php');
     exit();
@@ -59,7 +59,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['in
 // ====================================================================
 // TRAITEMENT : AJOUT D'UN ARTICLE AU PANIER (MISE À JOUR AJAX)
 // ====================================================================
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter') { // Vérifie que c'est une requête POST pour ajouter un plat
     $_SESSION['panier'][] = [
         'id_plat' => $_POST['id_plat'],
         'nom' => $_POST['nom_plat'],
@@ -67,15 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     ];
 
     // Si on détecte que c'est une requête AJAX, on renvoie du JSON au lieu de recharger
-    if (isset($_POST['ajax']) && $_POST['ajax'] == '1') {
+    if (isset($_POST['ajax']) && $_POST['ajax'] == '1') { // Indique que c'est une requête AJAX
         header('Content-Type: application/json');
         
         $total = 0;
-        foreach ($_SESSION['panier'] as $item) {
+        foreach ($_SESSION['panier'] as $item) {// Calcule le total du panier
             $total += $item['prix'];
         }
         
-        echo json_encode([
+        echo json_encode([ // Renvoie une réponse JSON avec le succès, les données du panier et le total
             'success' => true,
             'cart_data' => $_SESSION['panier'],
             'total' => $total
@@ -251,20 +251,20 @@ foreach ($cart_data as $item) {
     ];
     
     foreach ($menu as $catKey => $plats) {
-        $idSection = str_replace('_', '-', $catKey); 
-        echo "<section id=\"$idSection\" class=\"menu-section\">";
-        $titre = $catTitles[$catKey] ?? $catKey;
-        echo "<h2 class=\"section-title\">$titre</h2>";
-        echo "<div class=\"cards-grid\">";
+        $idSection = str_replace('_', '-', $catKey);  // ID pour les ancres (ex: "boissons_chaudes" devient "boissons-chaudes")
+        echo "<section id=\"$idSection\" class=\"menu-section\">"; // ID pour les ancres
+        $titre = $catTitles[$catKey] ?? $catKey; // Titre de la section basé sur la clé, avec fallback
+        echo "<h2 class=\"section-title\">$titre</h2>"; // Titre de la section
+        echo "<div class=\"cards-grid\">"; // Conteneur pour les cartes de plats
         
         foreach ($plats as $plat) {
             $tagsHtml = "";
             if(isset($plat[5])) {
-                foreach($plat[5] as $tag) {
+                foreach($plat[5] as $tag) { // Affichage de chaque tag associé au plat
                     $tagsHtml .= "<span class=\"plat-badge\">" . htmlspecialchars($tag) . "</span>";
                 }
             }
-            $prix = number_format($plat[2], 2, ',', ' ');
+            $prix = number_format($plat[2], 2, ',', ' '); // Format du prix avec des virgules comme séparateur de milliers
             
             echo "
             <div class=\"card\">
@@ -274,7 +274,7 @@ foreach ($cart_data as $item) {
                     <p>" . htmlspecialchars($plat[4]) . "</p>
                     <div class=\"plat-tags\">$tagsHtml</div>
                     <span class=\"price\">$prix €</span>
-                    <form action=\"carte.php\" method=\"POST\" class=\"form-add-cart\">
+                    <form action=\"carte.php\" method=\"POST\" class=\"form-add-cart\"> // Formulaire pour ajouter au panier
                         <input type=\"hidden\" name=\"action\" value=\"ajouter\">
                         <input type=\"hidden\" name=\"id_plat\" value=\"" . htmlspecialchars($plat[0]) . "\">
                         <input type=\"hidden\" name=\"nom_plat\" value=\"" . htmlspecialchars($plat[1]) . "\">

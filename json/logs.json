@@ -1,6 +1,158 @@
 [
     {
-        "date": "2026-06-08 15:41:49",
+        "date": "2026-06-09 05:19:25",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:24",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:24",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:23",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:23",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:22",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:22",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:21",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:20",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:20",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:19",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:17",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-09 05:19:12",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 23:05:06",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 17:01:44",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_PANIER",
+        "details": "Un article a \u00e9t\u00e9 retir\u00e9 du panier.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:49:59",
+        "user_id": "0003",
+        "role": "client",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:49:55",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "DECONNEXION",
+        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:49:52",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "CONNEXION",
+        "details": "L'utilisateur s'est connect\u00e9.",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-08 15:49:45",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "BLOCAGE_CLIENT",
+        "details": "L'admin a bloqu\u00e9 le client ID : 0003",
+        "niveau": "WARNING"
+    },
+    {
+        "date": "2026-06-07 20:12:41",
         "user_id": "xxxx",
         "role": "admin",
         "action": "DEBLOCAGE_CLIENT",
@@ -8,107 +160,99 @@
         "niveau": "WARNING"
     },
     {
-        "date": "2026-06-08 15:41:45",
-        "user_id": "xxxx",
-        "role": "admin",
-        "action": "BLOCAGE_CLIENT",
-        "details": "L'admin a bloqu\u00e9 le client ID : 0002",
-        "niveau": "WARNING"
-    },
-    {
-        "date": "2026-06-08 15:40:59",
+        "date": "2026-06-07 20:11:51",
         "user_id": "xxxx",
         "role": "admin",
         "action": "DEBLOCAGE_CLIENT",
-        "details": "L'admin a d\u00e9bloqu\u00e9 le client ID : 0002",
+        "details": "L'admin a d\u00e9bloqu\u00e9 le client ID : 0005",
         "niveau": "WARNING"
     },
     {
-        "date": "2026-06-08 15:40:47",
+        "date": "2026-06-07 20:11:47",
         "user_id": "xxxx",
         "role": "admin",
         "action": "BLOCAGE_CLIENT",
-        "details": "L'admin a bloqu\u00e9 le client ID : 0002",
+        "details": "L'admin a bloqu\u00e9 le client ID : 0005",
         "niveau": "WARNING"
     },
     {
-        "date": "2026-06-08 15:40:37",
+        "date": "2026-06-07 20:11:43",
         "user_id": "xxxx",
         "role": "admin",
-        "action": "CONNEXION",
-        "details": "L'utilisateur s'est connect\u00e9.",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0005 au statut VIP",
         "niveau": "INFO"
     },
     {
-        "date": "2026-06-08 15:40:09",
-        "user_id": "0002",
-        "role": "client",
-        "action": "DECONNEXION",
-        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
-        "niveau": "INFO"
-    },
-    {
-        "date": "2026-06-08 15:31:51",
-        "user_id": "0002",
-        "role": "client",
-        "action": "CONNEXION",
-        "details": "L'utilisateur s'est connect\u00e9.",
-        "niveau": "INFO"
-    },
-    {
-        "date": "2026-06-08 15:31:40",
-        "user_id": "0002",
-        "role": "client",
-        "action": "CONNEXION",
-        "details": "L'utilisateur s'est connect\u00e9.",
-        "niveau": "INFO"
-    },
-    {
-        "date": "2026-06-08 15:31:30",
-        "user_id": "0002",
-        "role": "client",
-        "action": "CONNEXION",
-        "details": "L'utilisateur s'est connect\u00e9.",
-        "niveau": "INFO"
-    },
-    {
-        "date": "2026-06-08 15:30:13",
+        "date": "2026-06-07 20:11:16",
         "user_id": "xxxx",
         "role": "admin",
-        "action": "DECONNEXION",
-        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0003 au statut SILVER",
         "niveau": "INFO"
     },
     {
-        "date": "2026-06-08 15:23:24",
+        "date": "2026-06-07 20:11:13",
         "user_id": "xxxx",
         "role": "admin",
-        "action": "CONNEXION",
-        "details": "L'utilisateur s'est connect\u00e9.",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0003 au statut VIP",
         "niveau": "INFO"
     },
     {
-        "date": "2026-06-08 15:22:48",
-        "user_id": "0002",
-        "role": "client",
-        "action": "DECONNEXION",
-        "details": "L'utilisateur s'est d\u00e9connect\u00e9.",
+        "date": "2026-06-07 20:11:05",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : xxxx au statut VIP",
         "niveau": "INFO"
     },
     {
-        "date": "2026-06-08 12:00:27",
-        "user_id": "0002",
-        "role": "client",
-        "action": "CONNEXION",
-        "details": "L'utilisateur s'est connect\u00e9.",
+        "date": "2026-06-07 20:11:02",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0003 au statut BASIC",
         "niveau": "INFO"
     },
     {
-        "date": "2026-06-08 12:00:08",
-        "user_id": "0002",
+        "date": "2026-06-07 20:10:47",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : xxxx au statut BASIC",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 20:10:33",
+        "user_id": "0003",
         "role": "client",
-        "action": "CONNEXION",
-        "details": "L'utilisateur s'est connect\u00e9.",
+        "action": "NOUVELLE_COMMANDE",
+        "details": "Cr\u00e9ation de la commande cmd013 pour un montant de 6,30 \u20ac (Paiement: CASH)",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 20:10:20",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0003 au statut BASIC",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 20:10:14",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0002 au statut BASIC",
+        "niveau": "INFO"
+    },
+    {
+        "date": "2026-06-07 20:10:09",
+        "user_id": "xxxx",
+        "role": "admin",
+        "action": "MODIFICATION_STATUT",
+        "details": "L'admin a pass\u00e9 le client ID : 0002 au statut GOLD",
         "niveau": "INFO"
     },
     {

@@ -7,7 +7,7 @@
         "address": "2 Rue de la Paix, Paris, France",
         "infosupp": "appart 305",
         "points": 0,
-        "statut": "silver",
+        "statut": "basic",
         "password": "password123",
         "type": "client",
         "commandes": [],
@@ -55,8 +55,8 @@
         "num": "0775849982",
         "address": "THEMIS",
         "infosupp": "appart 409",
-        "points": 448.8,
-        "statut": "VIP",
+        "points": 469.8,
+        "statut": "silver",
         "password": "password123",
         "type": "client",
         "commandes": [
@@ -70,9 +70,10 @@
             "cmd008",
             "cmd009",
             "cmd010",
-            "cmd012"
+            "cmd012",
+            "cmd013"
         ],
-        "bloque": false
+        "bloque": true
     },
     {
         "id": "0005",
@@ -82,7 +83,7 @@
         "address": "chera3 hbib borguiba",
         "infosupp": "maison num 11",
         "points": 0,
-        "statut": "silver",
+        "statut": "VIP",
         "password": "password123",
         "type": "client",
         "commandes": [],
