@@ -58,6 +58,7 @@ $users = file_exists($chemin_users) ? json_decode(file_get_contents($chemin_user
 // 3. PRÉPARATION DES COURSES
 $courses_disponibles = [];
 
+//Filtre les commandes pour ne garder que celle qui doivent être livrées
 foreach ($commandes as $cmd) {
     if ($cmd['etat'] === 'en attente' &&  $cmd['livraison'] === true) {
         
@@ -77,7 +78,7 @@ foreach ($commandes as $cmd) {
 
         $cmd['adresse_client'] = $adresse_client;
         $cmd['nom_client'] = $nom_client;
-        $courses_disponibles[] = $cmd;
+        $courses_disponibles[] = $cmd;//Commande augmentée qui contient les infos nécessaire à l'affichage
     }
 }
 ?>

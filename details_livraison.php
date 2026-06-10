@@ -8,6 +8,7 @@ if (!isset($_SESSION['connecte']) || !in_array($_SESSION['type'], ['admin', 'liv
     exit();
 }
 
+//Voir quelle commande spécifique a été demandé par le livreur pour pouvoir bien afficher les détails
 if (!isset($_GET['id'])) {
     header('Location: livraison.php');
     exit();
