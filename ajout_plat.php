@@ -16,6 +16,7 @@ $chemin_plats = 'json/plats.json';
 // ====================================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter_plat') {
     
+    //htmlspecialchars sert de sécurtié contre les injections XSS (transforme le html malveillant)
     $categorie = $_POST['categorie'];
     $nom = htmlspecialchars($_POST['nom']);
     $prix = (float)$_POST['prix'];
@@ -27,17 +28,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     // Gestion de l'image (Upload)
     $chemin_photo = 'src/default.jpg'; // Image par défaut si oubli
 
-    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-        $nom_fichier_original = basename($_FILES['photo']['name']);
-        $nom_fichier_propre = preg_replace("/[^a-zA-Z0-9.]/", "_", $nom_fichier_original);
-        $chemin_cible = 'src/' . time() . '_' . $nom_fichier_propre;
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {//Garantie l'arrivé du fichier
+        $nom_fichier_original = basename($_FILES['photo']['name']);//basename ne regarde que le nom du fichier et ignore les chemins de dossier(protection)
+        $nom_fichier_propre = preg_replace("/[^a-zA-Z0-9.]/", "_", $nom_fichier_original);//Remplace tout ce qui n'est ni chiffre ni point, ni lettre par un _
+        $chemin_cible = 'src/' . time() . '_' . $nom_fichier_propre;//Préfixe pour chaque image qui vaut le nombre de seconde depuis 1970. 
+        // Cela rend chaque image unique dans le serveur et garantie qu'aucune image ne sera jamais écrasée.
         
+        //Des l'arrivé d'un fichier, il est placé dans un fichier temporaire.
+        //Move_uploaded_file: Fonction php qui déplace le dossier temporaire dans le dossier définitif
         if (move_uploaded_file($_FILES['photo']['tmp_name'], $chemin_cible)) {
-            $chemin_photo = $chemin_cible;
+            $chemin_photo = $chemin_cible; //Mise à jour du chemin
         }
     }
 
-    $nouvel_id = uniqid('plat_');
+    $nouvel_id = uniqid('plat_');//Génère un identifiant unique pour chaque nouvel élément
 
     // NOUVEAU : On ajoute la variable $caracteristiques comme 6ème élément du tableau !
     $nouveau_plat = [
@@ -53,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $plats_data = file_exists($chemin_plats) ? json_decode(file_get_contents($chemin_plats), true) : [];
 
     if (!isset($plats_data[$categorie])) {
-        $plats_data[$categorie] = [];
+        $plats_data[$categorie] = [];//Création d'une nouvelle catégorie dans le cas ou la catégorie entrée n'existe pas
     }
 
     // Ajout du plat dans la bonne catégorie
